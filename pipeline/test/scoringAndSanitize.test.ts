@@ -141,6 +141,12 @@ describe('sanitizeEvent — the spoiler firewall', () => {
     expect(scanForSpoilers(JSON.stringify(published))).toHaveLength(0)
   })
 
+  it('publishes the combined significant-strike counts from the internal stats', () => {
+    const published = sanitizeEvent(makeEvent(makeFight()), basePercentiles)
+    expect(published.fights[0]!.stats!.combinedSigStrLanded).toBe(30)
+    expect(published.fights[0]!.stats!.combinedSigStrAttempted).toBe(60)
+  })
+
   it('drops method details that quote a fighter', () => {
     const published = sanitizeEvent(
       makeEvent(makeFight({ methodDetail: 'Topuria landed a punch' })),

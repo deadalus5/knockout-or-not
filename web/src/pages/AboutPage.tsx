@@ -30,24 +30,18 @@ export function AboutPage() {
         Even if you open your browser's developer tools, there is no winner to find.
       </p>
 
-      <h2>What each detail level shows</h2>
-      <ul>
-        <li>
-          <strong>Minimal</strong> — only whether the fight ended early or went the distance.
-        </li>
-        <li>
-          <strong>Ratings</strong> — adds a 1–100 excitement score, pace, and a spoiler-safe
-          explanation of the rating.
-        </li>
-        <li>
-          <strong>Reveal (per fight)</strong> — deliberately unseal the round, time, and method
-          for a single fight, after a confirmation. Reveals are never remembered: reload and
-          everything is sealed again.
-        </li>
-      </ul>
+      <h2>How revealing works</h2>
       <p>
-        Draws and no-contests are folded into the two neutral outcomes above so that even those
-        results can't be inferred without a reveal.
+        Every fight is a row of sealed cells, ordered left to right from vague to specific:
+        whether it ended early, then the method, the round, and finally the stat line —
+        combined significant strikes, strike rate, knockdowns, grappling, and control. Tap a
+        cell and <strong>only that cell</strong> is unsealed; everything else stays hidden. You
+        choose exactly how much you learn.
+      </p>
+      <p>
+        Reveals are never remembered: reload the page and everything is sealed again. Draws and
+        no-contests are folded into the neutral "went the distance" and "ended early" outcomes,
+        so even those results can't be inferred without unsealing the method.
       </p>
 
       <h2>How the excitement score works</h2>

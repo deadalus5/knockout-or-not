@@ -24,6 +24,8 @@ const validFight = {
   scoreConfidence: 'full',
   stats: {
     combinedKD: 2,
+    combinedSigStrLanded: 30,
+    combinedSigStrAttempted: 60,
     sigStrPerMin: 11.4,
     combinedTakedowns: 0,
     combinedSubAttempts: 0,

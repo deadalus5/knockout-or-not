@@ -59,6 +59,8 @@ function sanitizeFight(fight: InternalFight, score: FightScore, order: number): 
     stats: fight.stats
       ? {
           combinedKD: fight.stats.combinedKD,
+          combinedSigStrLanded: fight.stats.combinedSigStrLanded,
+          combinedSigStrAttempted: fight.stats.combinedSigStrAttempted,
           sigStrPerMin: score.sigStrPerMin,
           combinedTakedowns: fight.stats.combinedTD,
           combinedSubAttempts: fight.stats.combinedSubAtt,

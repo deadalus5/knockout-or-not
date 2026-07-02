@@ -3,21 +3,16 @@ import { Link, useParams } from 'react-router-dom'
 import type { EventDetail, Fight } from '@ko/shared'
 import { loadEvent } from '../lib/dataClient'
 import { CARD_LABELS, formatDate } from '../lib/format'
-import { FightRow } from '../components/FightRow'
-import { SpoilerLevelPicker } from '../components/SpoilerLevelPicker'
+import { FightTable } from '../components/FightTable'
 
 export function EventPage() {
   const { eventId } = useParams<{ eventId: string }>()
   const [event, setEvent] = useState<EventDetail | null>(null)
   const [error, setError] = useState<string | null>(null)
-  // Revealed fights live in transient component state ONLY. Navigating away
-  // or reloading re-seals everything — reveals are never persisted.
-  const [revealed, setRevealed] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     if (!eventId) return
     setEvent(null)
-    setRevealed(new Set())
     loadEvent(eventId).then(setEvent).catch((err) => setError(String(err)))
   }, [eventId])
 
@@ -45,21 +40,13 @@ export function EventPage() {
           {event.location && <span>{event.location}</span>}
           {event.dataQuality === 'basic' && <span>ratings pending full stats</span>}
         </div>
+        <p className="reveal-hint">Every cell is sealed. Tap one to reveal only that detail.</p>
       </header>
-
-      <SpoilerLevelPicker />
 
       {sections.map((section, si) => (
         <section key={si}>
           {section.label && <h2 className="card-section">{section.label}</h2>}
-          {section.fights.map((fight) => (
-            <FightRow
-              key={fight.id}
-              fight={fight}
-              revealed={revealed.has(fight.id)}
-              onReveal={() => setRevealed((prev) => new Set(prev).add(fight.id))}
-            />
-          ))}
+          <FightTable fights={section.fights} />
         </section>
       ))}
 

@@ -4,22 +4,14 @@ import { loadIndex } from '../lib/dataClient'
 import { formatMonth } from '../lib/format'
 import { EventListItem } from '../components/EventListItem'
 import { SearchBar } from '../components/SearchBar'
-import { SpoilerLevelPicker } from '../components/SpoilerLevelPicker'
+import { ExplainerMasthead } from '../components/ExplainerMasthead'
 
 const PAGE_SIZE = 30
-const PROMISE_KEY = 'ko.promiseDismissed'
 
 export function HomePage() {
   const [index, setIndex] = useState<DataIndex | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [visible, setVisible] = useState(PAGE_SIZE)
-  const [showPromise, setShowPromise] = useState(() => {
-    try {
-      return localStorage.getItem(PROMISE_KEY) !== '1'
-    } catch {
-      return true
-    }
-  })
   const sentinelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -58,31 +50,9 @@ export function HomePage() {
 
   return (
     <>
-      {showPromise && (
-        <aside className="promise-card">
-          <button
-            className="dismiss"
-            aria-label="Dismiss"
-            onClick={() => {
-              setShowPromise(false)
-              try {
-                localStorage.setItem(PROMISE_KEY, '1')
-              } catch {
-                /* ignore */
-              }
-            }}
-          >
-            ×
-          </button>
-          <strong>Is the fight worth watching? Find out without finding out.</strong>{' '}
-          Every fight shows whether it ended early or went the distance — and, if you dial up the
-          detail, how exciting it was. <strong>Who won is never shown</strong>: that data isn't
-          even in this app's files.
-        </aside>
-      )}
+      <ExplainerMasthead />
 
       <SearchBar />
-      <SpoilerLevelPicker />
 
       {grouped.map((group) => (
         <section key={group.month}>

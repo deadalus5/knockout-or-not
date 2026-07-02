@@ -45,6 +45,8 @@ export const whyPhraseSchema = z.enum(WHY_VOCAB)
 export const fightStatsSchema = z
   .object({
     combinedKD: z.number().int().min(0),
+    combinedSigStrLanded: z.number().int().min(0),
+    combinedSigStrAttempted: z.number().int().min(0),
     sigStrPerMin: z.number().min(0).nullable(),
     combinedTakedowns: z.number().int().min(0),
     combinedSubAttempts: z.number().int().min(0),

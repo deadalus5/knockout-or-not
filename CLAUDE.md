@@ -47,19 +47,19 @@ Wikipedia (MediaWiki API)          ─┘   (internal model, winner-bearing)   (
 
 - **`shared/`** — the single source of truth for what may be published. `src/schema.ts` is a **strict Zod whitelist** (`.strict()` everywhere); `src/names.ts` normalizes/sorts fighter names; `src/spoilerPatterns.ts` is the forbidden-pattern regex set. Both `pipeline` and `web` import from here, so the whitelist is defined once.
 - **`pipeline/`** — TypeScript run via `tsx`. `src/cli.ts` orchestrates: `fetch/` (disk-cached HTTP, Wikipedia throttled 1.1s/req) → `parse/` → `merge/` (event matching by date±1d + name similarity; fight matching by surname sets) → `score/` → `emit/sanitize.ts` (the firewall) → `emit/writeJson.ts` → `audit/spoilerAudit.ts`. The internal model (`src/model.ts`) holds winner-bearing data in *source* order and must only reach disk through `sanitize.ts`.
-- **`web/`** — Vite + React + TS PWA. `lib/spoilerLevel.tsx` (context, 1|2, localStorage), `lib/dataClient.ts` (fetch + re-validate against the shared schema), `components/FightRow.tsx` (per-level rendering + reveal), `pages/`.
+- **`web/`** — Vite + React + TS PWA. `lib/dataClient.ts` (fetch + re-validate against the shared schema), `components/FightTable.tsx` (the progressive-reveal table: every detail is a sealed cell, clicking reveals only that cell; reveal state is transient, never persisted), `components/ExplainerMasthead.tsx` (static first-run explainer), `pages/`.
 
 ## The spoiler boundary — do not weaken
 
 Two distinct guarantees, and they are not the same strength:
 
 1. **Hard (structural):** winner-identifying data — W/L outcomes, "def." notation, judge scorecards, per-fighter stats, bonus-recipient names, and meaningful fighter ordering — **has no representation in the published schema and therefore cannot exist in any output file.** Enforced by: the `.strict()` Zod schema (unknown key = rejected), `spoilerAudit.ts` (regex scan + structural checks, gates every pipeline run and CI build), alphabetical fighter sorting in `sanitize.ts`, and a canary test that sanitizes the same fight with the winner flipped and asserts byte-identical output.
-2. **Soft (UX):** spoiler levels 1/2 and the per-fight reveal gate data that *is* in the JSON (excitement, method, round) via the UI only.
+2. **Soft (UX):** per-cell reveal gates data that *is* in the JSON (excitement, finish, method, round, combined stats) via the UI only — every cell starts sealed and reveals independently.
 
 Rules when touching the pipeline or schema:
 - **`sanitize.ts` builds every published field explicitly — never spread the internal object.** A spread is how a new internal field leaks. Adding a published field means adding it to the Zod schema deliberately (which forces a spoiler review) *and* to the explicit constructor.
 - Scorecards and bonus-recipient names are discarded at *parse* time (`parse/csvResults.ts`, `parse/wikiEventPage.ts`), never stored even internally.
-- Draws and no-contests must stay indistinguishable from decisions/finishes at levels 1–2 — they are themselves outcome spoilers. `resultClass` is only `early | distance`; NC gets `excitement: null` with the shared neutral phrase.
+- Draws and no-contests must stay indistinguishable from decisions/finishes until the method cell is revealed — they are themselves outcome spoilers. `resultClass` is only `early | distance`; NC gets `excitement: null` with the shared neutral phrase.
 - The "why this rating" text comes exclusively from the fixed `WHY_VOCAB` in the schema — no names, rounds, methods, or winner verbs. Round-timing bonuses are deliberately unexplained.
 - After any pipeline change, `npm run audit` and `npm test` must be green before committing emitted data.
 
