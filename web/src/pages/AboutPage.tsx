@@ -32,16 +32,16 @@ export function AboutPage() {
 
       <h2>How revealing works</h2>
       <p>
-        Every fight is a row of sealed cells, ordered left to right from vague to specific:
-        whether it ended early, then the method, the round, and finally the stat line —
-        combined significant strikes, strike rate, knockdowns, grappling, and control. Tap a
-        cell and <strong>only that cell</strong> is unsealed; everything else stays hidden. You
-        choose exactly how much you learn.
+        Every fight is a row of sealed cells, ordered left to right from vague to specific: the
+        excitement rating, whether it was a stoppage, then the method, its details, the round,
+        and the time — each its own sealed cell. Tap a cell and <strong>only that cell</strong>{' '}
+        is unsealed; tap a column header to unseal that column for every fight. You choose
+        exactly how much you learn.
       </p>
       <p>
         Reveals are never remembered: reload the page and everything is sealed again. Draws and
-        no-contests are folded into the neutral "went the distance" and "ended early" outcomes,
-        so even those results can't be inferred without unsealing the method.
+        no-contests are folded into the neutral "went the distance" and "stoppage" outcomes, so
+        even those results can't be inferred without unsealing the method.
       </p>
 
       <h2>How the excitement score works</h2>

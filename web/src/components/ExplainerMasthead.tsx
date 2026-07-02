@@ -10,10 +10,10 @@ const DISMISS_KEY = 'ko.explainerDismissed'
  */
 const DEMO_CELLS: { label: string; value?: string; kind?: 'early' }[] = [
   { label: 'Rating' },
-  { label: 'Finish', value: 'Ended early', kind: 'early' },
+  { label: 'Finish', value: 'Stoppage', kind: 'early' },
   { label: 'Method', value: 'Submission' },
-  { label: 'Round', value: 'R4 · 3:03' },
-  { label: 'Sig. strikes' },
+  { label: 'Round', value: 'R4' },
+  { label: 'Time' },
 ]
 
 export function ExplainerMasthead() {
@@ -78,8 +78,8 @@ export function ExplainerMasthead() {
           ))}
         </div>
         <p className="demo-caption">
-          Three cells unsealed: it ended by submission in round 4. The rating and the stats stay
-          sealed until you tap them — who won stays sealed forever.
+          Three cells unsealed: it ended by submission in round 4. The rating and the exact time
+          stay sealed until you tap them — who won stays sealed forever.
         </p>
       </div>
     </aside>

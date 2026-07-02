@@ -36,6 +36,7 @@ describe('app integration over real published data', () => {
       timeout: 5000,
     })
     expect(screen.getByText('Submission')).toBeTruthy()
+    expect(screen.getByText('Stoppage')).toBeTruthy()
     expect(scanForSpoilers(document.body.innerHTML)).toEqual([])
 
     fireEvent.click(screen.getByRole('button', { name: /dismiss explainer/i }))
@@ -54,7 +55,8 @@ describe('app integration over real published data', () => {
 
     fireEvent.click(screen.getByText(/Fiziev vs\. Torres/))
     await waitFor(
-      () => expect(screen.getAllByRole('button', { name: /reveal method/i }).length).toBeGreaterThan(5),
+      () =>
+        expect(screen.getAllByRole('button', { name: /reveal method —/i }).length).toBeGreaterThan(5),
       { timeout: 5000 },
     )
 
@@ -63,11 +65,11 @@ describe('app integration over real published data', () => {
     expect(document.body.innerHTML).not.toMatch(/KO \(|def\.|48[–-]47/)
 
     // unseal one cell of the main event: only that cell's value appears
-    fireEvent.click(screen.getAllByRole('button', { name: /reveal method/i })[0]!)
+    fireEvent.click(screen.getAllByRole('button', { name: /reveal method —/i })[0]!)
     await waitFor(() => expect(screen.getByText('KO/TKO')).toBeTruthy())
     expect(screen.getAllByRole('button', { pressed: true }).length).toBe(1)
     // the same fight's round/time stays sealed
-    expect(document.body.innerHTML).not.toMatch(/R\d+ · \d/)
+    expect(document.body.innerHTML).not.toMatch(/>R\d+</)
     // even after reveal: no winner vocabulary anywhere
     expect(scanForSpoilers(document.body.innerHTML)).toEqual([])
   }, 20000)

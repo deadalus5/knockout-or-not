@@ -394,11 +394,6 @@ button {
   background: var(--distance-soft);
 }
 
-.chip.pace {
-  color: var(--text-dim);
-  background: rgba(235, 240, 255, 0.06);
-}
-
 .chip.title-fight {
   color: #d9c67a;
   background: rgba(217, 198, 122, 0.12);
@@ -478,7 +473,7 @@ button {
    fit on desktop; below that it scrolls horizontally with the fight column
    pinned. */
 .table-scroll {
-  --bleed: min(1112px, 100vw - 2 * var(--pad));
+  --bleed: min(920px, 100vw - 2 * var(--pad));
   width: var(--bleed);
   margin: 10px calc((100% - var(--bleed)) / 2) 4px;
   overflow-x: auto;
@@ -492,7 +487,7 @@ button {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  min-width: 1088px;
+  min-width: 872px;
 }
 
 .fight-table thead th {
@@ -506,6 +501,34 @@ button {
   padding: 9px 10px;
   border-bottom: 1px solid var(--line-strong);
   white-space: nowrap;
+}
+
+/* column headers double as "reveal whole column" buttons */
+.fight-table thead th:has(.col-reveal) {
+  padding: 0;
+}
+
+.col-reveal {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  text-align: left;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  transition: color 0.15s, background 0.15s;
+}
+
+.col-reveal:hover {
+  color: var(--amber);
+  background: rgba(245, 166, 35, 0.05);
+}
+
+.col-reveal:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
 }
 
 .fight-table td,
@@ -569,14 +592,11 @@ button {
 
 /* column sizing */
 .col-rating { min-width: 96px; }
-.col-finish { min-width: 128px; }
-.col-method { min-width: 150px; max-width: 190px; }
-.col-round { min-width: 86px; }
-.col-strikes { min-width: 96px; }
-.col-rate { min-width: 78px; }
-.col-kd { min-width: 52px; }
-.col-grappling { min-width: 104px; }
-.col-control { min-width: 68px; }
+.col-finish { min-width: 132px; }
+.col-method { min-width: 112px; }
+.col-details { min-width: 168px; max-width: 210px; }
+.col-round { min-width: 66px; }
+.col-time { min-width: 66px; }
 
 /* ── sealed cells ── */
 .cell {
@@ -618,13 +638,10 @@ button {
 /* varied bar widths → redacted-document texture */
 .col-rating .cell-mask { max-width: 58px; }
 .col-finish .cell-mask { max-width: 84px; }
-.col-method .cell-mask { max-width: 74px; }
-.col-round .cell-mask { max-width: 48px; }
-.col-strikes .cell-mask { max-width: 62px; }
-.col-rate .cell-mask { max-width: 44px; }
-.col-kd .cell-mask { max-width: 28px; }
-.col-grappling .cell-mask { max-width: 68px; }
-.col-control .cell-mask { max-width: 38px; }
+.col-method .cell-mask { max-width: 68px; }
+.col-details .cell-mask { max-width: 96px; }
+.col-round .cell-mask { max-width: 34px; }
+.col-time .cell-mask { max-width: 42px; }
 
 .cell:not(.open):hover .cell-mask {
   background: repeating-linear-gradient(
@@ -679,6 +696,11 @@ button {
   color: var(--amber);
 }
 
+/* in the Details column the detail text is the primary content */
+.col-details .cell-sub {
+  font-size: 12px;
+}
+
 @keyframes unseal {
   from {
     opacity: 0;
@@ -688,42 +710,6 @@ button {
     opacity: 1;
     clip-path: inset(0 0 0 0);
   }
-}
-
-/* ── "why this rating" detail row ── */
-.why-row td {
-  background: rgba(5, 6, 9, 0.35);
-  padding: 7px 14px 9px;
-}
-
-.why-inner {
-  /* pinned so it stays readable while the table scrolls horizontally */
-  position: sticky;
-  left: 14px;
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 5px 8px;
-  max-width: min(660px, calc(100vw - 3 * var(--pad)));
-  animation: unseal 0.35s ease both;
-}
-
-.why-k {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--text-faint);
-  margin-right: 4px;
-}
-
-.why-phrase {
-  font-size: 12px;
-  color: var(--text-dim);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 2px 10px;
-  white-space: nowrap;
 }
 
 /* ── search ── */
