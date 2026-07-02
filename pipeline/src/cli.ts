@@ -48,11 +48,13 @@ async function refreshWikiExtract(csvMaxDate: string): Promise<void> {
 
   console.log(`wiki: ${entries.length} past events listed, fetching ${toFetch.length} page(s)`)
   let done = 0
+  let consecutive429 = 0
   for (const entry of toFetch) {
     try {
-      const page = await fetchWikiPage(entry.title, {
+      const page = await fetchWikiPageWithBackoff(entry.title, {
         preferCache: !known.has(entry.title) || entry.date < recentCutoff,
       })
+      consecutive429 = 0
       const { fights, unresolvedBonuses } = parseWikiEventPage(page.html)
       if (fights.length === 0) {
         console.warn(`wiki: no results table parsed for "${entry.title}" — skipped`)
@@ -73,12 +75,35 @@ async function refreshWikiExtract(csvMaxDate: string): Promise<void> {
       if (idx >= 0) extract.events[idx] = event
       else extract.events.push(event)
     } catch (err) {
-      console.warn(`wiki: failed "${entry.title}": ${(err as Error).message}`)
+      const message = (err as Error).message
+      console.warn(`wiki: failed "${entry.title}": ${message}`)
+      if (message.includes('429')) {
+        consecutive429++
+        if (consecutive429 >= 3) {
+          console.warn('wiki: repeated rate limiting — stopping fetches for this run')
+          break
+        }
+      }
     }
     done++
     if (done % 25 === 0) console.log(`wiki: ${done}/${toFetch.length}`)
   }
   await writeWikiExtract(extract)
+}
+
+/** Retry once with a long pause when Wikipedia rate-limits us. */
+async function fetchWikiPageWithBackoff(
+  title: string,
+  opts: Parameters<typeof fetchWikiPage>[1],
+): ReturnType<typeof fetchWikiPage> {
+  try {
+    return await fetchWikiPage(title, opts)
+  } catch (err) {
+    if (!(err as Error).message.includes('429')) throw err
+    console.warn('wiki: HTTP 429 — backing off 30s')
+    await new Promise((r) => setTimeout(r, 30_000))
+    return fetchWikiPage(title, opts)
+  }
 }
 
 async function run() {

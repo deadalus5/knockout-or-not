@@ -42,6 +42,10 @@ export function matchFight(
 
 function pairTokenOverlap(a: [string, string], b: [string, string]): number {
   const overlaps = (x: string, y: string) => {
+    // Transliteration variants collapse under concatenation
+    // ("Su Mudaerji" vs "Sumudaerji", "Yi Zha" vs "Yizha").
+    const joined = (s: string) => nameTokens(s).join('')
+    if (joined(x) !== '' && joined(x) === joined(y)) return 1
     const xt = new Set(nameTokens(x))
     return nameTokens(y).filter((t) => xt.has(t)).length
   }

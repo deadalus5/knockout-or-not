@@ -21,10 +21,10 @@ export interface WikiPage {
  * content we consider settled (past events already extracted).
  */
 export async function fetchWikiPage(title: string, opts: FetchOptions = {}): Promise<WikiPage> {
-  const url = `${WIKI_API}?action=parse&page=${encodeURIComponent(title)}&prop=text%7Crevid&format=json&formatversion=2&redirects=1`
+  const url = `${WIKI_API}?action=parse&page=${encodeURIComponent(title)}&prop=text%7Crevid&format=json&formatversion=2&redirects=1&maxlag=5`
   const cacheKey = `wiki_${title}`
-  if (!opts.offline && !opts.preferCache) await throttle()
-  const body = await cachedFetch(url, cacheKey, opts)
+  // Throttle only when a request actually goes out — cache hits are free.
+  const body = await cachedFetch(url, cacheKey, { ...opts, beforeNetwork: throttle })
   const json = JSON.parse(body)
   if (json.error) throw new Error(`wiki API error for "${title}": ${json.error.info}`)
   return { title: json.parse.title, revid: json.parse.revid, html: json.parse.text }

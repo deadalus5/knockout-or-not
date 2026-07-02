@@ -29,6 +29,8 @@ export interface FetchOptions {
   preferCache?: boolean
   /** Never hit the network (offline mode); throws if not cached. */
   offline?: boolean
+  /** Called just before an actual network request (e.g. rate-limit throttle). */
+  beforeNetwork?: () => Promise<void>
 }
 
 /**
@@ -53,6 +55,7 @@ export async function cachedFetch(
 
   let res: Response
   try {
+    if (opts.beforeNetwork) await opts.beforeNetwork()
     res = await fetch(url, { headers })
   } catch (err) {
     if (cachedBody !== null) {

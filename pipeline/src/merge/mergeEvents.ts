@@ -55,7 +55,12 @@ export function mergeAll(
       fight.stats = stats.get(statsKey(csvEvent.name, fight.fighters[0], fight.fighters[1])) ?? null
     }
 
-    const match = matchEvent(csvEvent.name, csvEvent.date, wikiByDate)
+    let match = matchEvent(csvEvent.name, csvEvent.date, wikiByDate)
+    // A weak-name exact-date match (dual-event days, renamed cards) must be
+    // corroborated by the fights themselves actually overlapping.
+    if (match && match.similarity < 0.15 && fightOverlap(fights, match.wikiEvent) < 0.3) {
+      match = null
+    }
     if (match && !usedWikiEvents.has(match.wikiEvent)) {
       usedWikiEvents.add(match.wikiEvent)
       report.matchedEvents++
@@ -95,6 +100,20 @@ export function mergeAll(
 
   events.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
   return { events, report }
+}
+
+function fightOverlap(fights: InternalFight[], wikiEvent: WikiExtractEvent): number {
+  if (fights.length === 0) return 0
+  const used = new Set<WikiFight>()
+  let matched = 0
+  for (const fight of fights) {
+    const wiki = matchFight(fight.fighters, wikiEvent.fights, used)
+    if (wiki) {
+      used.add(wiki)
+      matched++
+    }
+  }
+  return matched / fights.length
 }
 
 function enrichFromWiki(
