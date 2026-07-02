@@ -14,8 +14,12 @@ function fail(msg) {
   process.exit(1)
 }
 
+// detached → own process group, so we can kill npm AND the vite child it
+// spawns. Killing only npm leaves an orphaned vite holding the stdio pipes,
+// which keeps this process (and CI) alive forever.
 const preview = spawn('npm', ['-w', 'web', 'run', 'preview', '--', '--port', String(PORT), '--strictPort'], {
   stdio: 'pipe',
+  detached: true,
 })
 preview.on('error', (err) => fail(`preview failed to start: ${err}`))
 
@@ -74,5 +78,10 @@ try {
     `smoke ✓  shell, manifest, sw, index (${indexData.events.length} events), event chunk (${eventData.fights.length} fights), search index`,
   )
 } finally {
-  preview.kill()
+  try {
+    process.kill(-preview.pid)
+  } catch {
+    preview.kill()
+  }
 }
+process.exit(0)
