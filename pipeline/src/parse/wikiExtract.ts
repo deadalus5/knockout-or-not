@@ -30,10 +30,22 @@ const EXTRACT_PATH = path.join(
   'wikiExtract.json',
 )
 
+/**
+ * Year-summary pages ("2013 in UFC") bundle several small events; their first
+ * results table belongs to a different event than the list entry, so they are
+ * excluded — those events keep their CSV-canonical data, just without bonus
+ * enrichment.
+ */
+export function isYearSummaryTitle(title: string): boolean {
+  return /^\d{4} in UFC$/i.test(title)
+}
+
 export async function readWikiExtract(): Promise<WikiExtract> {
   try {
     const raw = await fs.readFile(EXTRACT_PATH, 'utf8')
-    return JSON.parse(raw) as WikiExtract
+    const extract = JSON.parse(raw) as WikiExtract
+    extract.events = extract.events.filter((e) => !isYearSummaryTitle(e.title))
+    return extract
   } catch {
     return { extractVersion: 1, events: [] }
   }

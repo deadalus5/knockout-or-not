@@ -1,8 +1,13 @@
-import { lastNameKey, nameTokens } from '@ko/shared'
+import { lastNameKey, nameTokens, normalizeName } from '@ko/shared'
+import { FIGHTER_ALIASES } from '../config.js'
 import type { WikiFight } from '../parse/wikiEventPage.js'
 
+function canonical(name: string): string {
+  return FIGHTER_ALIASES[normalizeName(name)] ?? name
+}
+
 export function fightKey(fighters: [string, string]): string {
-  return [lastNameKey(fighters[0]), lastNameKey(fighters[1])].sort().join('|')
+  return [lastNameKey(canonical(fighters[0])), lastNameKey(canonical(fighters[1]))].sort().join('|')
 }
 
 /**
@@ -40,14 +45,50 @@ export function matchFight(
   return bestScore >= 2 ? best : null
 }
 
+/** Levenshtein distance capped at `max+1` (early exit). */
+function editDistance(a: string, b: string, max: number): number {
+  if (Math.abs(a.length - b.length) > max) return max + 1
+  const prev = new Array<number>(b.length + 1)
+  for (let j = 0; j <= b.length; j++) prev[j] = j
+  for (let i = 1; i <= a.length; i++) {
+    let diag = prev[0]!
+    prev[0] = i
+    let rowMin = i
+    for (let j = 1; j <= b.length; j++) {
+      const cur = Math.min(
+        prev[j]! + 1,
+        prev[j - 1]! + 1,
+        diag + (a[i - 1] === b[j - 1] ? 0 : 1),
+      )
+      diag = prev[j]!
+      prev[j] = cur
+      if (cur < rowMin) rowMin = cur
+    }
+    if (rowMin > max) return max + 1
+  }
+  return prev[b.length]!
+}
+
+/** Token equality tolerant of transliteration variants (Oleynik/Oleinik). */
+function tokensMatch(a: string, b: string): boolean {
+  if (a === b) return true
+  if (a.length >= 5 && b.length >= 5) {
+    const max = a.length >= 7 ? 2 : 1
+    return editDistance(a, b, max) <= max
+  }
+  return false
+}
+
 function pairTokenOverlap(a: [string, string], b: [string, string]): number {
-  const overlaps = (x: string, y: string) => {
+  const overlaps = (xRaw: string, yRaw: string) => {
+    const x = canonical(xRaw)
+    const y = canonical(yRaw)
     // Transliteration variants collapse under concatenation
     // ("Su Mudaerji" vs "Sumudaerji", "Yi Zha" vs "Yizha").
     const joined = (s: string) => nameTokens(s).join('')
-    if (joined(x) !== '' && joined(x) === joined(y)) return 1
-    const xt = new Set(nameTokens(x))
-    return nameTokens(y).filter((t) => xt.has(t)).length
+    if (joined(x) !== '' && tokensMatch(joined(x), joined(y))) return 1
+    const xt = nameTokens(x)
+    return nameTokens(y).filter((t) => xt.some((xtok) => tokensMatch(xtok, t))).length
   }
   const direct = Math.min(overlaps(a[0], b[0]), 1) + Math.min(overlaps(a[1], b[1]), 1)
   const crossed = Math.min(overlaps(a[0], b[1]), 1) + Math.min(overlaps(a[1], b[0]), 1)

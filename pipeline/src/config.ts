@@ -55,3 +55,13 @@ export const SCORE = {
  * Key: normalized CSV event name, value: normalized Wikipedia event name.
  */
 export const MANUAL_EVENT_ALIASES: Record<string, string> = {}
+
+/**
+ * Ring name ↔ legal name aliases (normalized full names). ufcstats and
+ * Wikipedia disagree on these; both spellings map to one canonical form
+ * for fight matching only — display names stay as published by each source.
+ */
+export const FIGHTER_ALIASES: Record<string, string> = {
+  'cris cyborg': 'cristiane justino',
+  'mike mathetha': 'blood diamond',
+}

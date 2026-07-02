@@ -5,7 +5,12 @@ import { parseCsvResults } from './parse/csvResults.js'
 import { parseCsvStats, statsKey } from './parse/csvStats.js'
 import { parseWikiEventList } from './parse/wikiEventList.js'
 import { parseWikiEventPage } from './parse/wikiEventPage.js'
-import { readWikiExtract, writeWikiExtract, type WikiExtractEvent } from './parse/wikiExtract.js'
+import {
+  isYearSummaryTitle,
+  readWikiExtract,
+  writeWikiExtract,
+  type WikiExtractEvent,
+} from './parse/wikiExtract.js'
 import { mergeAll } from './merge/mergeEvents.js'
 import { fightDurationMin } from './score/excitement.js'
 import { Percentiles } from './score/percentiles.js'
@@ -34,12 +39,20 @@ async function refreshWikiExtract(csvMaxDate: string): Promise<void> {
   const known = new Map(extract.events.map((e) => [e.title, e]))
   const listPage = await fetchWikiPage(WIKI_EVENT_LIST_PAGE, { preferCache: false })
   const entries = parseWikiEventList(listPage.html)
+  // Drop extract entries no longer in the held-events list (e.g. cancelled
+  // events that slipped in before the numbered-row filter).
+  const validTitles = new Set(entries.map((e) => e.title))
+  const before = extract.events.length
+  extract.events = extract.events.filter((e) => validTitles.has(e.title))
+  if (extract.events.length < before)
+    console.log(`wiki extract: pruned ${before - extract.events.length} stale event(s)`)
   const today = new Date().toISOString().slice(0, 10)
   const recentCutoff = new Date(Date.now() - 14 * 86400_000).toISOString().slice(0, 10)
   const backfill = flags.has('--backfill-bonuses')
 
   const toFetch = entries.filter((e) => {
     if (e.date > today) return false
+    if (isYearSummaryTitle(e.title)) return false
     const have = known.get(e.title)
     // Recent pages get re-fetched for ~2 weeks (late bonus/result edits).
     if (have) return e.date >= recentCutoff
@@ -55,6 +68,12 @@ async function refreshWikiExtract(csvMaxDate: string): Promise<void> {
         preferCache: !known.has(entry.title) || entry.date < recentCutoff,
       })
       consecutive429 = 0
+      // Merged event stubs redirect to year-summary pages whose first table
+      // is the year's championship-bout summary, not this event's card.
+      if (isYearSummaryTitle(page.title)) {
+        console.warn(`wiki: "${entry.title}" redirects to "${page.title}" — skipped`)
+        continue
+      }
       const { fights, unresolvedBonuses } = parseWikiEventPage(page.html)
       if (fights.length === 0) {
         console.warn(`wiki: no results table parsed for "${entry.title}" — skipped`)

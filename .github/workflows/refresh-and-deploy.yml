@@ -1,0 +1,73 @@
+name: Refresh data & deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Monday 09:00 UTC — after weekend cards, once Wikipedia editors catch up
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    # Data refresh only on schedule/manual runs; plain pushes just deploy.
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Refresh data (CSV + recent Wikipedia events)
+        run: npm run data:refresh
+      - name: Spoiler audit
+        run: npm run audit
+      - name: Commit refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/public/data pipeline/data
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            git commit -m "data: refresh $(date -u +%F)"
+            git push
+          fi
+
+  deploy:
+    needs: [refresh]
+    if: always() && (needs.refresh.result == 'success' || needs.refresh.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main # pick up the data commit from the refresh job
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build
+        run: npm run build
+        env:
+          KO_BASE: /${{ github.event.repository.name }}/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -31,6 +31,9 @@ export function parseWikiEventList(html: string): WikiEventListEntry[] {
     for (const tr of $(table).find('tr').toArray()) {
       const tds = $(tr).find('td')
       if (tds.length < 3) continue
+      // Cancelled events keep their row but have "—" instead of an event
+      // number — they never happened and must not be published.
+      if (!/^\d+$/.test(tds.eq(0).text().trim())) continue
       const link = tds.eq(1).find('a').first()
       const title = link.attr('title') ?? null
       const name = link.text().trim() || tds.eq(1).text().trim()
