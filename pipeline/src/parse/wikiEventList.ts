@@ -34,8 +34,13 @@ export function parseWikiEventList(html: string): WikiEventListEntry[] {
       const link = tds.eq(1).find('a').first()
       const title = link.attr('title') ?? null
       const name = link.text().trim() || tds.eq(1).text().trim()
-      const sort = $(tr).find('[data-sort-value]').attr('data-sort-value') ?? ''
-      const dateMatch = sort.match(/(\d{4}-\d{2}-\d{2})/)
+      // Several cells can carry data-sort-value (event name, attendance);
+      // pick the first one shaped like a date.
+      let dateMatch: RegExpMatchArray | null = null
+      for (const el of $(tr).find('[data-sort-value]').toArray()) {
+        dateMatch = ($(el).attr('data-sort-value') ?? '').match(/(\d{4}-\d{2}-\d{2})/)
+        if (dateMatch) break
+      }
       if (!title || !name || !dateMatch) continue
 
       let location: string | null = null

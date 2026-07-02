@@ -21,13 +21,17 @@ export const FORBIDDEN_PATTERNS: ForbiddenPattern[] = [
     why: 'ufcstats OUTCOME column (W/L relative to billing order)',
   },
   {
+    // Excludes ISO dates ("2026-06-27") via the year lookbehind.
     name: 'scorecard',
-    re: /\b\d{2}\s*[-–—]\s*\d{2}\b/,
+    re: /(?<!\d{4}-)\b\d{2}\s*[-–—]\s*\d{2}\b(?!-\d)/,
     why: 'Judge scorecards (e.g. 48-47) reveal the decision winner',
   },
   {
+    // "victor" (first name) and "winner" (Andre Winner, UFC 2009-2011) are
+    // real fighter names and are excluded; winner FIELDS are impossible via
+    // the strict schema, this pattern guards free-text values.
     name: 'winner-words',
-    re: /\b(winner|winners|defeated|defeats|loser|losers|victor|victorious)\b/i,
+    re: /\b(defeated|defeats|loser|losers|victorious)\b/i,
     why: 'Winner-identifying vocabulary',
   },
 ]

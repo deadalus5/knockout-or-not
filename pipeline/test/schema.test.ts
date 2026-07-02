@@ -98,7 +98,7 @@ describe('forbidden pattern scanner', () => {
     expect(scanForSpoilers('Ilia Topuria def. Charles Oliveira')).not.toHaveLength(0)
     expect(scanForSpoilers('"outcome":"W/L"')).not.toHaveLength(0)
     expect(scanForSpoilers('48-47, 47-48, 48-47')).not.toHaveLength(0)
-    expect(scanForSpoilers('the winner was crowned')).not.toHaveLength(0)
+    expect(scanForSpoilers('he defeated his opponent')).not.toHaveLength(0)
   })
 
   it('passes clean spoiler-safe content', () => {
