@@ -1,0 +1,21 @@
+{
+  "name": "@ko/pipeline",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "refresh": "tsx src/cli.ts run",
+    "stats": "tsx src/cli.ts stats",
+    "audit": "tsx src/audit/spoilerAudit.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "csv-parse": "^7.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@ko/shared": "^1.0.0"
+  }
+}
