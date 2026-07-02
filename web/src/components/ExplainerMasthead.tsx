@@ -9,11 +9,11 @@ const DISMISS_KEY = 'ko.explainerDismissed'
  * Never names a winner; nothing here may trip the spoiler patterns.
  */
 const DEMO_CELLS: { label: string; value?: string; kind?: 'early' }[] = [
-  { label: 'Rating' },
+  { label: 'Rating', value: '★★★☆☆ 43' },
   { label: 'Finish', value: 'Stoppage', kind: 'early' },
   { label: 'Method', value: 'Submission' },
   { label: 'Round', value: 'R4' },
-  { label: 'Time' },
+  { label: 'Time', value: '3:03' },
 ]
 
 export function ExplainerMasthead() {
@@ -78,8 +78,8 @@ export function ExplainerMasthead() {
           ))}
         </div>
         <p className="demo-caption">
-          Three cells unsealed: it ended by submission in round 4. The rating and the exact time
-          stay sealed until you tap them — who won stays sealed forever.
+          Fully unsealed: rated 43 out of 100, it ended by submission at 3:03 of round 4. Who won
+          stays sealed forever.
         </p>
       </div>
     </aside>
