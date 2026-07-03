@@ -2,13 +2,38 @@
 
 **Is the fight worth watching? Find out without finding out.**
 
-KnockoutOrNot is a spoiler-free guide to UFC fights. It tells you whether a
-fight ended early or went the distance, how exciting it was, and how fast the
-pace was — while making it impossible to learn **who won**.
+KnockoutOrNot is a spoiler-free guide to UFC fights — every event back to
+UFC 1, and every new card as it happens. It tells you whether a fight is
+worth your time while making it impossible to learn **who won**.
 
-## The trust boundary
+### ▶ Use it here: **<https://deadalus5.github.io/knockout-or-not/>**
 
-The winner never reaches your browser. The data pipeline strips:
+No install, no account. It's a PWA: add it to your home screen and it works
+offline.
+
+## How to use it
+
+1. Open the [live site](https://deadalus5.github.io/knockout-or-not/) and
+   pick an event from the list, or search for a fighter or event.
+2. Every fight is a row of **sealed cells**, ordered left to right from
+   vague to specific:
+
+   | Rating | Finish | Method | Details | Round | Time |
+   |---|---|---|---|---|---|
+   | 1–100 excitement score | "Stoppage" or "Went the distance" | KO/TKO, Submission, Decision… | finish detail + bonuses | R1, R2, … | when it ended |
+
+3. **Tap a cell** to reveal that one detail — and only that one. Tap a
+   **column header** to reveal that column for every fight on the card.
+4. Reveals are never saved. Reload the page and everything is sealed again.
+
+The winner is never shown, at any level of reveal. Draws and no-contests
+are folded into the neutral outcomes so even those can't be inferred
+without unsealing the method.
+
+## Why you can trust it (the hard guarantee)
+
+The winner never reaches your browser — it isn't hidden by the UI, it's
+**absent from the data**. The build pipeline strips:
 
 - win/loss outcomes and "X def. Y" notation
 - judge scorecards
@@ -20,38 +45,33 @@ Every published file is validated against a strict whitelist schema
 (`shared/src/schema.ts`) — unknown fields are rejected — and scanned by an
 automated spoiler audit (`pipeline/src/audit/spoilerAudit.ts`) that gates
 every pipeline run and every CI build. A canary test verifies the published
-output is byte-identical no matter which fighter won.
+output is byte-identical no matter which fighter won. Open your browser's
+developer tools if you like: there is no winner to find.
 
-What the UI hides per detail level (excitement, method, round) is a softer,
-UX-level gate — but the winner is not a gate, it's absent.
+## How it stays fresh
 
-## Layout
+A GitHub Actions workflow (`refresh-and-deploy.yml`) refreshes the data
+every Monday at 09:00 UTC — pulling new events from Wikipedia — commits the
+diff, and redeploys the site. If parsing ever fails, the workflow fails
+loudly and the site keeps serving the last good data.
+
+## Repository layout
 
 - `shared/` — the whitelist schema + name utilities used by everything
 - `pipeline/` — data pipeline: CSV back-catalogue + Wikipedia recent events →
   merge → excitement scoring → sanitize → `web/public/data/v1/`
-- `web/` — React + Vite PWA (installable, offline-capable)
+- `web/` — React + Vite PWA
 
-## Running locally
+## Development
 
 ```bash
-npm ci
-npm run dev        # dev server on http://localhost:5173
-npm test           # all tests
-npm run audit      # spoiler audit of committed data
+npm ci                  # install
+npm run dev             # local dev server
+npm test                # all tests
+npm run audit           # spoiler audit of committed data
 npm run build && npm run smoke
+npm run data:refresh    # refresh data: CSVs + Wikipedia events newer than the CSV cutoff
 ```
-
-## Refreshing data
-
-```bash
-npm run data:refresh    # CSVs + Wikipedia events newer than the CSV cutoff
-npm run data:backfill   # one-time full Wikipedia backfill (throttled, ~15 min)
-```
-
-In CI, `refresh-and-deploy.yml` refreshes weekly (Mon 09:00 UTC), commits the
-data diff, and redeploys GitHub Pages. If parsing ever fails, the workflow
-fails loudly and the site keeps serving the last good data.
 
 ## Data sources
 
