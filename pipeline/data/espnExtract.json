@@ -1,0 +1,351 @@
+{
+ "extractVersion": 1,
+ "events": [
+  {
+   "espnId": "600059254",
+   "name": "UFC Fight Night: Fiziev vs. Torres",
+   "date": "2026-06-27",
+   "location": "Baku, Azerbaijan",
+   "fights": [
+    {
+     "fighters": [
+      "Rafael Fiziev",
+      "Manuel Torres"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "0:15",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 47,
+      "combinedSigStrAttempted": 91,
+      "combinedTotalStr": 54,
+      "combinedTD": 2,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 48,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Shara Magomedov",
+      "Michel Pereira"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 87,
+      "combinedSigStrAttempted": 167,
+      "combinedTotalStr": 173,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 297,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Matheus Camilo",
+      "Nazim Sadykhov"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "1:31",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 4,
+      "combinedSigStrAttempted": 26,
+      "combinedTotalStr": 4,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 3,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Asu Almabayev",
+      "Charles Johnson"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Suloev Stretch",
+     "round": 3,
+     "time": "3:33",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 49,
+      "combinedSigStrAttempted": 96,
+      "combinedTotalStr": 105,
+      "combinedTD": 6,
+      "combinedSubAtt": 2,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 528,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Ikram Aliskerov",
+      "Brunno Ferreira"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 66,
+      "combinedSigStrAttempted": 153,
+      "combinedTotalStr": 137,
+      "combinedTD": 5,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 540,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Abus Magomedov",
+      "Michal Oleksiejczuk"
+     ],
+     "order": 6,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Guillotine Choke",
+     "round": 1,
+     "time": "3:25",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 15,
+      "combinedSigStrAttempted": 46,
+      "combinedTotalStr": 15,
+      "combinedTD": 0,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 39,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Farman Hasanov",
+      "Eric Nolan"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 36,
+      "combinedSigStrAttempted": 92,
+      "combinedTotalStr": 82,
+      "combinedTD": 17,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 675,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Julius Walker",
+      "Abdul-Rakhman Yakhyaev"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "0:08",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 6,
+      "combinedSigStrAttempted": 9,
+      "combinedTotalStr": 6,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 3,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Andrey Pulyaev",
+      "Nursulton Ruziboev"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 1,
+     "time": "3:58",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 3,
+      "combinedSigStrAttempted": 9,
+      "combinedTotalStr": 28,
+      "combinedTD": 2,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 148,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Kaan Ofli",
+      "Javier Reyes"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Arm Triangle",
+     "round": 1,
+     "time": "4:16",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 24,
+      "combinedSigStrAttempted": 61,
+      "combinedTotalStr": 49,
+      "combinedTD": 0,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 32,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Theodor Berggren",
+      "Daniil Donchenko"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "1:35",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 2,
+      "combinedSigStrLanded": 94,
+      "combinedSigStrAttempted": 171,
+      "combinedTotalStr": 102,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 44,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Bekzat Almakhan",
+      "Jean Matsumoto"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 148,
+      "combinedSigStrAttempted": 388,
+      "combinedTotalStr": 159,
+      "combinedTD": 2,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 100,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Tahir Abdullayev",
+      "Jefferson Nascimento"
+     ],
+     "order": 13,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 3,
+     "time": "4:28",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 72,
+      "combinedSigStrAttempted": 159,
+      "combinedTotalStr": 114,
+      "combinedTD": 2,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 225,
+      "roundsWithStats": 3
+     }
+    }
+   ]
+  }
+ ]
+}

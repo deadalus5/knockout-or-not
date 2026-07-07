@@ -19,6 +19,19 @@ export const USER_AGENT =
   'KnockoutOrNot/1.0 (personal spoiler-free fight guide; rbwcontent@gmail.com)'
 export const WIKI_THROTTLE_MS = 1100
 
+/**
+ * ESPN's unofficial public JSON API — the fast path for events Wikipedia
+ * hasn't caught up with yet, and the only stats source after the CSV cutoff.
+ * Unauthenticated and undocumented; may break without notice, so every
+ * consumer must degrade gracefully.
+ */
+export const ESPN_SCOREBOARD_API =
+  'https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard'
+export const ESPN_CORE_API = 'https://sports.core.api.espn.com/v2/sports/mma/leagues/ufc'
+export const ESPN_THROTTLE_MS = 300
+/** Only fetch ESPN for events this recent; older events belong to Wikipedia. */
+export const ESPN_LOOKBACK_DAYS = 7
+
 /** Excitement score weights — referenced by tests, keep in one place. */
 export const SCORE = {
   finishWeight: 30,

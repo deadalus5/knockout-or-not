@@ -1,0 +1,569 @@
+{
+ "__comment": "Real (trimmed) ESPN API responses for event 600059254. Winner flags kept: the parser neutralizes them (same convention as the wiki HTML fixtures).",
+ "scoreboard": {
+  "id": "600059254",
+  "date": "2026-06-27T13:00Z",
+  "name": "UFC Fight Night: Fiziev vs. Torres",
+  "shortName": "UFC Fight Night",
+  "status": {
+   "type": {
+    "id": "3",
+    "name": "STATUS_FINAL",
+    "state": "post",
+    "completed": true,
+    "description": "Final",
+    "detail": "Final",
+    "shortDetail": "Final"
+   }
+  },
+  "competitions": [
+   {
+    "id": "401879449",
+    "date": "2026-06-27T13:00Z",
+    "type": {
+     "id": "969",
+     "abbreviation": "Welterweight"
+    },
+    "venue": {
+     "id": "7580",
+     "fullName": "National Gymnastics Arena",
+     "address": {
+      "city": "Baku",
+      "country": "Azerbaijan"
+     },
+     "indoor": true
+    },
+    "status": {
+     "clock": 268.0,
+     "displayClock": "4:28",
+     "period": 3,
+     "type": {
+      "id": "3",
+      "name": "STATUS_FINAL",
+      "state": "post",
+      "completed": true,
+      "description": "Final",
+      "detail": "Final",
+      "shortDetail": "Final"
+     },
+     "featured": false
+    },
+    "competitors": [
+     {
+      "id": "4394753",
+      "order": 1,
+      "winner": true,
+      "athlete": {
+       "displayName": "Tahir Abdullayev"
+      }
+     },
+     {
+      "id": "5362725",
+      "order": 2,
+      "winner": false,
+      "athlete": {
+       "displayName": "Jefferson Nascimento"
+      }
+     }
+    ]
+   },
+   {
+    "id": "401872623",
+    "date": "2026-06-27T13:00Z",
+    "type": {
+     "id": "970",
+     "abbreviation": "Bantamweight"
+    },
+    "venue": {
+     "id": "7580",
+     "fullName": "National Gymnastics Arena",
+     "address": {
+      "city": "Baku",
+      "country": "Azerbaijan"
+     },
+     "indoor": true
+    },
+    "status": {
+     "clock": 300.0,
+     "displayClock": "5:00",
+     "period": 3,
+     "type": {
+      "id": "3",
+      "name": "STATUS_FINAL",
+      "state": "post",
+      "completed": true,
+      "description": "Final",
+      "detail": "Final",
+      "shortDetail": "Final"
+     },
+     "featured": false
+    },
+    "competitors": [
+     {
+      "id": "5149439",
+      "order": 2,
+      "winner": true,
+      "athlete": {
+       "displayName": "Jean Matsumoto"
+      }
+     },
+     {
+      "id": "5196459",
+      "order": 1,
+      "winner": false,
+      "athlete": {
+       "displayName": "Bekzat Almakhan"
+      }
+     }
+    ]
+   },
+   {
+    "id": "401870065",
+    "date": "2026-06-27T16:00Z",
+    "type": {
+     "id": "986",
+     "abbreviation": "Lightweight"
+    },
+    "venue": {
+     "id": "7580",
+     "fullName": "National Gymnastics Arena",
+     "address": {
+      "city": "Baku",
+      "country": "Azerbaijan"
+     },
+     "indoor": true
+    },
+    "status": {
+     "clock": 15.0,
+     "displayClock": "0:15",
+     "period": 2,
+     "type": {
+      "id": "3",
+      "name": "STATUS_FINAL",
+      "state": "post",
+      "completed": true,
+      "description": "Final",
+      "detail": "Final",
+      "shortDetail": "Final"
+     },
+     "featured": false
+    },
+    "competitors": [
+     {
+      "id": "4339488",
+      "order": 1,
+      "winner": true,
+      "athlete": {
+       "displayName": "Rafael Fiziev"
+      }
+     },
+     {
+      "id": "4896616",
+      "order": 2,
+      "winner": false,
+      "athlete": {
+       "displayName": "Manuel Torres"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "detail": {
+  "id": "600059254",
+  "date": "2026-06-27T13:00Z",
+  "name": "UFC Fight Night: Fiziev vs. Torres",
+  "competitions": [
+   {
+    "id": "401879449",
+    "matchNumber": 13,
+    "cardSegment": {
+     "id": "174",
+     "description": "Prelims",
+     "name": "prelims1"
+    },
+    "type": {
+     "id": "969",
+     "text": "Welterweight",
+     "abbreviation": "Welterweight"
+    },
+    "format": {
+     "regulation": {
+      "periods": 3,
+      "displayName": "Round",
+      "slug": "round",
+      "clock": 300.0
+     }
+    },
+    "competitors": [
+     {
+      "id": "4394753",
+      "order": 1,
+      "winner": true
+     },
+     {
+      "id": "5362725",
+      "order": 2,
+      "winner": false
+     }
+    ]
+   },
+   {
+    "id": "401872623",
+    "matchNumber": 12,
+    "cardSegment": {
+     "id": "174",
+     "description": "Prelims",
+     "name": "prelims1"
+    },
+    "type": {
+     "id": "970",
+     "text": "Bantamweight",
+     "abbreviation": "Bantamweight"
+    },
+    "format": {
+     "regulation": {
+      "periods": 3,
+      "displayName": "Round",
+      "slug": "round",
+      "clock": 300.0
+     }
+    },
+    "competitors": [
+     {
+      "id": "5149439",
+      "order": 2,
+      "winner": true
+     },
+     {
+      "id": "5196459",
+      "order": 1,
+      "winner": false
+     }
+    ]
+   },
+   {
+    "id": "401870065",
+    "matchNumber": 1,
+    "cardSegment": {
+     "id": "173",
+     "description": "Main Card",
+     "name": "main"
+    },
+    "type": {
+     "id": "986",
+     "text": "Lightweight",
+     "abbreviation": "Lightweight"
+    },
+    "format": {
+     "regulation": {
+      "periods": 5,
+      "displayName": "Round",
+      "slug": "round",
+      "clock": 300.0
+     }
+    },
+    "competitors": [
+     {
+      "id": "4339488",
+      "order": 1,
+      "winner": true
+     },
+     {
+      "id": "4896616",
+      "order": 2,
+      "winner": false
+     }
+    ]
+   }
+  ]
+ },
+ "statuses": {
+  "401879449": {
+   "clock": 268.0,
+   "displayClock": "4:28",
+   "period": 3,
+   "type": {
+    "id": "3",
+    "name": "STATUS_FINAL",
+    "state": "post",
+    "completed": true,
+    "description": "Final",
+    "detail": "Final",
+    "shortDetail": "Final"
+   },
+   "result": {
+    "id": 356,
+    "name": "kotko",
+    "displayName": "KO/TKO",
+    "description": "Punches",
+    "displayDescription": "Punches",
+    "shortDisplayName": "KO/TKO",
+    "target": {
+     "id": 122,
+     "name": "head",
+     "description": "Head",
+     "displayDescription": "Head"
+    }
+   }
+  },
+  "401872623": {
+   "clock": 300.0,
+   "displayClock": "5:00",
+   "period": 3,
+   "type": {
+    "id": "3",
+    "name": "STATUS_FINAL",
+    "state": "post",
+    "completed": true,
+    "description": "Final",
+    "detail": "Final",
+    "shortDetail": "Final"
+   },
+   "result": {
+    "id": 263,
+    "name": "decision---unanimous",
+    "displayName": "Decision - Unanimous",
+    "shortDisplayName": "U Dec"
+   }
+  },
+  "401870065": {
+   "clock": 15.0,
+   "displayClock": "0:15",
+   "period": 2,
+   "type": {
+    "id": "3",
+    "name": "STATUS_FINAL",
+    "state": "post",
+    "completed": true,
+    "description": "Final",
+    "detail": "Final",
+    "shortDetail": "Final"
+   },
+   "result": {
+    "id": 356,
+    "name": "kotko",
+    "displayName": "KO/TKO",
+    "description": "Punches",
+    "displayDescription": "Punches",
+    "shortDisplayName": "KO/TKO",
+    "target": {
+     "id": 122,
+     "name": "head",
+     "description": "Head",
+     "displayDescription": "Head"
+    }
+   }
+  }
+ },
+ "statistics": {
+  "401879449": {
+   "4394753": {
+    "splits": {
+     "categories": [
+      {
+       "name": "general",
+       "stats": [
+        {
+         "name": "knockDowns",
+         "value": 0.0
+        },
+        {
+         "name": "totalStrikesLanded",
+         "value": 60.0
+        },
+        {
+         "name": "sigStrikesAttempted",
+         "value": 87.0
+        },
+        {
+         "name": "sigStrikesLanded",
+         "value": 37.0
+        },
+        {
+         "name": "takedownsLanded",
+         "value": 2.0
+        },
+        {
+         "name": "takedownAccuracy",
+         "value": 0.333
+        },
+        {
+         "name": "advances",
+         "value": 0.0
+        },
+        {
+         "name": "reversals",
+         "value": 0.0
+        },
+        {
+         "name": "submissions",
+         "value": 0.0
+        },
+        {
+         "name": "timeInControl",
+         "value": 192.0
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "5362725": {
+    "splits": {
+     "categories": [
+      {
+       "name": "general",
+       "stats": [
+        {
+         "name": "knockDowns",
+         "value": 0.0
+        },
+        {
+         "name": "totalStrikesLanded",
+         "value": 54.0
+        },
+        {
+         "name": "sigStrikesAttempted",
+         "value": 72.0
+        },
+        {
+         "name": "sigStrikesLanded",
+         "value": 35.0
+        },
+        {
+         "name": "takedownsLanded",
+         "value": 0.0
+        },
+        {
+         "name": "takedownAccuracy",
+         "value": 0.0
+        },
+        {
+         "name": "advances",
+         "value": 0.0
+        },
+        {
+         "name": "reversals",
+         "value": 0.0
+        },
+        {
+         "name": "submissions",
+         "value": 0.0
+        },
+        {
+         "name": "timeInControl",
+         "value": 33.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "401872623": {
+   "5149439": {
+    "splits": {
+     "categories": [
+      {
+       "name": "general",
+       "stats": [
+        {
+         "name": "knockDowns",
+         "value": 0.0
+        },
+        {
+         "name": "totalStrikesLanded",
+         "value": 89.0
+        },
+        {
+         "name": "sigStrikesAttempted",
+         "value": 229.0
+        },
+        {
+         "name": "sigStrikesLanded",
+         "value": 79.0
+        },
+        {
+         "name": "takedownsLanded",
+         "value": 2.0
+        },
+        {
+         "name": "takedownAccuracy",
+         "value": 0.2
+        },
+        {
+         "name": "advances",
+         "value": 0.0
+        },
+        {
+         "name": "reversals",
+         "value": 0.0
+        },
+        {
+         "name": "submissions",
+         "value": 0.0
+        },
+        {
+         "name": "timeInControl",
+         "value": 98.0
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "5196459": {
+    "splits": {
+     "categories": [
+      {
+       "name": "general",
+       "stats": [
+        {
+         "name": "knockDowns",
+         "value": 1.0
+        },
+        {
+         "name": "totalStrikesLanded",
+         "value": 70.0
+        },
+        {
+         "name": "sigStrikesAttempted",
+         "value": 159.0
+        },
+        {
+         "name": "sigStrikesLanded",
+         "value": 69.0
+        },
+        {
+         "name": "takedownsLanded",
+         "value": 0.0
+        },
+        {
+         "name": "takedownAccuracy",
+         "value": 0.0
+        },
+        {
+         "name": "advances",
+         "value": 0.0
+        },
+        {
+         "name": "reversals",
+         "value": 0.0
+        },
+        {
+         "name": "submissions",
+         "value": 0.0
+        },
+        {
+         "name": "timeInControl",
+         "value": 2.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  }
+ }
+}

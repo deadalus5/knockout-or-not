@@ -11,13 +11,16 @@ import {
   writeWikiExtract,
   type WikiExtractEvent,
 } from './parse/wikiExtract.js'
+import { fetchEspnEventBundle, fetchEspnScoreboard } from './fetch/espnSource.js'
+import { parseEspnEvent } from './parse/espnEvent.js'
+import { readEspnExtract, writeEspnExtract, type EspnExtract } from './parse/espnExtract.js'
 import { mergeAll } from './merge/mergeEvents.js'
 import { fightDurationMin } from './score/excitement.js'
 import { Percentiles } from './score/percentiles.js'
 import { sanitizeEvent } from './emit/sanitize.js'
 import { writePublishedData } from './emit/writeJson.js'
 import { auditPublishedData } from './audit/spoilerAudit.js'
-import { WIKI_EVENT_LIST_PAGE } from './config.js'
+import { ESPN_LOOKBACK_DAYS, WIKI_EVENT_LIST_PAGE } from './config.js'
 
 const cmd = process.argv[2] ?? 'run'
 const flags = new Set(process.argv.slice(3))
@@ -110,6 +113,47 @@ async function refreshWikiExtract(csvMaxDate: string): Promise<void> {
   await writeWikiExtract(extract)
 }
 
+/**
+ * Refresh the committed ESPN extract with completed events from the last
+ * ESPN_LOOKBACK_DAYS. The extract is the durable store — ESPN is the only
+ * stats source after the CSV cutoff, so captured events are kept forever.
+ * ESPN is an unofficial API and strictly best-effort: any failure here logs
+ * a warning and the run continues on Wikipedia alone (never fails the run).
+ */
+async function refreshEspnExtract(): Promise<EspnExtract> {
+  const extract = await readEspnExtract()
+  if (offline) return extract
+  try {
+    const ymd = (t: number) => new Date(t).toISOString().slice(0, 10).replace(/-/g, '')
+    const scoreboard = (await fetchEspnScoreboard(
+      ymd(Date.now() - ESPN_LOOKBACK_DAYS * 86400_000),
+      ymd(Date.now()),
+    )) as { events?: unknown[] }
+    const sbEvents = Array.isArray(scoreboard?.events) ? scoreboard.events : []
+    // Recently captured events get re-fetched for 2 days (late stat edits).
+    const settledCutoff = new Date(Date.now() - 2 * 86400_000).toISOString().slice(0, 10)
+    for (const sbEvent of sbEvents) {
+      const espnId = String((sbEvent as { id?: unknown })?.id ?? '')
+      const known = extract.events.find((e) => e.espnId === espnId)
+      if (known && known.date < settledCutoff) continue
+      try {
+        const parsed = parseEspnEvent(await fetchEspnEventBundle(sbEvent))
+        if (!parsed || parsed.fights.length === 0) continue // not completed / unusable
+        const idx = extract.events.findIndex((e) => e.espnId === parsed.espnId)
+        if (idx >= 0) extract.events[idx] = parsed
+        else extract.events.push(parsed)
+        console.log(`espn: captured "${parsed.name}" (${parsed.fights.length} fights)`)
+      } catch (err) {
+        console.warn(`espn: failed event ${espnId}: ${(err as Error).message}`)
+      }
+    }
+    await writeEspnExtract(extract)
+  } catch (err) {
+    console.warn(`espn: fast path unavailable (${(err as Error).message}) — using committed extract`)
+  }
+  return extract
+}
+
 /** Retry once with a long pause when Wikipedia rate-limits us. */
 async function fetchWikiPageWithBackoff(
   title: string,
@@ -134,7 +178,16 @@ async function run() {
   const extract = await readWikiExtract()
   console.log(`wiki extract: ${extract.events.length} events`)
 
-  const { events, report } = mergeAll(csv.events, csv.resultsByEvent, csv.stats, extract)
+  const espnExtract = await refreshEspnExtract()
+  console.log(`espn extract: ${espnExtract.events.length} events`)
+
+  const { events, report } = mergeAll(
+    csv.events,
+    csv.resultsByEvent,
+    csv.stats,
+    extract,
+    espnExtract,
+  )
 
   // Percentile basis: every full-stats, non-legacy fight with a computable duration.
   const strRates: number[] = []
@@ -166,6 +219,12 @@ async function run() {
   }
   if (report.wikiOnlyEvents.length > 0) {
     console.log(`wiki-only events: ${report.wikiOnlyEvents.slice(0, 10).join(' | ')}`)
+  }
+  if (report.espnOnlyEvents.length > 0) {
+    console.log(`espn-only events: ${report.espnOnlyEvents.join(' | ')}`)
+  }
+  if (report.espnStatsAttached > 0) {
+    console.log(`espn: stats attached to ${report.espnStatsAttached} fight(s)`)
   }
   if (report.unmatchedWikiFights.length > 0) {
     console.log(`unmatched wiki fights: ${report.unmatchedWikiFights.length}`)

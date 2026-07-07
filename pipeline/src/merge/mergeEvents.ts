@@ -2,6 +2,8 @@ import type { CsvEvent } from '../parse/csvEvents.js'
 import type { CombinedStats, InternalEvent, InternalFight } from '../model.js'
 import type { WikiExtract, WikiExtractEvent } from '../parse/wikiExtract.js'
 import type { WikiFight } from '../parse/wikiEventPage.js'
+import type { EspnEvent, EspnFight } from '../parse/espnEvent.js'
+import type { EspnExtract } from '../parse/espnExtract.js'
 import { statsKey } from '../parse/csvStats.js'
 import { matchEvent } from './matchEvents.js'
 import { matchFight } from './matchFights.js'
@@ -12,6 +14,8 @@ export interface MergeReport {
   matchedEvents: number
   csvOnlyEvents: string[]
   wikiOnlyEvents: string[]
+  espnOnlyEvents: string[]
+  espnStatsAttached: number
   lowSimilarityMatches: { csv: string; wiki: string; similarity: number }[]
   unmatchedWikiFights: { event: string; fighters: string }[]
 }
@@ -21,11 +25,14 @@ export interface MergedData {
   report: MergeReport
 }
 
+const EMPTY_ESPN_EXTRACT: EspnExtract = { extractVersion: 1, events: [] }
+
 export function mergeAll(
   csvEvents: CsvEvent[],
   csvFightsByEvent: Map<string, InternalFight[]>,
   stats: Map<string, CombinedStats>,
   wikiExtract: WikiExtract,
+  espnExtract: EspnExtract = EMPTY_ESPN_EXTRACT,
 ): MergedData {
   const wikiByDate = new Map<string, WikiExtractEvent[]>()
   for (const ev of wikiExtract.events) {
@@ -40,6 +47,8 @@ export function mergeAll(
     matchedEvents: 0,
     csvOnlyEvents: [],
     wikiOnlyEvents: [],
+    espnOnlyEvents: [],
+    espnStatsAttached: 0,
     lowSimilarityMatches: [],
     unmatchedWikiFights: [],
   }
@@ -98,8 +107,86 @@ export function mergeAll(
     })
   }
 
+  // ESPN pass: Wikipedia stays the source of record for results/bonuses;
+  // ESPN fills in stats (its unique contribution) and whole events Wikipedia
+  // doesn't have yet.
+  const eventsByDate = new Map<string, InternalEvent[]>()
+  for (const ev of events) {
+    const list = eventsByDate.get(ev.date) ?? []
+    list.push(ev)
+    eventsByDate.set(ev.date, list)
+  }
+  for (const espnEvent of espnExtract.events) {
+    if (espnEvent.fights.length === 0) continue
+    const match = matchEvent(espnEvent.name, espnEvent.date, eventsByDate)
+    if (match) {
+      enrichFromEspn(match.wikiEvent, espnEvent, report)
+    } else {
+      report.espnOnlyEvents.push(`${espnEvent.date} ${espnEvent.name}`)
+      events.push({
+        source: 'espn',
+        name: espnEvent.name,
+        date: espnEvent.date,
+        location: espnEvent.location,
+        fights: espnEvent.fights.map((f, i) => espnFightToInternal(f, i + 1)),
+      })
+    }
+  }
+
   events.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
   return { events, report }
+}
+
+/**
+ * Fill an event (usually wiki-sourced) with what only ESPN has: combined
+ * stats, card segment when missing, and the real scheduled-rounds format
+ * (better than the wiki-only 5-for-main-event inference). Never overrides
+ * method/round/time/bonuses — Wikipedia is the source of record.
+ */
+function enrichFromEspn(target: InternalEvent, espnEvent: EspnEvent, report: MergeReport): void {
+  const used = new Set<EspnFight>()
+  let statsAttached = 0
+  for (const fight of target.fights) {
+    const espn = matchFight(fight.fighters, espnEvent.fights, used)
+    if (!espn) continue
+    used.add(espn)
+    if (fight.stats === null && espn.stats !== null) {
+      fight.stats = espn.stats
+      statsAttached++
+    }
+    if (fight.card === null) fight.card = espn.card
+    fight.titleFight = fight.titleFight || espn.titleFight
+    if (espn.scheduledRounds !== null && !fight.legacyFormat) {
+      fight.scheduledRounds = espn.scheduledRounds
+      fight.roundLengthsMin = Array(espn.scheduledRounds).fill(5)
+    }
+  }
+  // A half-edited wiki results table can lag ESPN — append what it's missing.
+  for (const espn of espnEvent.fights) {
+    if (!used.has(espn)) target.fights.push(espnFightToInternal(espn, target.fights.length + 1))
+  }
+  report.espnStatsAttached += statsAttached
+  if (target.source === 'wiki' && statsAttached > 0) target.source = 'merged'
+}
+
+/** ESPN covers only the modern era — real format data, never legacy. */
+function espnFightToInternal(f: EspnFight, order: number): InternalFight {
+  return {
+    fighters: f.fighters,
+    order,
+    card: f.card,
+    weightClass: f.weightClass,
+    titleFight: f.titleFight,
+    methodClass: f.methodClass,
+    methodDetail: f.methodDetail,
+    round: f.round,
+    time: f.time,
+    scheduledRounds: f.scheduledRounds,
+    roundLengthsMin: f.scheduledRounds !== null ? Array(f.scheduledRounds).fill(5) : null,
+    legacyFormat: false,
+    stats: f.stats,
+    bonuses: [],
+  }
 }
 
 function fightOverlap(fights: InternalFight[], wikiEvent: WikiExtractEvent): number {

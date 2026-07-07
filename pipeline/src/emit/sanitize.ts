@@ -34,10 +34,21 @@ export function sanitizeEvent(event: InternalEvent, strPercentiles: Percentiles)
     name: event.name,
     date: event.date,
     location: event.location,
-    dataQuality: event.source === 'wiki' ? 'basic' : 'full',
+    dataQuality: dataQuality(event),
     fights,
   }
   return eventDetailSchema.parse(published)
+}
+
+/**
+ * Wiki-only events have results but no stats. ESPN-only events count as
+ * full-quality only when the stats actually came through; CSV-based events
+ * stay 'full' as before (the back-catalogue's rating basis is the CSV stats).
+ */
+function dataQuality(event: InternalEvent): 'full' | 'basic' {
+  if (event.source === 'wiki') return 'basic'
+  if (event.source === 'espn') return event.fights.some((f) => f.stats !== null) ? 'full' : 'basic'
+  return 'full'
 }
 
 function sanitizeFight(fight: InternalFight, score: FightScore, order: number): Fight {

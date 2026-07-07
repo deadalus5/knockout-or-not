@@ -41,9 +41,11 @@ Fully static site + precomputed JSON. No backend, no database. The pipeline emit
 
 ```
 CSV (Greco1899/scrape_ufc_stats)  ─┐
-                                    ├─→ merge ─→ score ─→ sanitize ─→ web/public/data/v1/*.json
-Wikipedia (MediaWiki API)          ─┘   (internal model, winner-bearing)   (published, winner-free)
+Wikipedia (MediaWiki API)          ├─→ merge ─→ score ─→ sanitize ─→ web/public/data/v1/*.json
+ESPN (unofficial JSON API)        ─┘   (internal model, winner-bearing)   (published, winner-free)
 ```
+
+Source priority in `merge/`: CSV is the frozen back-catalogue base; Wikipedia is the source of record for results/bonuses after the CSV cutoff; ESPN fills in combined stats (its unique contribution — nothing else has stats post-cutoff) and whole events Wikipedia hasn't published yet.
 
 - **`shared/`** — the single source of truth for what may be published. `src/schema.ts` is a **strict Zod whitelist** (`.strict()` everywhere); `src/names.ts` normalizes/sorts fighter names; `src/spoilerPatterns.ts` is the forbidden-pattern regex set. Both `pipeline` and `web` import from here, so the whitelist is defined once.
 - **`pipeline/`** — TypeScript run via `tsx`. `src/cli.ts` orchestrates: `fetch/` (disk-cached HTTP, Wikipedia throttled 1.1s/req) → `parse/` → `merge/` (event matching by date±1d + name similarity; fight matching by surname sets) → `score/` → `emit/sanitize.ts` (the firewall) → `emit/writeJson.ts` → `audit/spoilerAudit.ts`. The internal model (`src/model.ts`) holds winner-bearing data in *source* order and must only reach disk through `sanitize.ts`.
@@ -58,7 +60,7 @@ Two distinct guarantees, and they are not the same strength:
 
 Rules when touching the pipeline or schema:
 - **`sanitize.ts` builds every published field explicitly — never spread the internal object.** A spread is how a new internal field leaks. Adding a published field means adding it to the Zod schema deliberately (which forces a spoiler review) *and* to the explicit constructor.
-- Scorecards and bonus-recipient names are discarded at *parse* time (`parse/csvResults.ts`, `parse/wikiEventPage.ts`), never stored even internally.
+- Scorecards and bonus-recipient names are discarded at *parse* time (`parse/csvResults.ts`, `parse/wikiEventPage.ts`), never stored even internally. ESPN winner flags and play-by-play are likewise never read (`parse/espnEvent.ts`), and its per-fighter stats are summed into symmetric totals at parse time.
 - Draws and no-contests must stay indistinguishable from decisions/finishes until the method cell is revealed — they are themselves outcome spoilers. `resultClass` is only `early | distance`; NC gets `excitement: null` with the shared neutral phrase.
 - The "why this rating" text comes exclusively from the fixed `WHY_VOCAB` in the schema — no names, rounds, methods, or winner verbs. Round-timing bonuses are deliberately unexplained.
 - After any pipeline change, `npm run audit` and `npm test` must be green before committing emitted data.
@@ -66,10 +68,16 @@ Rules when touching the pipeline or schema:
 ## Data source constraints (learned the hard way)
 
 - **ufcstats.com is behind a JS anti-bot wall — do not scrape it.** Historical stats come from the `Greco1899/scrape_ufc_stats` CSVs, treated as a frozen back-catalogue (last refresh ~2026-05-21). Raw CSVs cache in `pipeline/.cache/` (gitignored).
-- **Wikipedia is the live source** for events after the CSV cutoff, via the MediaWiki `action=parse` API with a descriptive User-Agent and 1.1s throttle. ~200 unthrottled requests trip HTTP 429. The full backfill is committed to `pipeline/data/wikiExtract.json` (spoiler-safe) so CI never re-fetches ~790 pages.
+- **Wikipedia is the source of record** for events after the CSV cutoff (results + FOTN/PERF bonuses), via the MediaWiki `action=parse` API with a descriptive User-Agent and 1.1s throttle. ~200 unthrottled requests trip HTTP 429. The full backfill is committed to `pipeline/data/wikiExtract.json` (spoiler-safe) so CI never re-fetches ~790 pages.
+- **ESPN is the fast path + only post-cutoff stats source** — the *unofficial*, unauthenticated JSON API (`site.api.espn.com` scoreboard + `sports.core.api.espn.com` event detail; per-fight status and per-competitor statistics only exist behind `$ref` links, some on the internal `espn.pvt` domain which `fetch/espnSource.ts` rewrites to `.com`). It can break or vanish without notice, so **every consumer degrades gracefully**: any ESPN failure logs a warning, skips the fast path, and the run/site continues on Wikipedia + last-good data — an ESPN outage must never fail a pipeline run. Fetch scope is the last `ESPN_LOOKBACK_DAYS` (7) only; captured events persist forever in the committed, winner-free `pipeline/data/espnExtract.json` (without it, stats would vanish from the next rebuild once an event ages out of the fetch window). ESPN provides **no bonuses** — those arrive via the weekend Wikipedia passes. Ambiguous methods map conservatively to `Other`; detail text is never invented.
 - Many pre-2016 event stubs redirect to "20XX in UFC" year-summary pages whose first table is *not* the event card — these are detected and skipped.
 - Fighter ring-name/legal-name aliases (e.g. Cris Cyborg) live in `pipeline/src/config.ts` `FIGHTER_ALIASES`; scoring weights and `MANUAL_EVENT_ALIASES` are there too.
 
 ## Deploy
 
-GitHub Pages via `.github/workflows/refresh-and-deploy.yml`: weekly cron (Mon 09:00 UTC) refreshes data, commits the diff, redeploys. Build uses `KO_BASE` env for the Pages base path (`vite.config.ts` reads it). If the Wikipedia parser ever breaks, the workflow fails loudly and the site keeps serving last-good committed data.
+GitHub Pages via `.github/workflows/refresh-and-deploy.yml` (refresh data → audit → commit diff → build → deploy). Build uses `KO_BASE` env for the Pages base path (`vite.config.ts` reads it). If the Wikipedia parser ever breaks, the workflow fails loudly and the site keeps serving last-good committed data.
+
+Three-tier refresh cadence:
+1. **`watch-events.yml`** polls the ESPN scoreboard every ~25 min during broadcast windows (Sat 21:00 – Sun 09:00 UTC, sparse Sun–Mon fallback). One curl + jq compare against the committed `index.json`; if a completed event is missing it dispatches `refresh-and-deploy.yml`, otherwise it no-ops in seconds. ESPN unreachable → silent no-op.
+2. **Sunday 18:00 UTC** `refresh-and-deploy.yml` cron — Wikipedia bonus/consistency pass so FOTN/PERF bonuses land same-weekend.
+3. **Monday 09:00 UTC** cron — the backstop pass.

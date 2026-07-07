@@ -1,0 +1,79 @@
+name: Watch for finished events
+
+# The fast path: poll ESPN's scoreboard during UFC broadcast windows and
+# dispatch the full refresh-and-deploy workflow as soon as a completed event
+# is missing from the committed site data — so the site updates within the
+# hour instead of waiting for the weekly Wikipedia pass. ESPN's API is
+# unofficial: any failure here is a silent no-op (the site keeps serving
+# last-good data; the Sunday/Monday Wikipedia passes still catch up).
+
+on:
+  schedule:
+    # Every ~25 min through the typical broadcast window
+    # (Saturday US evening = Sat 21:00 – Sun 09:00 UTC)…
+    - cron: '*/25 21-23 * * 6'
+    - cron: '*/25 0-8 * * 0'
+    # …plus a sparse fallback for off-schedule cards, Sunday–Monday.
+    - cron: '0 */3 * * 0,1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write # to dispatch refresh-and-deploy.yml
+
+concurrency:
+  group: watch
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare ESPN scoreboard against published data
+        env:
+          GH_TOKEN: ${{ github.token }}
+          USER_AGENT: 'KnockoutOrNot/1.0 (personal spoiler-free fight guide; rbwcontent@gmail.com)'
+        run: |
+          set -u
+          FROM=$(date -u -d '2 days ago' +%Y%m%d)
+          TO=$(date -u +%Y%m%d)
+          if ! curl -sf --max-time 30 -H "User-Agent: $USER_AGENT" -o scoreboard.json \
+              "https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard?dates=${FROM}-${TO}"; then
+            echo "ESPN scoreboard unreachable — skipping fast path (site keeps last-good data)"
+            exit 0
+          fi
+          if ! jq -e '.events' scoreboard.json > /dev/null 2>&1; then
+            echo "unexpected scoreboard shape — skipping fast path"
+            exit 0
+          fi
+
+          DATES=$(jq -r '.events[]? | select(.status.type.completed == true) | .date[0:10]' scoreboard.json | sort -u)
+          if [ -z "$DATES" ]; then
+            echo "no completed events in the window — nothing to do"
+            exit 0
+          fi
+
+          # ESPN dates are UTC and can sit a day after the wiki-local event
+          # date, so presence is checked ±1 day. (A dual-event day would slip
+          # through as "present"; the weekend Wikipedia passes cover that.)
+          MISSING=0
+          for D in $DATES; do
+            DM=$(date -u -d "$D - 1 day" +%F)
+            DP=$(date -u -d "$D + 1 day" +%F)
+            if jq -e --arg a "$DM" --arg b "$D" --arg c "$DP" \
+                'any(.events[]; .date == $a or .date == $b or .date == $c)' \
+                web/public/data/v1/index.json > /dev/null; then
+              echo "completed event on $D is already published"
+            else
+              echo "completed event on $D is MISSING from the published data"
+              MISSING=1
+            fi
+          done
+
+          if [ "$MISSING" -eq 1 ]; then
+            echo "dispatching refresh-and-deploy"
+            gh workflow run refresh-and-deploy.yml
+          else
+            echo "site is up to date"
+          fi

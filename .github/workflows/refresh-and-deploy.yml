@@ -4,8 +4,12 @@ on:
   push:
     branches: [main]
   schedule:
-    # Monday 09:00 UTC — after weekend cards, once Wikipedia editors catch up
-    - cron: '0 9 * * 1'
+    # Bonus/consistency passes: FOTN/PERF bonuses land on Wikipedia within
+    # hours of an event, so Sunday evening usually merges them same-weekend
+    # and Monday morning is the backstop. Fresh results themselves arrive
+    # faster via watch-events.yml, which dispatches this workflow on demand.
+    - cron: '0 18 * * 0' # Sunday 18:00 UTC
+    - cron: '0 9 * * 1' # Monday 09:00 UTC
   workflow_dispatch:
 
 permissions:

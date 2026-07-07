@@ -1,6 +1,5 @@
 import { normalizeName } from '@ko/shared'
 import { MANUAL_EVENT_ALIASES } from '../config.js'
-import type { WikiExtractEvent } from '../parse/wikiExtract.js'
 
 const STOPWORDS = new Set([
   'ufc', 'fight', 'night', 'on', 'espn', 'abc', 'fox', 'fx', 'fuel', 'tv',
@@ -34,23 +33,24 @@ function dayOffsets(date: string): string[] {
   ]
 }
 
-export interface EventMatch {
-  wikiEvent: WikiExtractEvent
+export interface EventMatch<T> {
+  wikiEvent: T
   similarity: number
   exactDate: boolean
 }
 
 /**
- * Match a CSV event to a Wikipedia extract event: primary key is the date
- * (±1 day for time zones), tie-broken by event-name token similarity.
+ * Match an event against candidates from another source: primary key is the
+ * date (±1 day for time zones), tie-broken by event-name token similarity.
+ * Written for CSV→Wikipedia matching; the ESPN pass reuses it as-is.
  */
-export function matchEvent(
+export function matchEvent<T extends { name: string }>(
   csvName: string,
   csvDate: string,
-  wikiByDate: Map<string, WikiExtractEvent[]>,
-): EventMatch | null {
+  wikiByDate: Map<string, T[]>,
+): EventMatch<T> | null {
   const alias = MANUAL_EVENT_ALIASES[normalizeName(csvName)]
-  const candidates: EventMatch[] = []
+  const candidates: EventMatch<T>[] = []
   for (const [i, date] of dayOffsets(csvDate).entries()) {
     for (const wikiEvent of wikiByDate.get(date) ?? []) {
       const target = alias ?? csvName

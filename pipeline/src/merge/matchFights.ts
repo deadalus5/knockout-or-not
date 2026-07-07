@@ -1,6 +1,5 @@
 import { lastNameKey, nameTokens, normalizeName } from '@ko/shared'
 import { FIGHTER_ALIASES } from '../config.js'
-import type { WikiFight } from '../parse/wikiEventPage.js'
 
 function canonical(name: string): string {
   return FIGHTER_ALIASES[normalizeName(name)] ?? name
@@ -11,15 +10,15 @@ export function fightKey(fighters: [string, string]): string {
 }
 
 /**
- * Find the wiki fight matching a CSV fight within one event. Primary key is
- * the sorted last-name pair; falls back to full-name token overlap for
- * multi-surname / transliteration differences.
+ * Find the fight matching a fighter pair within one event's fights from
+ * another source. Primary key is the sorted last-name pair; falls back to
+ * full-name token overlap for multi-surname / transliteration differences.
  */
-export function matchFight(
+export function matchFight<T extends { fighters: [string, string] }>(
   fighters: [string, string],
-  wikiFights: WikiFight[],
-  used: Set<WikiFight>,
-): WikiFight | null {
+  wikiFights: T[],
+  used: Set<T>,
+): T | null {
   const key = fightKey(fighters)
   const exact = wikiFights.filter((w) => !used.has(w) && fightKey(w.fighters) === key)
   if (exact.length === 1) return exact[0]!
@@ -31,7 +30,7 @@ export function matchFight(
     return scored[0]?.w ?? null
   }
 
-  let best: WikiFight | null = null
+  let best: T | null = null
   let bestScore = 0
   for (const w of wikiFights) {
     if (used.has(w)) continue

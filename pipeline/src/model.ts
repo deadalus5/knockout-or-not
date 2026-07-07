@@ -43,7 +43,7 @@ export interface InternalFight {
 }
 
 export interface InternalEvent {
-  source: 'csv' | 'wiki' | 'merged'
+  source: 'csv' | 'wiki' | 'merged' | 'espn'
   name: string
   date: string
   location: string | null
