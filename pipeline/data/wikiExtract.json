@@ -141369,6 +141369,231 @@
      "bonuses": []
     }
    ]
+  },
+  {
+   "title": "UFC 329",
+   "revid": 1363886049,
+   "name": "UFC 329: McGregor vs. Holloway 2",
+   "date": "2026-07-11",
+   "location": "Las Vegas, Nevada, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Max Holloway",
+      "Conor McGregor"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "knee injury",
+     "round": 1,
+     "time": "1:09",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Benoît Saint Denis",
+      "Paddy Pimblett"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Peruvian necktie",
+     "round": 1,
+     "time": "0:52",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Mario Bautista",
+      "Cory Sandhagen"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Lone'er Kavanagh",
+      "Brandon Royval"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 3,
+     "time": "3:40",
+     "bonuses": [
+      "FOTN"
+     ]
+    },
+    {
+     "fighters": [
+      "King Green",
+      "Terrance McKinney"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:59",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Nikita Krylov",
+      "Robert Whittaker"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "jaw injury",
+     "round": 3,
+     "time": "1:01",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Elisha Ellison",
+      "Gable Steveson"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "knees and punches",
+     "round": 1,
+     "time": "2:31",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Cody Garbrandt",
+      "Adrian Yañez"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "2:47",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Kai Kamaka III",
+      "Luke Riley"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "knees and punches",
+     "round": 1,
+     "time": "3:03",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Wang Cong",
+      "Tracy Cortez"
+     ],
+     "order": 10,
+     "card": "early",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "César Almeida",
+      "Damian Pinas"
+     ],
+     "order": 11,
+     "card": "early",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punch",
+     "round": 1,
+     "time": "4:44",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Farid Basharat",
+      "John Garza"
+     ],
+     "order": 12,
+     "card": "early",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ryan Gandra",
+      "Zachary Reese"
+     ],
+     "order": 13,
+     "card": "early",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:15",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Alessandro Costa",
+      "Cody Durden"
+     ],
+     "order": 14,
+     "card": "early",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 2,
+     "time": "2:19",
+     "bonuses": []
+    }
+   ]
   }
  ]
 }
