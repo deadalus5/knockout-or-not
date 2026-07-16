@@ -37,7 +37,8 @@ const fight: Fight = {
 }
 
 // Values that must never be in the DOM while their cell is sealed.
-const SEALED_VALUES = ['93', 'KO/TKO', 'Punch', 'R1', '2:27', 'Stoppage', 'Performance']
+// 61.4 is the derived pace: 301 attempted over 2.45 min → 61.4 per 30s.
+const SEALED_VALUES = ['93', 'KO/TKO', 'Punch', 'R1', '2:27', 'Stoppage', 'Performance', '152', '301', '61.4', '3%']
 
 beforeEach(() => localStorage.clear())
 afterEach(cleanup)
@@ -106,6 +107,32 @@ describe('single-cell isolation — one variable per reveal', () => {
     expect(screen.getByText('Stoppage')).toBeTruthy()
   })
 
+  it('revealing significant strikes landed shows only that total', () => {
+    const { container } = render(<FightTable fights={[fight]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal significant strikes landed —/i }))
+    expect(screen.getByText('152')).toBeTruthy()
+    expect(container.innerHTML).not.toContain('301')
+    expect(container.innerHTML).not.toContain('61.4')
+    expect(container.innerHTML).not.toContain('3%')
+  })
+
+  it('revealing strike pace shows the derived attempted-per-30s rate', () => {
+    // round 1 at 2:27 → 2.45 min → 301 attempted / 4.9 half-minutes = 61.4
+    const { container } = render(<FightTable fights={[fight]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal strike rate —/i }))
+    expect(screen.getByText('61.4')).toBeTruthy()
+    expect(container.innerHTML).not.toContain('301')
+    expect(container.innerHTML).not.toContain('2:27')
+  })
+
+  it('revealing control time shows the bar and the percentage', () => {
+    const { container } = render(<FightTable fights={[fight]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal control time —/i }))
+    expect(screen.getByText('3%')).toBeTruthy()
+    expect(container.querySelector('.control-fill')).toBeTruthy()
+    expect(container.innerHTML).not.toContain('152')
+  })
+
   it('revealing rating shows the score and nothing else — no why phrases', () => {
     const { container } = render(<FightTable fights={[fight]} />)
     fireEvent.click(screen.getByRole('button', { name: /reveal rating —/i }))
@@ -158,6 +185,34 @@ describe('missing data', () => {
     expect(screen.getByText('Not rated')).toBeTruthy()
     fireEvent.click(screen.getByRole('button', { name: /reveal details —/i }))
     expect(screen.getByText('None')).toBeTruthy()
+  })
+
+  it('stat cells show their empty states when stats are missing', () => {
+    render(<FightTable fights={[bareFight]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal significant strikes landed —/i }))
+    fireEvent.click(screen.getByRole('button', { name: /reveal significant strikes attempted —/i }))
+    fireEvent.click(screen.getByRole('button', { name: /reveal strike rate —/i }))
+    expect(screen.getAllByText('No data').length).toBe(3)
+    fireEvent.click(screen.getByRole('button', { name: /reveal control time —/i }))
+    expect(screen.getByText('Not recorded')).toBeTruthy()
+  })
+
+  it('per-30s stays empty for legacy multi-round formats', () => {
+    const legacy: Fight = {
+      ...fight,
+      scheduledRounds: 1,
+      reveal: { ...fight.reveal, round: 2, time: '3:00' },
+    }
+    render(<FightTable fights={[legacy]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal strike rate —/i }))
+    expect(screen.getByText('No data')).toBeTruthy()
+  })
+
+  it('control shows its empty state when control time was not tracked', () => {
+    const noCtrl: Fight = { ...fight, stats: { ...fight.stats!, controlPct: null } }
+    render(<FightTable fights={[noCtrl]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal control time —/i }))
+    expect(screen.getByText('Not recorded')).toBeTruthy()
   })
 })
 

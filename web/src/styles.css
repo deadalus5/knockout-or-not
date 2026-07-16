@@ -469,11 +469,11 @@ button {
 }
 
 /* ── the reveal table ─────────────────────────────────────────────────────
-   Breaks out of the 720px column up to 1024px so all nine detail columns
+   Breaks out of the 720px column up to ~1280px so all ten detail columns
    fit on desktop; below that it scrolls horizontally with the fight column
    pinned. */
 .table-scroll {
-  --bleed: min(920px, 100vw - 2 * var(--pad));
+  --bleed: min(1280px, 100vw - 2 * var(--pad));
   width: var(--bleed);
   margin: 10px calc((100% - var(--bleed)) / 2) 4px;
   overflow-x: auto;
@@ -487,7 +487,7 @@ button {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  min-width: 872px;
+  min-width: 1252px;
 }
 
 .fight-table thead th {
@@ -595,6 +595,10 @@ button {
 .col-finish { min-width: 132px; }
 .col-method { min-width: 112px; }
 .col-details { min-width: 168px; max-width: 210px; }
+.col-landed { min-width: 88px; }
+.col-attempted { min-width: 106px; }
+.col-per30 { min-width: 76px; }
+.col-control { min-width: 110px; }
 .col-round { min-width: 66px; }
 .col-time { min-width: 66px; }
 
@@ -640,6 +644,10 @@ button {
 .col-finish .cell-mask { max-width: 84px; }
 .col-method .cell-mask { max-width: 68px; }
 .col-details .cell-mask { max-width: 96px; }
+.col-landed .cell-mask { max-width: 40px; }
+.col-attempted .cell-mask { max-width: 48px; }
+.col-per30 .cell-mask { max-width: 44px; }
+.col-control .cell-mask { max-width: 76px; }
 .col-round .cell-mask { max-width: 34px; }
 .col-time .cell-mask { max-width: 42px; }
 
@@ -699,6 +707,30 @@ button {
 /* in the Details column the detail text is the primary content */
 .col-details .cell-sub {
   font-size: 12px;
+}
+
+/* ── control-time bar: grappling-control share vs open action ── */
+.control-cell {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.control-bar {
+  display: block;
+  width: 44px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--line-strong);
+  overflow: hidden;
+  flex: none;
+}
+
+.control-fill {
+  display: block;
+  height: 100%;
+  background: var(--amber);
+  border-radius: 2px 0 0 2px;
 }
 
 @keyframes unseal {

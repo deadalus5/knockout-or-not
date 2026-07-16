@@ -72,5 +72,12 @@ describe('app integration over real published data', () => {
     expect(document.body.innerHTML).not.toMatch(/>R\d+</)
     // even after reveal: no winner vocabulary anywhere
     expect(scanForSpoilers(document.body.innerHTML)).toEqual([])
+
+    // unseal a combined-stat cell: real published stats render spoiler-free
+    fireEvent.click(screen.getAllByRole('button', { name: /reveal control time —/i })[0]!)
+    await waitFor(() =>
+      expect(screen.getAllByRole('button', { pressed: true }).length).toBe(2),
+    )
+    expect(scanForSpoilers(document.body.innerHTML)).toEqual([])
   }, 20000)
 })

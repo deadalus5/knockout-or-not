@@ -29,8 +29,12 @@ export const ESPN_SCOREBOARD_API =
   'https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard'
 export const ESPN_CORE_API = 'https://sports.core.api.espn.com/v2/sports/mma/leagues/ufc'
 export const ESPN_THROTTLE_MS = 300
-/** Only fetch ESPN for events this recent; older events belong to Wikipedia. */
-export const ESPN_LOOKBACK_DAYS = 7
+/**
+ * Only fetch ESPN for events this recent; older events belong to Wikipedia.
+ * Env-overridable for one-off backfills of events that aged out of the
+ * window before being captured (e.g. `ESPN_LOOKBACK_DAYS=60 npm run data:refresh`).
+ */
+export const ESPN_LOOKBACK_DAYS = Number(process.env.ESPN_LOOKBACK_DAYS ?? 7)
 
 /** Excitement score weights — referenced by tests, keep in one place. */
 export const SCORE = {

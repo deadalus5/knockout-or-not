@@ -3,3 +3,5 @@ dist/
 pipeline/.cache/
 *.log
 .DS_Store
+# local research copy of the Kaggle UFC dataset — not a pipeline source
+UFCStats Dataset.csv

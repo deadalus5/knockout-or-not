@@ -33,10 +33,18 @@ export function AboutPage() {
       <h2>How revealing works</h2>
       <p>
         Every fight is a row of sealed cells, ordered left to right from vague to specific: the
-        excitement rating, whether it was a stoppage, then the method, its details, the round,
-        and the time — each its own sealed cell. Tap a cell and <strong>only that cell</strong>{' '}
-        is unsealed; tap a column header to unseal that column for every fight. You choose
-        exactly how much you learn.
+        excitement rating, whether it was a stoppage, the method and its details, the combined
+        fight stats — significant strikes landed and attempted, attempted strikes per 30
+        seconds, and control time — and finally the round and the time. Tap a cell and{' '}
+        <strong>only that cell</strong> is unsealed; tap a column header to unseal that column
+        for every fight. You choose exactly how much you learn.
+      </p>
+      <p>
+        All stats are <strong>combined totals for both fighters</strong>, so they describe the
+        fight, never a fighter. "Control" is the share of the fight one fighter spent
+        controlling the other in grappling — on the ground or pressed in the clinch. It's the
+        closest available measure of how much of a fight was grappling rather than open
+        striking; no data source records a pure ground-time clock.
       </p>
       <p>
         Reveals are never remembered: reload the page and everything is sealed again. Draws and

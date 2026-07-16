@@ -12,6 +12,10 @@ const DEMO_CELLS: { label: string; value?: string; kind?: 'early' }[] = [
   { label: 'Rating', value: '★★★☆☆ 43' },
   { label: 'Finish', value: 'Stoppage', kind: 'early' },
   { label: 'Method', value: 'Submission' },
+  { label: 'Sig. landed', value: '121' },
+  { label: 'Sig. attempted', value: '200' },
+  { label: 'Per 30s', value: '5.5' },
+  { label: 'Control', value: '68%' },
   { label: 'Round', value: 'R4' },
   { label: 'Time', value: '3:03' },
 ]
@@ -78,8 +82,9 @@ export function ExplainerMasthead() {
           ))}
         </div>
         <p className="demo-caption">
-          Fully unsealed: rated 43 out of 100, it ended by submission at 3:03 of round 4. Who won
-          stays sealed forever.
+          Fully unsealed: rated 43 out of 100 — 121 of 200 significant strikes between the two,
+          with 68% of the fight spent in grappling control, ending by submission at 3:03 of round
+          4. Who won stays sealed forever.
         </p>
       </div>
     </aside>

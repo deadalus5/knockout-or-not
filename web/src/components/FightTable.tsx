@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import type { Fight } from '@ko/shared'
 import { ExcitementBadge } from './ExcitementBadge'
+import { sigStrAttemptedPer30 } from '../lib/format'
 
 /**
  * The progressive-reveal table: one row per fight, one column per detail,
@@ -10,12 +11,23 @@ import { ExcitementBadge } from './ExcitementBadge'
  * for every fight. Revealed values are not in the DOM until clicked, and
  * reveal state is transient component state — never persisted.
  *
- * Only variables available for essentially every fight get a column
- * (rating/finish/method/details/round/time). Combined stats exist in the
- * published JSON but are not rendered: their coverage is patchy across
- * eras and recent events, and cohesion beats extra columns.
+ * Combined stats (winner-free totals) sit between details and round/time:
+ * they say what kind of fight it was without pinpointing the finish. Their
+ * coverage is near-complete since the ESPN fast path took over from the
+ * stalled stats CSV; the remaining gaps (mostly the 1990s) render the
+ * cell's empty state.
  */
-export type CellKey = 'rating' | 'finish' | 'method' | 'details' | 'round' | 'time'
+export type CellKey =
+  | 'rating'
+  | 'finish'
+  | 'method'
+  | 'details'
+  | 'landed'
+  | 'attempted'
+  | 'per30'
+  | 'control'
+  | 'round'
+  | 'time'
 
 export interface CellDef {
   key: CellKey
@@ -75,6 +87,56 @@ export const CELL_DEFS: CellDef[] = [
                 .join(' · ')}
             </span>
           )}
+        </span>
+      ),
+  },
+  {
+    key: 'landed',
+    label: 'Sig. landed',
+    name: 'significant strikes landed',
+    empty: 'No data',
+    value: (f) =>
+      f.stats === null ? null : (
+        <span className="cell-strong">{f.stats.combinedSigStrLanded}</span>
+      ),
+  },
+  {
+    key: 'attempted',
+    label: 'Sig. attempted',
+    name: 'significant strikes attempted',
+    empty: 'No data',
+    value: (f) =>
+      f.stats === null ? null : (
+        <span className="cell-strong">{f.stats.combinedSigStrAttempted}</span>
+      ),
+  },
+  {
+    key: 'per30',
+    label: 'Per 30s',
+    name: 'strike rate',
+    empty: 'No data',
+    value: (f) => {
+      const per30 = sigStrAttemptedPer30(f)
+      return per30 === null ? null : (
+        <span className="cell-strong">
+          {per30}
+          <span className="cell-dim">/30s</span>
+        </span>
+      )
+    },
+  },
+  {
+    key: 'control',
+    label: 'Control',
+    name: 'control time',
+    empty: 'Not recorded',
+    value: (f) =>
+      f.stats === null || f.stats.controlPct === null ? null : (
+        <span className="control-cell">
+          <span className="control-bar" aria-hidden="true">
+            <span className="control-fill" style={{ width: `${f.stats.controlPct}%` }} />
+          </span>
+          <span className="cell-strong">{f.stats.controlPct}%</span>
         </span>
       ),
   },
