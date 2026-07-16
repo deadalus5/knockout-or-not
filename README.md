@@ -66,8 +66,8 @@ the last good data.
 ## Repository layout
 
 - `shared/` — the whitelist schema + name utilities used by everything
-- `pipeline/` — data pipeline: CSV back-catalogue + Wikipedia recent events →
-  merge → excitement scoring → sanitize → `web/public/data/v1/`
+- `pipeline/` — data pipeline: CSV back-catalogue + Wikipedia recent events +
+  ESPN fresh stats → merge → excitement scoring → sanitize → `web/public/data/v1/`
 - `web/` — React + Vite PWA
 
 ## Development
@@ -78,7 +78,7 @@ npm run dev             # local dev server
 npm test                # all tests
 npm run audit           # spoiler audit of committed data
 npm run build && npm run smoke
-npm run data:refresh    # refresh data: CSVs + Wikipedia events newer than the CSV cutoff
+npm run data:refresh    # refresh data: CSVs + recent Wikipedia events + recent ESPN stats
 ```
 
 ## Data sources
