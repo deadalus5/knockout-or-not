@@ -2,6 +2,1182 @@
  "extractVersion": 1,
  "events": [
   {
+   "espnId": "600058517",
+   "name": "UFC Fight Night: Song vs. Figueiredo",
+   "date": "2026-05-30",
+   "location": "Cotai, Macau",
+   "fights": [
+    {
+     "fighters": [
+      "Deiveson Figueiredo",
+      "Song Yadong"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Guillotine Choke",
+     "round": 2,
+     "time": "4:42",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 33,
+      "combinedSigStrAttempted": 69,
+      "combinedTotalStr": 47,
+      "combinedTD": 2,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 38,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Alonzo Menifield",
+      "Zhang Mingyang"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "4:15",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 2,
+      "combinedSigStrLanded": 44,
+      "combinedSigStrAttempted": 89,
+      "combinedTotalStr": 70,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 150,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Sergei Pavlovich",
+      "Tallison Teixeira"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "0:39",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 7,
+      "combinedSigStrAttempted": 13,
+      "combinedTotalStr": 10,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 5,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Kai Asakura",
+      "Cameron Smotherman"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "1:50",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 12,
+      "combinedSigStrAttempted": 28,
+      "combinedTotalStr": 12,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 3,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Carlston Harris",
+      "Jake Matthews"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 82,
+      "combinedSigStrAttempted": 171,
+      "combinedTotalStr": 149,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 597,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Alex Perez",
+      "Sumudaerji"
+     ],
+     "order": 6,
+     "card": "main",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "No Contest",
+     "methodDetail": null,
+     "round": 2,
+     "time": "1:45",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 35,
+      "combinedSigStrAttempted": 98,
+      "combinedTotalStr": 53,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 103,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Luis Felipe Dias",
+      "Yi Sak Lee"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "3:40",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 31,
+      "combinedSigStrAttempted": 65,
+      "combinedTotalStr": 31,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 3,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Jose Henrique",
+      "Ding Meng"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Split",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 135,
+      "combinedSigStrAttempted": 299,
+      "combinedTotalStr": 135,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 0,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Aoriqileng",
+      "Cody Haddon"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Knee",
+     "round": 2,
+     "time": "2:11",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 63,
+      "combinedSigStrAttempted": 81,
+      "combinedTotalStr": 96,
+      "combinedTD": 2,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 330,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Luis Gurule",
+      "Rei Tsuruya"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 1,
+     "time": "3:19",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 18,
+      "combinedSigStrAttempted": 29,
+      "combinedTotalStr": 21,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 137,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Angela Hill",
+      "Jingnan Xiong"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 190,
+      "combinedSigStrAttempted": 395,
+      "combinedTotalStr": 227,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 133,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Zhu Kangjie",
+      "Rodrigo Vera"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 1,
+     "time": "1:50",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 24,
+      "combinedSigStrAttempted": 43,
+      "combinedTotalStr": 37,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 41,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Jaqueline Amorim",
+      "Loma Lookboonmee"
+     ],
+     "order": 13,
+     "card": "prelim",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Armbar",
+     "round": 1,
+     "time": "4:04",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 3,
+      "combinedSigStrAttempted": 14,
+      "combinedTotalStr": 15,
+      "combinedTD": 0,
+      "combinedSubAtt": 3,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 186,
+      "roundsWithStats": 1
+     }
+    }
+   ]
+  },
+  {
+   "espnId": "600058949",
+   "name": "UFC Fight Night: Muhammad vs. Bonfim",
+   "date": "2026-06-06",
+   "location": "Las Vegas, NV, USA",
+   "fights": [
+    {
+     "fighters": [
+      "Gabriel Bonfim",
+      "Belal Muhammad"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 5,
+     "time": "5:00",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 214,
+      "combinedSigStrAttempted": 535,
+      "combinedTotalStr": 214,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 8,
+      "roundsWithStats": 5
+     }
+    },
+    {
+     "fighters": [
+      "Brendan Allen",
+      "Edmen Shahbazyan"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 179,
+      "combinedSigStrAttempted": 374,
+      "combinedTotalStr": 181,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 36,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Tom Nolan",
+      "Farés Ziam"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 47,
+      "combinedSigStrAttempted": 98,
+      "combinedTotalStr": 113,
+      "combinedTD": 5,
+      "combinedSubAtt": 1,
+      "combinedRev": 2,
+      "combinedCtrlSeconds": 714,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Santiago Luna",
+      "Bryce Mitchell"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Arm Triangle",
+     "round": 3,
+     "time": "4:52",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 31,
+      "combinedSigStrAttempted": 66,
+      "combinedTotalStr": 166,
+      "combinedTD": 2,
+      "combinedSubAtt": 3,
+      "combinedRev": 2,
+      "combinedCtrlSeconds": 774,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Iwo Baraniewski",
+      "Junior Tafa"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Kick",
+     "round": 1,
+     "time": "1:25",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 6,
+      "combinedSigStrAttempted": 30,
+      "combinedTotalStr": 6,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 17,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Alessandro Costa",
+      "Matt Schnell"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Catch Weight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "2:28",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 27,
+      "combinedSigStrAttempted": 44,
+      "combinedTotalStr": 27,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 5,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Marcus McGhee",
+      "John Yannis"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 134,
+      "combinedSigStrAttempted": 317,
+      "combinedTotalStr": 134,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 0,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Édgar Cháirez",
+      "Bruno Silva"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 1,
+     "time": "4:13",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 2,
+      "combinedSigStrLanded": 41,
+      "combinedSigStrAttempted": 73,
+      "combinedTotalStr": 41,
+      "combinedTD": 0,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 24,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Priscila Cachoeira",
+      "Chelsea Chandler"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Armbar",
+     "round": 1,
+     "time": "3:42",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 18,
+      "combinedSigStrAttempted": 38,
+      "combinedTotalStr": 33,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 135,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Joanderson Brito",
+      "Jordan Leavitt"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Guillotine Choke",
+     "round": 1,
+     "time": "4:19",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 12,
+      "combinedSigStrAttempted": 22,
+      "combinedTotalStr": 42,
+      "combinedTD": 0,
+      "combinedSubAtt": 2,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 218,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Jeisla Chaves",
+      "Yuneisy Duben"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Split",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 126,
+      "combinedSigStrAttempted": 211,
+      "combinedTotalStr": 202,
+      "combinedTD": 5,
+      "combinedSubAtt": 1,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 467,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Ariane Carnelossi",
+      "Ketlen Souza"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Kick",
+     "round": 1,
+     "time": "1:34",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 21,
+      "combinedSigStrAttempted": 38,
+      "combinedTotalStr": 21,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 3,
+      "roundsWithStats": 1
+     }
+    }
+   ]
+  },
+  {
+   "espnId": "600058854",
+   "name": "UFC Freedom 250: Topuria vs. Gaethje",
+   "date": "2026-06-15",
+   "location": "Washington, DC, USA",
+   "fights": [
+    {
+     "fighters": [
+      "Justin Gaethje",
+      "Ilia Topuria"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": null,
+     "round": 4,
+     "time": "5:00",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 188,
+      "combinedSigStrAttempted": 354,
+      "combinedTotalStr": 230,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 244,
+      "roundsWithStats": 4
+     }
+    },
+    {
+     "fighters": [
+      "Ciryl Gane",
+      "Alex Pereira"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "1:27",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 66,
+      "combinedSigStrAttempted": 119,
+      "combinedTotalStr": 66,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 12,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Sean O'Malley",
+      "Aiemann Zahabi"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "4:02",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 73,
+      "combinedSigStrAttempted": 137,
+      "combinedTotalStr": 73,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 2,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Josh Hokit",
+      "Derrick Lewis"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "4:09",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 93,
+      "combinedSigStrAttempted": 157,
+      "combinedTotalStr": 113,
+      "combinedTD": 2,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 244,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Michael Chandler",
+      "Mauricio Ruffy"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 1,
+     "time": "4:29",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 2,
+      "combinedSigStrLanded": 22,
+      "combinedSigStrAttempted": 52,
+      "combinedTotalStr": 23,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 13,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Kyle Daukaus",
+      "Bo Nickal"
+     ],
+     "order": 6,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 1,
+     "time": "4:34",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 18,
+      "combinedSigStrAttempted": 31,
+      "combinedTotalStr": 70,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 194,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Steve Garcia",
+      "Diego Lopes"
+     ],
+     "order": 7,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "2:42",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 71,
+      "combinedSigStrAttempted": 170,
+      "combinedTotalStr": 71,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 5,
+      "roundsWithStats": 2
+     }
+    }
+   ]
+  },
+  {
+   "espnId": "600059467",
+   "name": "UFC Fight Night: Kape vs. Horiguchi 2",
+   "date": "2026-06-20",
+   "location": "Las Vegas, NV, USA",
+   "fights": [
+    {
+     "fighters": [
+      "Kyoji Horiguchi",
+      "Manel Kape"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 3,
+     "time": "2:42",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 46,
+      "combinedSigStrAttempted": 109,
+      "combinedTotalStr": 100,
+      "combinedTD": 2,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 250,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Ion Cutelaba",
+      "Navajo Stirling"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "3:23",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 71,
+      "combinedSigStrAttempted": 118,
+      "combinedTotalStr": 117,
+      "combinedTD": 5,
+      "combinedSubAtt": 1,
+      "combinedRev": 4,
+      "combinedCtrlSeconds": 294,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Hyder Amil",
+      "Christian Rodriguez"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Guillotine Choke",
+     "round": 1,
+     "time": "3:43",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 43,
+      "combinedSigStrAttempted": 86,
+      "combinedTotalStr": 46,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 23,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Melsik Baghdasaryan",
+      "Murtazali Magomedov"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Twister",
+     "round": 1,
+     "time": "1:17",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 8,
+      "combinedSigStrAttempted": 20,
+      "combinedTotalStr": 10,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 27,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Andre Fili",
+      "Vinicius Oliveira"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Elbows",
+     "round": 2,
+     "time": "4:56",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 145,
+      "combinedSigStrAttempted": 265,
+      "combinedTotalStr": 145,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 17,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Kevin Borjas",
+      "Andre Lima"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 102,
+      "combinedSigStrAttempted": 250,
+      "combinedTotalStr": 110,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 109,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Bia Mesquita",
+      "Melissa Mullins"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Armbar",
+     "round": 1,
+     "time": "3:16",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 13,
+      "combinedSigStrAttempted": 35,
+      "combinedTotalStr": 41,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 99,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Allan Nascimento",
+      "Mitch Raposo"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Split",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 96,
+      "combinedSigStrAttempted": 231,
+      "combinedTotalStr": 152,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 308,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Michael Aswell",
+      "Gaston Bolaños"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 192,
+      "combinedSigStrAttempted": 445,
+      "combinedTotalStr": 209,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 88,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Levan Chokheli",
+      "Leon Shahbazyan"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "0:23",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 6,
+      "combinedSigStrAttempted": 12,
+      "combinedTotalStr": 6,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 1,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Karol Rosa",
+      "Luana Santos"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 16,
+      "combinedSigStrAttempted": 37,
+      "combinedTotalStr": 236,
+      "combinedTD": 2,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 741,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Shane Collins",
+      "Otari Tanzilovi"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 134,
+      "combinedSigStrAttempted": 227,
+      "combinedTotalStr": 185,
+      "combinedTD": 5,
+      "combinedSubAtt": 3,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 408,
+      "roundsWithStats": 3
+     }
+    }
+   ]
+  },
+  {
    "espnId": "600059254",
    "name": "UFC Fight Night: Fiziev vs. Torres",
    "date": "2026-06-27",
@@ -343,6 +1519,378 @@
       "combinedRev": 0,
       "combinedCtrlSeconds": 225,
       "roundsWithStats": 3
+     }
+    }
+   ]
+  },
+  {
+   "espnId": "600059148",
+   "name": "UFC 329: McGregor vs. Holloway 2",
+   "date": "2026-07-11",
+   "location": "Las Vegas, NV, USA",
+   "fights": [
+    {
+     "fighters": [
+      "Max Holloway",
+      "Conor McGregor"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Injury",
+     "round": 1,
+     "time": "1:09",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 12,
+      "combinedSigStrAttempted": 25,
+      "combinedTotalStr": 19,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 37,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Benoît Saint Denis",
+      "Paddy Pimblett"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "D'Arce Choke",
+     "round": 1,
+     "time": "0:52",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 5,
+      "combinedSigStrAttempted": 8,
+      "combinedTotalStr": 5,
+      "combinedTD": 0,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 41,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Mario Bautista",
+      "Cory Sandhagen"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 203,
+      "combinedSigStrAttempted": 361,
+      "combinedTotalStr": 247,
+      "combinedTD": 9,
+      "combinedSubAtt": 3,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 274,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Lone'er Kavanagh",
+      "Brandon Royval"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 3,
+     "time": "3:40",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 140,
+      "combinedSigStrAttempted": 246,
+      "combinedTotalStr": 209,
+      "combinedTD": 4,
+      "combinedSubAtt": 3,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 422,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "King Green",
+      "Terrance McKinney"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "4:59",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 88,
+      "combinedSigStrAttempted": 152,
+      "combinedTotalStr": 116,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 135,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Nikita Krylov",
+      "Robert Whittaker"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 3,
+     "time": "1:01",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 105,
+      "combinedSigStrAttempted": 210,
+      "combinedTotalStr": 112,
+      "combinedTD": 3,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 130,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Elisha Ellison",
+      "Gable Steveson"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 1,
+     "time": "2:31",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 54,
+      "combinedSigStrAttempted": 90,
+      "combinedTotalStr": 55,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 10,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Cody Garbrandt",
+      "Adrian Yañez"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 1,
+     "time": "2:47",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 29,
+      "combinedSigStrAttempted": 62,
+      "combinedTotalStr": 29,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 0,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Kai Kamaka III",
+      "Luke Riley"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 1,
+     "time": "3:03",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 66,
+      "combinedSigStrAttempted": 108,
+      "combinedTotalStr": 66,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 2,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Wang Cong",
+      "Tracy Cortez"
+     ],
+     "order": 10,
+     "card": "early",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 209,
+      "combinedSigStrAttempted": 371,
+      "combinedTotalStr": 227,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 113,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Cesar Almeida",
+      "Damian Pinas"
+     ],
+     "order": 11,
+     "card": "early",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "4:44",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 62,
+      "combinedSigStrAttempted": 83,
+      "combinedTotalStr": 67,
+      "combinedTD": 1,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 36,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Farid Basharat",
+      "John Garza"
+     ],
+     "order": 12,
+     "card": "early",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 168,
+      "combinedSigStrAttempted": 321,
+      "combinedTotalStr": 187,
+      "combinedTD": 5,
+      "combinedSubAtt": 0,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 255,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Ryan Gandra",
+      "Zach Reese"
+     ],
+     "order": 13,
+     "card": "early",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "1:15",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 15,
+      "combinedSigStrAttempted": 30,
+      "combinedTotalStr": 15,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 5,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Alessandro Costa",
+      "Cody Durden"
+     ],
+     "order": 14,
+     "card": "early",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 2,
+     "time": "2:19",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 49,
+      "combinedSigStrAttempted": 122,
+      "combinedTotalStr": 55,
+      "combinedTD": 0,
+      "combinedSubAtt": 2,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 73,
+      "roundsWithStats": 2
      }
     }
    ]
