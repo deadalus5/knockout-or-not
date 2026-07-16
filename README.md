@@ -54,10 +54,15 @@ developer tools if you like: there is no winner to find.
 ## How it stays fresh
 
 A watcher workflow (`watch-events.yml`) polls ESPN's scoreboard every
-~25 minutes during UFC broadcast windows and triggers a full data refresh
-and redeploy as soon as an event finishes — new cards typically appear on
-the site within the hour, fight stats included. Wikipedia remains the
-source of record: scheduled passes on Sunday and Monday
+~10 minutes during UFC broadcast windows (Saturday afternoon UTC for
+international cards through Sunday morning UTC for US cards) and triggers
+a full data refresh and redeploy as soon as an event finishes — new cards
+typically appear on the site **20–40 minutes after the card ends**, fight
+stats included. A dispatch damper stops it from queueing duplicate builds
+while a refresh is already running. If stats lag ESPN, the event still
+publishes immediately with "No data" cells and upgrades on the next pass —
+a Sunday-midday catch-up cron exists for exactly that. Wikipedia remains
+the source of record: scheduled passes on Sunday and Monday
 (`refresh-and-deploy.yml`) re-pull it so post-fight bonuses get merged in
 and scores re-computed. If any source breaks or parsing fails, the
 workflows fail loudly (or skip the fast path) and the site keeps serving
@@ -89,6 +94,6 @@ npm run data:refresh    # refresh data: CSVs + recent Wikipedia events + recent 
   (source: ufcstats.com)
 - Fresh results & statistics: ESPN's unofficial public JSON API, best-effort —
   it's undocumented and may break without notice; when it does, the site
-  simply falls back to the weekly Wikipedia cadence
+  simply falls back to the scheduled weekend Wikipedia passes
 
 Not affiliated with the UFC.

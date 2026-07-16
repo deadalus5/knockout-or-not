@@ -79,7 +79,9 @@ Rules when touching the pipeline or schema:
 
 GitHub Pages via `.github/workflows/refresh-and-deploy.yml` (refresh data → audit → commit diff → build → deploy). Build uses `KO_BASE` env for the Pages base path (`vite.config.ts` reads it). If the Wikipedia parser ever breaks, the workflow fails loudly and the site keeps serving last-good committed data.
 
-Three-tier refresh cadence:
-1. **`watch-events.yml`** polls the ESPN scoreboard every ~25 min during broadcast windows (Sat 21:00 – Sun 09:00 UTC, sparse Sun–Mon fallback). One curl + jq compare against the committed `index.json`; if a completed event is missing it dispatches `refresh-and-deploy.yml`, otherwise it no-ops in seconds. ESPN unreachable → silent no-op.
-2. **Sunday 18:00 UTC** `refresh-and-deploy.yml` cron — Wikipedia bonus/consistency pass so FOTN/PERF bonuses land same-weekend.
-3. **Monday 09:00 UTC** cron — the backstop pass.
+Three-tier refresh cadence (targets ~20–40 min after a card ends; GitHub cron jitter is the main variance):
+1. **`watch-events.yml`** polls the ESPN scoreboard every ~10 min during broadcast windows (Sat 12:00 – Sun 09:00 UTC — the Saturday-afternoon start covers Asia/Europe cards; sparse Sun–Mon fallback). One curl + jq compare against the committed `index.json`; if a completed event is missing it dispatches `refresh-and-deploy.yml`, otherwise it no-ops in seconds. A dispatch damper skips the trigger while a refresh is running or finished <30 min ago (prevents build-queue floods if ESPN's detail feed breaks mid-event; fails open — a damper error dispatches anyway). ESPN unreachable → silent no-op.
+2. **Sunday 12:00 UTC** `refresh-and-deploy.yml` cron — stats/bonus catch-up shortly after US cards end: upgrades any `basic`-quality event whose ESPN stats lagged the fast-path pass (events publish immediately with `stats: null` → "No data" cells, then fill in).
+3. **Sunday 18:00 UTC** and **Monday 09:00 UTC** crons — Wikipedia bonus/consistency pass and backstop.
+
+`emit/writeJson.ts` keeps `index.json` byte-stable when nothing changed (it reuses the previous `generatedAt` unless the event list differs), so the CI commit step's no-op guard actually engages — a refresh with no new data produces no commit.
