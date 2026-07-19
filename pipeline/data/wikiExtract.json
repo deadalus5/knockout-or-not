@@ -141594,6 +141594,201 @@
      "bonuses": []
     }
    ]
+  },
+  {
+   "title": "UFC Fight Night: du Plessis vs. Usman",
+   "revid": 1364895327,
+   "name": "UFC Fight Night: du Plessis vs. Usman",
+   "date": "2026-07-18",
+   "location": "Oklahoma City, Oklahoma, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Dricus du Plessis",
+      "Kamaru Usman"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 5,
+     "time": "5:00",
+     "bonuses": [
+      "FOTN"
+     ]
+    },
+    {
+     "fighters": [
+      "Jared Cannonier",
+      "Christian Leroy Duncan"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Chase Hooper",
+      "Mitch Ramirez"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Catchweight ( . lb)",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 1,
+     "time": "2:15",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Fatima Kline",
+      "Tabatha Ricci"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Tommy McMillen",
+      "Alberto Montes"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 3,
+     "time": "3:29",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Austin Bashi",
+      "Jose Miguel Delgado"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ko Seok-hyeon",
+      "Jean-Paul Lebosnoyani"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Felipe Franco",
+      "Levi Rodrigues Jr."
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 2,
+     "time": "1:40",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Damien Anderson",
+      "Ezra Elliott"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Catchweight ( . lb)",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Alden Coria",
+      "Stewart Nicoll"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "RJ Harris",
+      "Alvin Hines"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:40",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Dione Barbosa",
+      "Anna Melisano"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 1,
+     "time": "4:04",
+     "bonuses": []
+    }
+   ]
   }
  ]
 }
