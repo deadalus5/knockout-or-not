@@ -1894,6 +1894,326 @@
      }
     }
    ]
+  },
+  {
+   "espnId": "600059599",
+   "name": "UFC Fight Night: Du Plessis vs. Usman",
+   "date": "2026-07-18",
+   "location": "Oklahoma City, OK, USA",
+   "fights": [
+    {
+     "fighters": [
+      "Dricus Du Plessis",
+      "Kamaru Usman"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 5,
+     "time": "5:00",
+     "scheduledRounds": 5,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 228,
+      "combinedSigStrAttempted": 507,
+      "combinedTotalStr": 238,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 30,
+      "roundsWithStats": 5
+     }
+    },
+    {
+     "fighters": [
+      "Jared Cannonier",
+      "Christian Leroy Duncan"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 83,
+      "combinedSigStrAttempted": 163,
+      "combinedTotalStr": 130,
+      "combinedTD": 6,
+      "combinedSubAtt": 0,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 508,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Chase Hooper",
+      "Mitch Ramirez"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 1,
+     "time": "2:15",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 4,
+      "combinedSigStrAttempted": 8,
+      "combinedTotalStr": 7,
+      "combinedTD": 1,
+      "combinedSubAtt": 1,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 87,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Fatima Kline",
+      "Tabatha Ricci"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 90,
+      "combinedSigStrAttempted": 266,
+      "combinedTotalStr": 112,
+      "combinedTD": 8,
+      "combinedSubAtt": 1,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 330,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Tommy McMillen",
+      "Alberto Montes"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 3,
+     "time": "3:29",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 2,
+      "combinedSigStrLanded": 308,
+      "combinedSigStrAttempted": 660,
+      "combinedTotalStr": 311,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 57,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Austin Bashi",
+      "Jose Miguel Delgado"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 67,
+      "combinedSigStrAttempted": 172,
+      "combinedTotalStr": 124,
+      "combinedTD": 4,
+      "combinedSubAtt": 1,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 304,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Seokhyeon Ko",
+      "Jean-Paul Lebosnoyani"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 118,
+      "combinedSigStrAttempted": 320,
+      "combinedTotalStr": 147,
+      "combinedTD": 3,
+      "combinedSubAtt": 2,
+      "combinedRev": 1,
+      "combinedCtrlSeconds": 236,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Felipe Franco",
+      "Levi Rodrigues Jr."
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punches",
+     "round": 2,
+     "time": "1:40",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 50,
+      "combinedSigStrAttempted": 88,
+      "combinedTotalStr": 78,
+      "combinedTD": 3,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 231,
+      "roundsWithStats": 2
+     }
+    },
+    {
+     "fighters": [
+      "Damien Anderson",
+      "Ezra Elliott"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 13,
+      "combinedSigStrAttempted": 31,
+      "combinedTotalStr": 44,
+      "combinedTD": 12,
+      "combinedSubAtt": 4,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 708,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "Alden Coria",
+      "Stewart Nicoll"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 72,
+      "combinedSigStrAttempted": 217,
+      "combinedTotalStr": 92,
+      "combinedTD": 8,
+      "combinedSubAtt": 4,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 394,
+      "roundsWithStats": 3
+     }
+    },
+    {
+     "fighters": [
+      "RJ Harris",
+      "Alvin Hines"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "Punch",
+     "round": 1,
+     "time": "1:40",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 1,
+      "combinedSigStrLanded": 26,
+      "combinedSigStrAttempted": 51,
+      "combinedTotalStr": 28,
+      "combinedTD": 0,
+      "combinedSubAtt": 0,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 10,
+      "roundsWithStats": 1
+     }
+    },
+    {
+     "fighters": [
+      "Dione Barbosa",
+      "Anna Melisano"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "Rear Naked Choke",
+     "round": 1,
+     "time": "4:04",
+     "scheduledRounds": 3,
+     "stats": {
+      "combinedKD": 0,
+      "combinedSigStrLanded": 7,
+      "combinedSigStrAttempted": 13,
+      "combinedTotalStr": 28,
+      "combinedTD": 1,
+      "combinedSubAtt": 2,
+      "combinedRev": 0,
+      "combinedCtrlSeconds": 211,
+      "roundsWithStats": 1
+     }
+    }
+   ]
   }
  ]
 }
