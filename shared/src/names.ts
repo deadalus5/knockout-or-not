@@ -39,3 +39,25 @@ export function sortFighters(fighters: [string, string]): [string, string] {
   )
   return [sorted[0]!, sorted[1]!]
 }
+
+/**
+ * True when free text mentions any of the given fighters' name tokens.
+ *
+ * Upstream detail text sometimes arrives with glued whitespace (ufcstats
+ * DETAILS, 2026-07-19: "toMcGregor knee injury"), which defeats exact
+ * token matching — "tomcgregor" ≠ "mcgregor". Tokens of 4+ characters are
+ * therefore matched as substrings of the normalized text; shorter tokens
+ * stay exact-token to avoid false positives ("tan" inside "distance").
+ * Verified against every published detail: catches all known glued leaks,
+ * zero false drops.
+ */
+export function textMentionsFighter(text: string, fighters: readonly string[]): boolean {
+  const normalized = normalizeName(text)
+  const textTokens = new Set(nameTokens(text))
+  for (const fighter of fighters) {
+    for (const token of nameTokens(fighter)) {
+      if (token.length >= 4 ? normalized.includes(token) : textTokens.has(token)) return true
+    }
+  }
+  return false
+}

@@ -154,6 +154,58 @@ describe('sanitizeEvent — the spoiler firewall', () => {
     )
     expect(published.fights[0]!.reveal.methodDetail).toBeNull()
   })
+
+  it('drops glued-whitespace details that embed a fighter name (2026-07-19 leak)', () => {
+    // The upstream CSV shipped "toMcGregor knee injury" — no space before
+    // the name, so token-set matching missed it and it reached production.
+    const mcgregor = sanitizeEvent(
+      makeEvent(
+        makeFight({
+          fighters: ['Max Holloway', 'Conor McGregor'],
+          methodDetail: 'toMcGregor knee injury',
+        }),
+      ),
+      basePercentiles,
+    )
+    expect(mcgregor.fights[0]!.reveal.methodDetail).toBeNull()
+
+    const petroski = sanitizeEvent(
+      makeEvent(
+        makeFight({
+          fighters: ['Jacob Malkoun', 'Andre Petroski'],
+          methodDetail: 'Kick to Body On GroundPetroski hit head on takedown attempt',
+        }),
+      ),
+      basePercentiles,
+    )
+    expect(petroski.fights[0]!.reveal.methodDetail).toBeNull()
+  })
+
+  it('keeps details whose words merely contain a short name as a substring', () => {
+    // "Tan" is inside "Distance", "Che" inside "Punches" — legitimate
+    // details must survive the substring hardening.
+    const tan = sanitizeEvent(
+      makeEvent(
+        makeFight({
+          fighters: ['Marcus Davis', 'Jason Tan'],
+          methodDetail: 'Punches to Head At Distance',
+        }),
+      ),
+      basePercentiles,
+    )
+    expect(tan.fights[0]!.reveal.methodDetail).toBe('Punches to Head At Distance')
+
+    const che = sanitizeEvent(
+      makeEvent(
+        makeFight({
+          fighters: ['Rory MacDonald', 'Che Mills'],
+          methodDetail: 'Punches to Head From Back Control',
+        }),
+      ),
+      basePercentiles,
+    )
+    expect(che.fights[0]!.reveal.methodDetail).toBe('Punches to Head From Back Control')
+  })
 })
 
 describe('event and fight matching', () => {

@@ -1,8 +1,8 @@
 import {
   SCHEMA_VERSION,
   eventDetailSchema,
-  nameTokens,
   sortFighters,
+  textMentionsFighter,
   type EventDetail,
   type Fight,
   type IndexEvent,
@@ -89,18 +89,14 @@ function sanitizeFight(fight: InternalFight, score: FightScore, order: number): 
 }
 
 /**
- * Finish details occasionally quote a fighter (rare referee notes). Any
- * detail containing either fighter's name tokens is dropped outright.
+ * Finish details occasionally quote a fighter (rare referee notes, and
+ * upstream text with glued whitespace like "toMcGregor knee injury"). Any
+ * detail mentioning either fighter's name is dropped outright — never
+ * repaired, never partially kept.
  */
 function scrubMethodDetail(detail: string | null, fighters: [string, string]): string | null {
   if (detail === null) return null
-  const detailTokens = new Set(nameTokens(detail))
-  for (const fighter of fighters) {
-    for (const token of nameTokens(fighter)) {
-      if (detailTokens.has(token)) return null
-    }
-  }
-  return detail
+  return textMentionsFighter(detail, fighters) ? null : detail
 }
 
 export function eventId(event: { date: string; name: string }): string {

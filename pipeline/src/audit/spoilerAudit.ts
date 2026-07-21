@@ -5,9 +5,9 @@ import {
   dataIndexSchema,
   eventDetailSchema,
   fighterSortKey,
-  nameTokens,
   scanForSpoilers,
   searchIndexSchema,
+  textMentionsFighter,
 } from '@ko/shared'
 import { OUTPUT_DIR } from '../config.js'
 
@@ -66,14 +66,13 @@ export async function auditPublishedData(dir = OUTPUT_DIR): Promise<AuditFinding
       if (fighterSortKey(a) > fighterSortKey(b)) {
         add(filePath, `${fight.id}: fighters not in canonical order (${a} / ${b})`)
       }
-      // Method details must never quote a participant.
-      if (fight.reveal.methodDetail) {
-        const detailTokens = new Set(nameTokens(fight.reveal.methodDetail))
-        for (const fighter of fight.fighters) {
-          if (nameTokens(fighter).some((t) => detailTokens.has(t))) {
-            add(filePath, `${fight.id}: methodDetail contains a fighter name`)
-          }
-        }
+      // Method details must never quote a participant — including glued
+      // text ("toMcGregor knee injury") that defeats exact token matching.
+      if (
+        fight.reveal.methodDetail &&
+        textMentionsFighter(fight.reveal.methodDetail, fight.fighters)
+      ) {
+        add(filePath, `${fight.id}: methodDetail contains a fighter name`)
       }
     }
   }
