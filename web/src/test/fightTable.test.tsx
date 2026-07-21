@@ -133,13 +133,19 @@ describe('single-cell isolation — one variable per reveal', () => {
     expect(container.innerHTML).not.toContain('152')
   })
 
-  it('revealing rating shows the score and nothing else — no why phrases', () => {
+})
+
+describe('toggle — clicking again reseals', () => {
+  it('a revealed cell hides on second click and its value leaves the DOM', () => {
     const { container } = render(<FightTable fights={[fight]} />)
-    fireEvent.click(screen.getByRole('button', { name: /reveal rating —/i }))
-    expect(screen.getByText('93')).toBeTruthy()
-    expect(container.innerHTML).not.toContain('Explosive striking')
-    expect(container.innerHTML).not.toMatch(/why this rating/i)
-    expect(container.innerHTML).not.toContain('pace')
+    fireEvent.click(screen.getByRole('button', { name: /reveal method —/i }))
+    expect(screen.getByText('KO/TKO')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: /hide method —/i }))
+    expect(container.innerHTML).not.toContain('KO/TKO')
+    expect(screen.queryAllByRole('button', { pressed: true }).length).toBe(0)
+    // and it can be revealed again
+    fireEvent.click(screen.getByRole('button', { name: /reveal method —/i }))
+    expect(screen.getByText('KO/TKO')).toBeTruthy()
   })
 })
 
@@ -163,6 +169,29 @@ describe('column header reveal', () => {
     expect(container.innerHTML).not.toContain('Decision')
     expect(container.innerHTML).not.toContain('93')
   })
+
+  it('a fully revealed column reseals on the second header click', () => {
+    const { container } = render(<FightTable fights={[fight, second]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal finish for all fights/i }))
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(2)
+    fireEvent.click(screen.getByRole('button', { name: /hide finish for all fights/i }))
+    expect(screen.queryAllByRole('button', { pressed: true }).length).toBe(0)
+    expect(container.innerHTML).not.toContain('Stoppage')
+    expect(container.innerHTML).not.toContain('Went the distance')
+  })
+
+  it('a partially revealed column reveals the remainder first, then reseals', () => {
+    render(<FightTable fights={[fight, second]} />)
+    // reveal one fight's finish cell individually
+    fireEvent.click(screen.getAllByRole('button', { name: /reveal finish —/i })[0]!)
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(1)
+    // mixed state → header click reveals the rest
+    fireEvent.click(screen.getByRole('button', { name: /reveal finish for all fights/i }))
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(2)
+    // fully revealed → header click reseals everything
+    fireEvent.click(screen.getByRole('button', { name: /hide finish for all fights/i }))
+    expect(screen.queryAllByRole('button', { pressed: true }).length).toBe(0)
+  })
 })
 
 describe('missing data', () => {
@@ -181,8 +210,6 @@ describe('missing data', () => {
     render(<FightTable fights={[bareFight]} />)
     fireEvent.click(screen.getByRole('button', { name: /reveal round —/i }))
     expect(screen.getByText('Not recorded')).toBeTruthy()
-    fireEvent.click(screen.getByRole('button', { name: /reveal rating —/i }))
-    expect(screen.getByText('Not rated')).toBeTruthy()
     fireEvent.click(screen.getByRole('button', { name: /reveal details —/i }))
     expect(screen.getByText('None')).toBeTruthy()
   })
@@ -217,11 +244,16 @@ describe('missing data', () => {
 })
 
 describe('no persistence', () => {
-  it('reveals never touch localStorage', () => {
+  it('a full reveal-and-reseal cycle never touches localStorage', () => {
     render(<FightTable fights={[fight]} />)
     for (const def of CELL_DEFS) {
       fireEvent.click(screen.getByRole('button', { name: new RegExp(`reveal ${def.name} —`, 'i') }))
     }
+    expect(Object.keys(localStorage)).toEqual([])
+    for (const def of CELL_DEFS) {
+      fireEvent.click(screen.getByRole('button', { name: new RegExp(`hide ${def.name} —`, 'i') }))
+    }
+    expect(screen.queryAllByRole('button', { pressed: true }).length).toBe(0)
     expect(Object.keys(localStorage)).toEqual([])
   })
 })

@@ -32,12 +32,12 @@ export function AboutPage() {
 
       <h2>How revealing works</h2>
       <p>
-        Every fight is a row of sealed cells, ordered left to right from vague to specific: the
-        excitement rating, whether it was a stoppage, the method and its details, the combined
-        fight stats — significant strikes landed and attempted, attempted strikes per 30
-        seconds, and control time — and finally the round and the time. Tap a cell and{' '}
-        <strong>only that cell</strong> is unsealed; tap a column header to unseal that column
-        for every fight. You choose exactly how much you learn.
+        Every fight is a row of sealed cells, ordered left to right from vague to specific:
+        whether it was a stoppage, the method and its details, the combined fight stats —
+        significant strikes landed and attempted, attempted strikes per 30 seconds, and control
+        time — and finally the round and the time. Tap a cell and <strong>only that cell</strong>{' '}
+        is unsealed, and tapping it again reseals it; tap a column header to unseal or reseal
+        that column for every fight. You choose exactly how much you learn.
       </p>
       <p>
         All stats are <strong>combined totals for both fighters</strong>, so they describe the
@@ -50,17 +50,6 @@ export function AboutPage() {
         Reveals are never remembered: reload the page and everything is sealed again. Draws and
         no-contests are folded into the neutral "went the distance" and "stoppage" outcomes, so
         even those results can't be inferred without unsealing the method.
-      </p>
-
-      <h2>How the excitement score works</h2>
-      <p>
-        For fights with full statistics, the score combines: whether it ended inside the
-        distance, combined striking pace (percentile-normalized against every UFC fight on
-        record), knockdowns, submission threats, scrambles, post-fight bonus awards, and a
-        penalty for long control-heavy stretches. Recent events start with a method-and-bonus
-        based estimate ("ratings pending full stats") until full statistics land in the
-        back-catalogue. The score is symmetric by construction — it never depends on{' '}
-        <em>who</em> did the damage.
       </p>
 
       <h2>Data sources &amp; freshness</h2>

@@ -1,4 +1,12 @@
 import { useState } from 'react'
+import {
+  attemptedHeatLevel,
+  controlLevel,
+  landedHeatLevel,
+  methodClass,
+  per30HeatLevel,
+  roundClass,
+} from '../lib/format'
 
 const DISMISS_KEY = 'ko.explainerDismissed'
 
@@ -7,16 +15,17 @@ const DISMISS_KEY = 'ko.explainerDismissed'
  * one famous card everyone argued about in 2018. Purely presentational —
  * the demo cells are not interactive and the sealed ones contain no values.
  * Never names a winner; nothing here may trip the spoiler patterns.
+ * Color classes come from the same helpers as the real table so the demo
+ * can never drift from what the table shows.
  */
-const DEMO_CELLS: { label: string; value?: string; kind?: 'early' }[] = [
-  { label: 'Rating', value: '★★★☆☆ 43' },
+const DEMO_CELLS: { label: string; value?: string; kind?: 'early'; cls?: string }[] = [
   { label: 'Finish', value: 'Stoppage', kind: 'early' },
-  { label: 'Method', value: 'Submission' },
-  { label: 'Sig. landed', value: '121' },
-  { label: 'Sig. attempted', value: '200' },
-  { label: 'Per 30s', value: '5.5' },
-  { label: 'Control', value: '68%' },
-  { label: 'Round', value: 'R4' },
+  { label: 'Method', value: 'Submission', cls: methodClass('Submission') },
+  { label: 'Sig. landed', value: '121', cls: `heat-${landedHeatLevel(121)}` },
+  { label: 'Sig. attempted', value: '200', cls: `heat-${attemptedHeatLevel(200)}` },
+  { label: 'Per 30s', value: '5.5', cls: `heat-${per30HeatLevel(5.5)}` },
+  { label: 'Control', value: '68%', cls: `ctl-${controlLevel(68)}` },
+  { label: 'Round', value: 'R4', cls: roundClass(4) },
   { label: 'Time', value: '3:03' },
 ]
 
@@ -53,8 +62,8 @@ export function ExplainerMasthead() {
       </h2>
       <p>
         Every fight is a row of sealed cells, ordered from vague to specific. Tap a cell and{' '}
-        <strong>only that detail</strong> is revealed. <strong>The winner is never shown</strong> —
-        it isn&rsquo;t even in this app&rsquo;s data.
+        <strong>only that detail</strong> is revealed — tap it again to reseal it.{' '}
+        <strong>The winner is never shown</strong> — it isn&rsquo;t even in this app&rsquo;s data.
       </p>
 
       <div className="demo">
@@ -71,7 +80,11 @@ export function ExplainerMasthead() {
             <span key={cell.label} className={cell.value ? 'demo-cell open' : 'demo-cell'}>
               <span className="demo-label">{cell.label}</span>
               {cell.value ? (
-                <span className={cell.kind === 'early' ? 'cell-value chip early' : 'cell-value'}>
+                <span
+                  className={['cell-value', cell.kind === 'early' ? 'chip early' : '', cell.cls ?? '']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
                   {cell.kind === 'early' && <span className="dot" aria-hidden="true" />}
                   {cell.value}
                 </span>
@@ -82,9 +95,9 @@ export function ExplainerMasthead() {
           ))}
         </div>
         <p className="demo-caption">
-          Fully unsealed: rated 43 out of 100 — 121 of 200 significant strikes between the two,
-          with 68% of the fight spent in grappling control, ending by submission at 3:03 of round
-          4. Who won stays sealed forever.
+          Fully unsealed: 121 of 200 significant strikes between the two, with 68% of the fight
+          spent in grappling control, ending by submission at 3:03 of round 4. Who won stays
+          sealed forever.
         </p>
       </div>
     </aside>

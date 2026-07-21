@@ -38,9 +38,11 @@ export function EventPage() {
         <div className="meta">
           <span>{formatDate(event.date)}</span>
           {event.location && <span>{event.location}</span>}
-          {event.dataQuality === 'basic' && <span>ratings pending full stats</span>}
+          {event.dataQuality === 'basic' && <span>full stats pending</span>}
         </div>
-        <p className="reveal-hint">Every cell is sealed. Tap one to reveal only that detail.</p>
+        <p className="reveal-hint">
+          Every cell is sealed. Tap one to reveal only that detail — tap again to reseal it.
+        </p>
       </header>
 
       {sections.map((section, si) => (

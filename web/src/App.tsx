@@ -8,8 +8,7 @@ export default function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <header className="site-header">
         <Link to="/" className="wordmark">
-          <span className="ko-mark">KO</span>
-          Knockout<span className="q">Or</span>Not
+          Knockout<span className="w-or">Or</span><span className="w-not">Not</span>
         </Link>
         <nav className="header-nav">
           <Link to="/about">How it works</Link>

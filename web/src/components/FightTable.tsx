@@ -1,15 +1,24 @@
 import { useState, type ReactNode } from 'react'
 import type { Fight } from '@ko/shared'
-import { ExcitementBadge } from './ExcitementBadge'
-import { sigStrAttemptedPer30 } from '../lib/format'
+import {
+  attemptedHeatLevel,
+  controlLevel,
+  landedHeatLevel,
+  methodClass,
+  per30HeatLevel,
+  roundClass,
+  sigStrAttemptedPer30,
+} from '../lib/format'
 
 /**
  * The progressive-reveal table: one row per fight, one column per detail,
  * ordered left→right from "tells you almost nothing" to "exact finish".
  * Every cell starts sealed and holds exactly one value; clicking a cell
- * reveals ONLY that cell, and clicking a column header reveals that column
- * for every fight. Revealed values are not in the DOM until clicked, and
- * reveal state is transient component state — never persisted.
+ * toggles ONLY that cell (click again to reseal), and clicking a column
+ * header toggles that column for every fight (reveals the remainder, or
+ * reseals all once fully revealed). Revealed values are not in the DOM
+ * while sealed, and reveal state is transient component state — never
+ * persisted.
  *
  * Combined stats (winner-free totals) sit between details and round/time:
  * they say what kind of fight it was without pinpointing the finish. Their
@@ -18,7 +27,6 @@ import { sigStrAttemptedPer30 } from '../lib/format'
  * cell's empty state.
  */
 export type CellKey =
-  | 'rating'
   | 'finish'
   | 'method'
   | 'details'
@@ -43,16 +51,6 @@ export interface CellDef {
 
 export const CELL_DEFS: CellDef[] = [
   {
-    key: 'rating',
-    label: 'Rating',
-    name: 'rating',
-    empty: 'Not rated',
-    value: (f) =>
-      f.excitement === null || f.stars === null ? null : (
-        <ExcitementBadge excitement={f.excitement} stars={f.stars} />
-      ),
-  },
-  {
     key: 'finish',
     label: 'Finish',
     name: 'finish',
@@ -69,7 +67,9 @@ export const CELL_DEFS: CellDef[] = [
     label: 'Method',
     name: 'method',
     empty: 'No data',
-    value: (f) => <span className="cell-strong">{f.reveal.method}</span>,
+    value: (f) => (
+      <span className={`cell-strong ${methodClass(f.reveal.method)}`}>{f.reveal.method}</span>
+    ),
   },
   {
     key: 'details',
@@ -97,7 +97,9 @@ export const CELL_DEFS: CellDef[] = [
     empty: 'No data',
     value: (f) =>
       f.stats === null ? null : (
-        <span className="cell-strong">{f.stats.combinedSigStrLanded}</span>
+        <span className={`cell-strong heat-${landedHeatLevel(f.stats.combinedSigStrLanded)}`}>
+          {f.stats.combinedSigStrLanded}
+        </span>
       ),
   },
   {
@@ -107,7 +109,11 @@ export const CELL_DEFS: CellDef[] = [
     empty: 'No data',
     value: (f) =>
       f.stats === null ? null : (
-        <span className="cell-strong">{f.stats.combinedSigStrAttempted}</span>
+        <span
+          className={`cell-strong heat-${attemptedHeatLevel(f.stats.combinedSigStrAttempted)}`}
+        >
+          {f.stats.combinedSigStrAttempted}
+        </span>
       ),
   },
   {
@@ -118,7 +124,7 @@ export const CELL_DEFS: CellDef[] = [
     value: (f) => {
       const per30 = sigStrAttemptedPer30(f)
       return per30 === null ? null : (
-        <span className="cell-strong">
+        <span className={`cell-strong heat-${per30HeatLevel(per30)}`}>
           {per30}
           <span className="cell-dim">/30s</span>
         </span>
@@ -132,7 +138,7 @@ export const CELL_DEFS: CellDef[] = [
     empty: 'Not recorded',
     value: (f) =>
       f.stats === null || f.stats.controlPct === null ? null : (
-        <span className="control-cell">
+        <span className={`control-cell ctl-${controlLevel(f.stats.controlPct)}`}>
           <span className="control-bar" aria-hidden="true">
             <span className="control-fill" style={{ width: `${f.stats.controlPct}%` }} />
           </span>
@@ -146,7 +152,9 @@ export const CELL_DEFS: CellDef[] = [
     name: 'round',
     empty: 'Not recorded',
     value: (f) =>
-      f.reveal.round === null ? null : <span className="cell-strong">R{f.reveal.round}</span>,
+      f.reveal.round === null ? null : (
+        <span className={`cell-strong ${roundClass(f.reveal.round)}`}>R{f.reveal.round}</span>
+      ),
   },
   {
     key: 'time',
@@ -190,7 +198,7 @@ function FightTableRow({
               type="button"
               className={isRevealed ? 'cell open' : 'cell'}
               aria-pressed={isRevealed}
-              aria-label={isRevealed ? undefined : `Reveal ${def.name} — ${a} vs ${b}`}
+              aria-label={`${isRevealed ? 'Hide' : 'Reveal'} ${def.name} — ${a} vs ${b}`}
               onClick={() => onReveal(cellId)}
             >
               {isRevealed ? (
@@ -213,13 +221,21 @@ export function FightTable({ fights }: { fights: Fight[] }) {
   // navigation/reload, by design.
   const [revealed, setRevealed] = useState<ReadonlySet<string>>(new Set())
 
-  const reveal = (cellId: string) =>
-    setRevealed((prev) => (prev.has(cellId) ? prev : new Set(prev).add(cellId)))
-
-  const revealColumn = (key: CellKey) =>
+  const toggle = (cellId: string) =>
     setRevealed((prev) => {
       const next = new Set(prev)
-      for (const fight of fights) next.add(`${fight.id}:${key}`)
+      if (next.has(cellId)) next.delete(cellId)
+      else next.add(cellId)
+      return next
+    })
+
+  // Column header: reveal the remainder, or reseal all once fully revealed.
+  const toggleColumn = (key: CellKey) =>
+    setRevealed((prev) => {
+      const next = new Set(prev)
+      const ids = fights.map((fight) => `${fight.id}:${key}`)
+      if (ids.every((id) => prev.has(id))) for (const id of ids) next.delete(id)
+      else for (const id of ids) next.add(id)
       return next
     })
 
@@ -231,24 +247,31 @@ export function FightTable({ fights }: { fights: Fight[] }) {
             <th scope="col" className="fight-col">
               Fight
             </th>
-            {CELL_DEFS.map((def) => (
-              <th scope="col" key={def.key} className={`col-${def.key}`}>
-                <button
-                  type="button"
-                  className="col-reveal"
-                  title="Reveal this column for every fight"
-                  aria-label={`Reveal ${def.name} for all fights`}
-                  onClick={() => revealColumn(def.key)}
-                >
-                  {def.label}
-                </button>
-              </th>
-            ))}
+            {CELL_DEFS.map((def) => {
+              const allRevealed = fights.every((fight) => revealed.has(`${fight.id}:${def.key}`))
+              return (
+                <th scope="col" key={def.key} className={`col-${def.key}`}>
+                  <button
+                    type="button"
+                    className="col-reveal"
+                    title={
+                      allRevealed
+                        ? 'Hide this column for every fight'
+                        : 'Reveal this column for every fight'
+                    }
+                    aria-label={`${allRevealed ? 'Hide' : 'Reveal'} ${def.name} for all fights`}
+                    onClick={() => toggleColumn(def.key)}
+                  >
+                    {def.label}
+                  </button>
+                </th>
+              )
+            })}
           </tr>
         </thead>
         <tbody>
           {fights.map((fight) => (
-            <FightTableRow key={fight.id} fight={fight} revealed={revealed} onReveal={reveal} />
+            <FightTableRow key={fight.id} fight={fight} revealed={revealed} onReveal={toggle} />
           ))}
         </tbody>
       </table>

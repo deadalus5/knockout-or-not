@@ -18,15 +18,16 @@ offline.
 2. Every fight is a row of **sealed cells**, ordered left to right from
    vague to specific:
 
-   | Rating | Finish | Method | Details | Sig. landed | Sig. attempted | Per 30s | Control | Round | Time |
-   |---|---|---|---|---|---|---|---|---|---|
-   | 1–100 excitement score | "Stoppage" or "Went the distance" | KO/TKO, Submission, Decision… | finish detail + bonuses | combined significant strikes landed | combined significant strikes attempted | attempted strikes per 30 seconds | share of the fight spent in grappling control | R1, R2, … | when it ended |
+   | Finish | Method | Details | Sig. landed | Sig. attempted | Per 30s | Control | Round | Time |
+   |---|---|---|---|---|---|---|---|---|
+   | "Stoppage" or "Went the distance" | KO/TKO, Submission, Decision… | finish detail + bonuses | combined significant strikes landed | combined significant strikes attempted | attempted strikes per 30 seconds | share of the fight spent in grappling control | R1, R2, … | when it ended |
 
    The stat columns are **combined totals for both fighters** — they describe
    the fight, never a fighter, so they can't hint at the result.
 
-3. **Tap a cell** to reveal that one detail — and only that one. Tap a
-   **column header** to reveal that column for every fight on the card.
+3. **Tap a cell** to reveal that one detail — and only that one; tap it
+   again to reseal it. Tap a **column header** to reveal (or reseal) that
+   column for every fight on the card.
 4. Reveals are never saved. Reload the page and everything is sealed again.
 
 The winner is never shown, at any level of reveal. Draws and no-contests

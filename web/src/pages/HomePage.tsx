@@ -55,7 +55,7 @@ export function HomePage() {
       <SearchBar />
 
       {grouped.map((group) => (
-        <section key={group.month}>
+        <section key={group.month} className="month-group">
           <h2 className="month-header">{group.month}</h2>
           {group.items.map(({ event, i }) => (
             <EventListItem key={event.id} event={event} index={i} />

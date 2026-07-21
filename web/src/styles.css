@@ -1,32 +1,48 @@
 /* ── KnockoutOrNot design system ──────────────────────────────────────────
-   "The vault": a precision instrument for dangerous information.
-   Dark charcoal-blue, hairline borders, sodium-arena amber as the single
-   signal color. Fight details are a classified dossier: every value is a
-   redaction bar until deliberately unsealed. Type: Big Shoulders Display
-   (fight-poster headlines) / Schibsted Grotesk (prose) / Spline Sans Mono
-   (labels & data). */
+   "The vault", Apple-dark edition: a precision instrument for dangerous
+   information. Dark charcoal-blue, hairline borders, system SF Pro type,
+   amber as the brand accent. Fight details are a classified dossier: every
+   value is a redaction bar until deliberately unsealed — and once unsealed,
+   values speak in one shared color language (method hues, temperature
+   scales, reverse-battery control, fixed round identities). */
 
 :root {
   --bg: #0c0e12;
   --bg-raised: #12151c;
   --bg-overlay: #171b24;
-  --line: rgba(235, 240, 255, 0.09);
-  --line-strong: rgba(235, 240, 255, 0.18);
+  --line: rgba(235, 240, 255, 0.07);
+  --line-strong: rgba(235, 240, 255, 0.14);
   --text: #e8ebf2;
   --text-dim: #9aa3b5;
   --text-faint: #5d6678;
   --amber: #f5a623;
   --amber-soft: rgba(245, 166, 35, 0.14);
-  --distance: #7d8aa5;
-  --distance-soft: rgba(125, 138, 165, 0.16);
-  --danger: #e5484d;
-  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
-  --font-body: 'Schibsted Grotesk', 'Helvetica Neue', sans-serif;
-  --font-mono: 'Spline Sans Mono', 'SFMono-Regular', Consolas, monospace;
-  --mask-a: #1a1f2a;
-  --mask-b: #222836;
-  --radius: 10px;
-  --radius-sm: 6px;
+  --distance: #8fb6e8;
+  --distance-soft: rgba(77, 162, 248, 0.13);
+  /* core hues shared across every value system — one palette, many jobs:
+     KO red = max-heat red = full-battery red; Submission green = empty-
+     battery green; Decision blue = cold blue. All ≥4.5:1 on --bg-raised. */
+  --c-red: #ff453a;
+  --c-orange: #ff9f0a;
+  --c-yellow: #ffd23f;
+  --c-green: #30d158;
+  --c-teal: #43c6c0;
+  --c-blue: #4da2f8;
+  --c-gray: #98989d;
+  --c-bronze: #b18a5c;
+  /* round identity — categorical, no implied ranking */
+  --rd-1: #ffb640;
+  --rd-2: #0da678;
+  --rd-3: #bf5af2;
+  --rd-4: #ff96b4;
+  --rd-5: #66b9ff;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+  --mask-a: #191d26;
+  --mask-b: #1f2531;
+  --radius: 12px;
+  --radius-sm: 8px;
   --pad: clamp(14px, 4vw, 24px);
 }
 
@@ -42,7 +58,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -56,15 +72,15 @@ body::before {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(120% 60% at 50% -10%, rgba(245, 166, 35, 0.055), transparent 60%),
-    radial-gradient(100% 80% at 50% 110%, rgba(60, 80, 140, 0.08), transparent 55%);
+    radial-gradient(120% 60% at 50% -10%, rgba(245, 166, 35, 0.03), transparent 60%),
+    radial-gradient(100% 80% at 50% 110%, rgba(60, 80, 140, 0.06), transparent 55%);
   z-index: 0;
 }
 
 #root {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--pad) 80px;
 }
@@ -94,41 +110,29 @@ button {
   margin-bottom: 4px;
 }
 
+/* tri-color compound wordmark: Knockout (white) Or (orange) Not (red) */
 .wordmark {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 26px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: #fff;
 }
 
-.wordmark .ko-mark {
-  display: inline-grid;
-  place-items: center;
-  min-width: 34px;
-  height: 26px;
-  padding: 0 5px;
-  border: 1.5px solid var(--amber);
-  border-radius: 6px;
-  color: var(--amber);
-  font-size: 17px;
-  letter-spacing: 0.1em;
-  transform: translateY(-2px);
+.wordmark .w-or {
+  color: var(--c-orange);
 }
 
-.wordmark .q {
-  color: var(--amber);
+.wordmark .w-not {
+  color: var(--c-red);
 }
 
 .header-nav {
   display: flex;
   gap: 16px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text-dim);
 }
 
@@ -151,12 +155,11 @@ button {
 }
 
 .masthead h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-weight: 700;
-  font-size: clamp(26px, 6vw, 34px);
-  line-height: 1.02;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-size: clamp(22px, 4.5vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   margin: 0 18px 8px 0;
 }
 
@@ -201,11 +204,10 @@ button {
 }
 
 .demo-head .fighters {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 19px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: -0.005em;
 }
 
 .demo-head .vs,
@@ -217,10 +219,11 @@ button {
 }
 
 .demo-meta {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 500;
   color: var(--text-faint);
-  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
 }
 
 .demo-grid {
@@ -246,17 +249,18 @@ button {
 }
 
 .demo-label {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--text-faint);
 }
 
 .demo-cell .cell-value {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-family: var(--font-sans);
+  font-size: 13px;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .demo-cell .chip {
@@ -272,12 +276,24 @@ button {
 }
 
 /* ── event list ── */
+.month-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 14px;
+}
+
+@media (min-width: 880px) {
+  .month-group {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .month-header {
-  font-family: var(--font-mono);
+  grid-column: 1 / -1;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.03em;
   color: var(--text-faint);
   margin: 26px 0 8px;
   display: flex;
@@ -308,12 +324,39 @@ button {
   transform: translateY(-1px);
 }
 
+/* marquee = numbered PPVs + named specials: amber gradient hairline +
+   slightly brighter surface. Double-background keeps the radius intact. */
+.event-item.marquee {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--bg-overlay), var(--bg-overlay)) padding-box,
+    linear-gradient(
+        135deg,
+        rgba(245, 166, 35, 0.5),
+        rgba(245, 166, 35, 0.06) 55%,
+        rgba(245, 166, 35, 0.18)
+      )
+      border-box;
+}
+
+.event-item.marquee:hover {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--bg-overlay), var(--bg-overlay)) padding-box,
+    linear-gradient(
+        135deg,
+        rgba(245, 166, 35, 0.75),
+        rgba(245, 166, 35, 0.12) 55%,
+        rgba(245, 166, 35, 0.3)
+      )
+      border-box;
+}
+
 .event-item .name {
-  font-family: var(--font-display);
-  font-size: 21px;
+  font-family: var(--font-sans);
+  font-size: 17px;
   font-weight: 600;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .event-item .meta {
@@ -321,9 +364,11 @@ button {
   flex-wrap: wrap;
   gap: 6px 14px;
   margin-top: 3px;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
   color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
 }
 
 @keyframes rise {
@@ -335,35 +380,6 @@ button {
     opacity: 1;
     transform: none;
   }
-}
-
-/* ── heat (excitement) ── */
-.heat-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  font-size: 12.5px;
-  padding: 3px 9px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--heat-color) 40%, transparent);
-  color: var(--heat-color);
-  background: color-mix(in srgb, var(--heat-color) 10%, transparent);
-}
-
-.heat-badge .stars {
-  letter-spacing: 1.5px;
-  font-size: 10.5px;
-}
-
-.unrated {
-  color: var(--text-faint);
-  font-size: 12px;
-  border: 1px dashed var(--line-strong);
-  padding: 3px 9px;
-  border-radius: 999px;
 }
 
 /* ── chips ── */
@@ -397,9 +413,9 @@ button {
 .chip.title-fight {
   color: #d9c67a;
   background: rgba(217, 198, 122, 0.12);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9.5px;
   font-weight: 600;
   padding: 2px 8px;
@@ -411,22 +427,23 @@ button {
 }
 
 .event-head h1 {
-  font-family: var(--font-display);
-  font-size: clamp(30px, 8vw, 46px);
+  font-family: var(--font-sans);
+  font-size: clamp(26px, 5vw, 38px);
   font-weight: 700;
-  line-height: 1.0;
-  letter-spacing: 0.015em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   margin: 0 0 6px;
-  text-transform: uppercase;
 }
 
 .event-head .meta {
   color: var(--text-faint);
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
   display: flex;
   flex-wrap: wrap;
   gap: 4px 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .reveal-hint {
@@ -449,11 +466,10 @@ button {
 }
 
 .card-section {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-sans);
+  font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.04em;
   color: var(--amber);
   margin: 26px 0 6px;
   display: flex;
@@ -469,11 +485,11 @@ button {
 }
 
 /* ── the reveal table ─────────────────────────────────────────────────────
-   Breaks out of the 720px column up to ~1280px so all ten detail columns
+   Breaks out of the 1200px column up to ~1360px so all nine detail columns
    fit on desktop; below that it scrolls horizontally with the fight column
    pinned. */
 .table-scroll {
-  --bleed: min(1280px, 100vw - 2 * var(--pad));
+  --bleed: min(1360px, 100vw - 2 * var(--pad));
   width: var(--bleed);
   margin: 10px calc((100% - var(--bleed)) / 2) 4px;
   overflow-x: auto;
@@ -487,15 +503,14 @@ button {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  min-width: 1252px;
+  min-width: 1182px;
 }
 
 .fight-table thead th {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.01em;
   color: var(--text-faint);
   text-align: left;
   padding: 9px 10px;
@@ -560,7 +575,7 @@ button {
   }
 
   .fight-col .fighters {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -571,12 +586,11 @@ button {
 
 .fight-col .fighters {
   display: block;
-  font-family: var(--font-display);
-  font-size: 18px;
+  font-family: var(--font-sans);
+  font-size: 15.5px;
   font-weight: 600;
-  letter-spacing: 0.025em;
-  line-height: 1.12;
-  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
 }
 
 .fight-col .fight-meta {
@@ -584,17 +598,16 @@ button {
   align-items: center;
   gap: 8px;
   margin-top: 4px;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
   color: var(--text-faint);
-  letter-spacing: 0.05em;
 }
 
 /* column sizing */
-.col-rating { min-width: 96px; }
-.col-finish { min-width: 132px; }
-.col-method { min-width: 112px; }
-.col-details { min-width: 168px; max-width: 210px; }
+.col-finish { min-width: 150px; }
+.col-method { min-width: 128px; }
+.col-details { min-width: 168px; max-width: 260px; }
 .col-landed { min-width: 88px; }
 .col-attempted { min-width: 106px; }
 .col-per30 { min-width: 76px; }
@@ -630,17 +643,16 @@ button {
 /* the redaction bar */
 .cell-mask {
   display: block;
-  height: 13px;
+  height: 12px;
   width: 100%;
   max-width: 72px;
-  border-radius: 3px;
+  border-radius: 4px;
   background: repeating-linear-gradient(-55deg, var(--mask-a) 0 5px, var(--mask-b) 5px 10px);
   box-shadow: inset 0 0 0 1px var(--line);
   transition: background 0.15s, box-shadow 0.15s;
 }
 
 /* varied bar widths → redacted-document texture */
-.col-rating .cell-mask { max-width: 58px; }
 .col-finish .cell-mask { max-width: 84px; }
 .col-method .cell-mask { max-width: 68px; }
 .col-details .cell-mask { max-width: 96px; }
@@ -660,13 +672,18 @@ button {
   box-shadow: inset 0 0 0 1px rgba(245, 166, 35, 0.4);
 }
 
+/* revealed cells stay clickable — a second click reseals them */
 .cell.open {
-  cursor: default;
+  cursor: pointer;
+}
+
+.cell.open:hover {
+  background: rgba(235, 240, 255, 0.03);
 }
 
 .cell-value {
   animation: unseal 0.35s ease both;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   line-height: 1.35;
@@ -709,6 +726,42 @@ button {
   font-size: 12px;
 }
 
+/* ── revealed-value color systems ─────────────────────────────────────────
+   These classes only ever exist on revealed cells (sealed cells never
+   render value()), so no color can hint at an outcome before its reveal.
+   Single-digit suffixes only: `NN-NN` in markup would trip the scorecard
+   spoiler regex. */
+
+/* method identity */
+.m-ko { color: var(--c-red); }
+.m-sub { color: var(--c-green); }
+.m-dec { color: var(--c-blue); }
+.m-draw,
+.m-nc,
+.m-other { color: var(--c-gray); }
+.m-dq { color: var(--c-bronze); }
+
+/* temperature, cold → hot (landed · attempted · per-30s) */
+.heat-0 { color: var(--c-blue); }
+.heat-1 { color: var(--c-teal); }
+.heat-2 { color: var(--c-yellow); }
+.heat-3 { color: var(--c-orange); }
+.heat-4 { color: var(--c-red); }
+
+/* reverse battery: low control % = open action = green */
+.ctl-0 { --ctl-color: var(--c-green); color: var(--ctl-color); }
+.ctl-1 { --ctl-color: var(--c-yellow); color: var(--ctl-color); }
+.ctl-2 { --ctl-color: var(--c-orange); color: var(--ctl-color); }
+.ctl-3 { --ctl-color: var(--c-red); color: var(--ctl-color); }
+
+/* fixed round identities */
+.rd-1 { color: var(--rd-1); }
+.rd-2 { color: var(--rd-2); }
+.rd-3 { color: var(--rd-3); }
+.rd-4 { color: var(--rd-4); }
+.rd-5 { color: var(--rd-5); }
+.rd-x { color: var(--text); }
+
 /* ── control-time bar: grappling-control share vs open action ── */
 .control-cell {
   display: flex;
@@ -729,7 +782,7 @@ button {
 .control-fill {
   display: block;
   height: 100%;
-  background: var(--amber);
+  background: var(--ctl-color, var(--amber));
   border-radius: 2px 0 0 2px;
 }
 
@@ -748,6 +801,7 @@ button {
 .search-wrap {
   position: relative;
   margin: 18px 0 4px;
+  max-width: 720px;
 }
 
 .search-input {
@@ -816,18 +870,18 @@ button {
 }
 
 .prose h1 {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 32px;
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   margin: 28px 0 10px;
 }
 
 .prose h2 {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 21px;
+  font-family: var(--font-sans);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
   margin: 26px 0 6px;
   color: var(--amber);
 }
