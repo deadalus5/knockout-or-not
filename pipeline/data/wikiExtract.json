@@ -141987,7 +141987,7 @@
   },
   {
    "title": "UFC Fight Night: Medić vs. Rodriguez",
-   "revid": 1367321804,
+   "revid": 1367370147,
    "name": "UFC Fight Night: Medić vs. Rodriguez",
    "date": "2026-08-01",
    "location": "Belgrade, Serbia",
@@ -142066,7 +142066,7 @@
      "weightClass": "Middleweight",
      "titleFight": false,
      "methodClass": "KO/TKO",
-     "methodDetail": "punches and elbows",
+     "methodDetail": "elbows and punches",
      "round": 1,
      "time": "1:01",
      "bonuses": [
@@ -142173,7 +142173,7 @@
      "weightClass": "Women's Bantamweight",
      "titleFight": false,
      "methodClass": "KO/TKO",
-     "methodDetail": "punches to the body",
+     "methodDetail": "punch to the body",
      "round": 1,
      "time": "3:41",
      "bonuses": [
@@ -142207,7 +142207,7 @@
      "methodClass": "Submission",
      "methodDetail": "rear-naked choke",
      "round": 1,
-     "time": "3:30",
+     "time": "3:20",
      "bonuses": []
     }
    ]
