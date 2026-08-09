@@ -142211,6 +142211,201 @@
      "bonuses": []
     }
    ]
+  },
+  {
+   "title": "UFC Fight Night: Gamrot vs. Salkilld",
+   "revid": 1368451560,
+   "name": "UFC Fight Night: Gamrot vs. Salkilld",
+   "date": "2026-08-08",
+   "location": "Las Vegas, Nevada, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Mateusz Gamrot",
+      "Quillan Salkilld"
+     ],
+     "order": 1,
+     "card": null,
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 1,
+     "time": "4:25",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Carlos Diego Ferreira",
+      "Billy Quarantillo"
+     ],
+     "order": 2,
+     "card": null,
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": [
+      "FOTN"
+     ]
+    },
+    {
+     "fighters": [
+      "Darren Elkins",
+      "Yadier del Valle"
+     ],
+     "order": 3,
+     "card": null,
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punch",
+     "round": 1,
+     "time": "0:35",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Amanda Lemos",
+      "Alexia Thainara"
+     ],
+     "order": 4,
+     "card": null,
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Billy Ray Goff",
+      "Ty Miller"
+     ],
+     "order": 5,
+     "card": null,
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 3,
+     "time": "0:15",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Steven Asplund",
+      "Guilherme Pat"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Bruno Lopes",
+      "Diyar Nurgozhay"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:59",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "José Luiz",
+      "Louie Sutherland"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "face crank",
+     "round": 1,
+     "time": "1:50",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Richie Miranda",
+      "Manoel Sousa"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Miles Johns",
+      "Gianni Vázquez"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "3:09",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Juliana Miller",
+      "Ravena Oliveira"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 2,
+     "time": "1:38",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Giovanna Canuto",
+      "Carol Foro"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    }
+   ]
   }
  ]
 }
