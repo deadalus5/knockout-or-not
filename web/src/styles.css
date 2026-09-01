@@ -527,7 +527,7 @@ button {
   display: block;
   width: 100%;
   padding: 9px 10px;
-  text-align: left;
+  text-align: center;
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
@@ -602,6 +602,11 @@ button {
   border-radius: var(--radius-sm);
 }
 
+/* only the family name carries the bold weight */
+.fighters .given {
+  font-weight: 400;
+}
+
 .fight-col .fighters {
   display: block;
   font-family: var(--font-sans);
@@ -637,10 +642,11 @@ button {
 .cell {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 46px;
   padding: 8px 10px;
-  text-align: left;
+  text-align: center;
   transition: background 0.15s;
 }
 
@@ -725,6 +731,7 @@ button {
 .cell-stack {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2px;
 }
 

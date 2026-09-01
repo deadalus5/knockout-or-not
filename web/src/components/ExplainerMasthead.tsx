@@ -7,6 +7,7 @@ import {
   per30HeatLevel,
   roundClass,
 } from '../lib/format'
+import { FighterName } from './FightTable'
 
 const DISMISS_KEY = 'ko.explainerDismissed'
 
@@ -69,9 +70,9 @@ export function ExplainerMasthead() {
       <div className="demo">
         <div className="demo-head">
           <span className="fighters">
-            Khabib Nurmagomedov
+            <FighterName name="Khabib Nurmagomedov" />
             <span className="vs">vs</span>
-            Conor McGregor
+            <FighterName name="Conor McGregor" />
           </span>
           <span className="demo-meta">UFC 229 · Oct 2018 · Lightweight</span>
         </div>

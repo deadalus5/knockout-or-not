@@ -46,11 +46,28 @@ afterEach(cleanup)
 describe('sealed by default', () => {
   it('shows fighters, weight class, and title marker — no detail values', () => {
     const { container } = render(<FightTable fights={[fight]} />)
-    expect(screen.getByText(/Charles Oliveira/)).toBeTruthy()
+    // full names survive in the accessible row-toggle label; the visible text
+    // splits given/family across elements for the bold-surname treatment
+    expect(
+      screen.getByRole('button', { name: /reveal every detail — Charles Oliveira vs Ilia Topuria/i }),
+    ).toBeTruthy()
+    expect(screen.getByText('Oliveira')).toBeTruthy()
+    expect(screen.getByText('Topuria')).toBeTruthy()
     expect(screen.getByText('Lightweight')).toBeTruthy()
     expect(screen.getByText('Title')).toBeTruthy()
     const html = container.innerHTML
     for (const value of SEALED_VALUES) expect(html).not.toContain(value)
+  })
+
+  it('renders given names in .given spans so only the surname stays bold', () => {
+    const { container } = render(<FightTable fights={[fight]} />)
+    const givens = [...container.querySelectorAll('.fighters .given')].map((el) => el.textContent)
+    const families = [...container.querySelectorAll('.fighters .family')].map((el) => el.textContent)
+    expect(givens).toEqual(['Charles ', 'Ilia '])
+    expect(families).toEqual(['Oliveira', 'Topuria'])
+    expect(container.querySelector('.fighters')!.textContent).toBe(
+      'Charles OliveiravsIlia Topuria',
+    )
   })
 
   it('renders one sealed reveal button per cell', () => {

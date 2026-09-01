@@ -21,6 +21,41 @@ export function formatMonth(iso: string): string {
   return monthFmt.format(new Date(`${iso}T00:00:00Z`))
 }
 
+/* ── fighter-name display split ────────────────────────────────────────────
+   Purely visual (the surname renders bold); aria-labels and matching keep
+   using the raw full string. Distinct from shared lastNameKey(), which is a
+   lowercased single-token matching key, not display text. */
+
+const NAME_PARTICLES = new Set([
+  'de', 'da', 'do', 'dos', 'das', 'del', 'della', 'delos', 'di', 'du',
+  'la', 'le', 'van', 'von', 'saint', 'st', 'st.', 'te', 'e',
+])
+const NAME_SUFFIXES = new Set(['jr', 'jr.', 'sr', 'sr.', 'junior', 'ii', 'iii', 'iv', 'neto', 'filho'])
+
+/**
+ * Split a fighter's name into given/family parts for display: the family
+ * part is the last word plus any surname particles before it ("Du Plessis",
+ * "de la Rocha") and any generational suffix after it ("Rountree Jr.").
+ * Particles never consume the first word, so two-word names always split
+ * 1+1 ("Cung Le" → Cung | Le). Single-word names are all family.
+ */
+export function splitFighterName(name: string): { given: string; family: string } {
+  const tokens = name.trim().split(/\s+/)
+  if (tokens.length < 2) return { given: '', family: name.trim() }
+  let core = tokens.length - 1
+  while (core > 0 && NAME_SUFFIXES.has(tokens[core]!.toLowerCase())) core--
+  let start = core
+  while (start > 1) {
+    const prev = tokens[start - 1]!.toLowerCase()
+    if (!NAME_PARTICLES.has(prev)) break
+    start--
+    // Portuguese "e" joins two surnames ("dos Santos e Silva") — the word
+    // before it belongs to the family part too.
+    if (prev === 'e' && start > 1) start--
+  }
+  return { given: tokens.slice(0, start).join(' '), family: tokens.slice(start).join(' ') }
+}
+
 /**
  * Elapsed fight time in minutes, derived from the published round/time.
  * Assumes 5-minute rounds — exact for any round-1 ending regardless of era,

@@ -11,6 +11,7 @@ import {
   per30HeatLevel,
   roundClass,
   sigStrAttemptedPer30,
+  splitFighterName,
 } from '../lib/format'
 
 const base: Fight = {
@@ -194,6 +195,61 @@ describe('isMarqueeEvent', () => {
     expect(isMarqueeEvent('The Ultimate Fighter: Heavy Hitters Finale')).toBe(false)
     expect(isMarqueeEvent('UFC Live: Cruz vs Johnson')).toBe(false)
     expect(isMarqueeEvent('UFC - Road to UFC 4.6')).toBe(false)
+  })
+})
+
+describe('splitFighterName', () => {
+  const split = (name: string) => {
+    const { given, family } = splitFighterName(name)
+    return `${given}|${family}`
+  }
+
+  it('splits plain two-word names on the last word', () => {
+    expect(split('Charles Oliveira')).toBe('Charles|Oliveira')
+    expect(split('Max Holloway')).toBe('Max|Holloway')
+  })
+
+  it('keeps surname particles with the family part', () => {
+    expect(split('Dricus Du Plessis')).toBe('Dricus|Du Plessis')
+    expect(split('Rafael Dos Anjos')).toBe('Rafael|Dos Anjos')
+    expect(split('Mark De La Rosa')).toBe('Mark|De La Rosa')
+    expect(split('Chris de la Rocha')).toBe('Chris|de la Rocha')
+    expect(split('Benoit Saint Denis')).toBe('Benoit|Saint Denis')
+    expect(split('Jack Della Maddalena')).toBe('Jack|Della Maddalena')
+    expect(split('Jon Delos Reyes')).toBe('Jon|Delos Reyes')
+    expect(split('Douglas Silva de Andrade')).toBe('Douglas Silva|de Andrade')
+    expect(split('Matt Van Buren')).toBe('Matt|Van Buren')
+  })
+
+  it('keeps generational suffixes attached to the family part', () => {
+    expect(split('Khalil Rountree Jr.')).toBe('Khalil|Rountree Jr.')
+    expect(split('Kai Kamaka III')).toBe('Kai|Kamaka III')
+    expect(split('Antonio Carlos Junior')).toBe('Antonio|Carlos Junior')
+  })
+
+  it('joins Portuguese "e" compound surnames', () => {
+    expect(split('Tiago dos Santos e Silva')).toBe('Tiago|dos Santos e Silva')
+  })
+
+  it('leaves middle given names in the given part', () => {
+    expect(split('Dong Hyun Kim')).toBe('Dong Hyun|Kim')
+    expect(split('Elizeu Zaleski dos Santos')).toBe('Elizeu Zaleski|dos Santos')
+    expect(split('Marco Polo Reyes')).toBe('Marco Polo|Reyes')
+  })
+
+  it('treats hyphenated surnames as one word', () => {
+    expect(split('Georges St-Pierre')).toBe('Georges|St-Pierre')
+    expect(split('Kai Kara-France')).toBe('Kai|Kara-France')
+  })
+
+  it('never consumes the first word as a particle', () => {
+    expect(split('Cung Le')).toBe('Cung|Le')
+    expect(split('Blood Diamond')).toBe('Blood|Diamond')
+  })
+
+  it('single-word names are all family', () => {
+    expect(split('Sumudaerji')).toBe('|Sumudaerji')
+    expect(split('Mizuki')).toBe('|Mizuki')
   })
 })
 

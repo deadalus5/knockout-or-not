@@ -8,7 +8,23 @@ import {
   per30HeatLevel,
   roundClass,
   sigStrAttemptedPer30,
+  splitFighterName,
 } from '../lib/format'
+
+/**
+ * A fighter's name with only the family part bold (the container supplies
+ * the bold weight; the given part drops to normal via `.given`). Shared
+ * with the masthead demo so both render names identically.
+ */
+export function FighterName({ name }: { name: string }) {
+  const { given, family } = splitFighterName(name)
+  return (
+    <>
+      {given && <span className="given">{given} </span>}
+      <span className="family">{family}</span>
+    </>
+  )
+}
 
 /**
  * The progressive-reveal table: one row per fight, one column per detail,
@@ -196,9 +212,9 @@ function FightTableRow({
           onClick={() => onToggleRow(fight.id)}
         >
           <span className="fighters">
-            {a}
+            <FighterName name={a} />
             <span className="vs">vs</span>
-            {b}
+            <FighterName name={b} />
           </span>
           <span className="fight-meta">
             {fight.weightClass}

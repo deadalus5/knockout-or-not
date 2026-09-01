@@ -32,7 +32,7 @@ afterEach(() => {
 describe('app integration over real published data', () => {
   it('shows the explainer masthead with the demo fight, and it dismisses', async () => {
     render(<App />)
-    await waitFor(() => expect(screen.getByText(/Khabib Nurmagomedov/)).toBeTruthy(), {
+    await waitFor(() => expect(screen.getByText(/Khabib/)).toBeTruthy(), {
       timeout: 5000,
     })
     expect(screen.getByText('Submission')).toBeTruthy()
@@ -40,7 +40,7 @@ describe('app integration over real published data', () => {
     expect(scanForSpoilers(document.body.innerHTML)).toEqual([])
 
     fireEvent.click(screen.getByRole('button', { name: /dismiss explainer/i }))
-    expect(screen.queryByText(/Khabib Nurmagomedov/)).toBeNull()
+    expect(screen.queryByText(/Khabib/)).toBeNull()
     expect(localStorage.getItem('ko.explainerDismissed')).toBe('1')
   })
 
