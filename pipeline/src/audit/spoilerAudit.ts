@@ -5,6 +5,7 @@ import {
   dataIndexSchema,
   eventDetailSchema,
   fighterSortKey,
+  hasGluedWords,
   scanForSpoilers,
   searchIndexSchema,
   textMentionsFighter,
@@ -73,6 +74,12 @@ export async function auditPublishedData(dir = OUTPUT_DIR): Promise<AuditFinding
         textMentionsFighter(fight.reveal.methodDetail, fight.fighters)
       ) {
         add(filePath, `${fight.id}: methodDetail contains a fighter name`)
+      }
+      // Glued words ("Twister From Back ControlScottish twister") are the
+      // upstream two-field concatenation that parse/csvResults.ts splits off;
+      // a published value must never carry one.
+      if (fight.reveal.methodDetail && hasGluedWords(fight.reveal.methodDetail)) {
+        add(filePath, `${fight.id}: methodDetail has glued words`)
       }
     }
   }

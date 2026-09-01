@@ -1,3 +1,4 @@
+import { textMentionsFighter, type RevealMethod } from '@ko/shared'
 import type { CsvEvent } from '../parse/csvEvents.js'
 import type { CombinedStats, InternalEvent, InternalFight } from '../model.js'
 import type { WikiExtract, WikiExtractEvent } from '../parse/wikiExtract.js'
@@ -5,6 +6,7 @@ import type { WikiFight } from '../parse/wikiEventPage.js'
 import type { EspnEvent, EspnFight } from '../parse/espnEvent.js'
 import type { EspnExtract } from '../parse/espnExtract.js'
 import { statsKey } from '../parse/csvStats.js'
+import { isBlankDetailTemplate } from '../parse/common.js'
 import { matchEvent } from './matchEvents.js'
 import { matchFight } from './matchFights.js'
 
@@ -16,6 +18,10 @@ export interface MergeReport {
   wikiOnlyEvents: string[]
   espnOnlyEvents: string[]
   espnStatsAttached: number
+  /** merged fights whose finish description was taken from Wikipedia */
+  wikiDetailFills: number
+  /** Wikipedia phrases rejected because they named a fighter (either spelling) */
+  wikiDetailRejected: number
   lowSimilarityMatches: { csv: string; wiki: string; similarity: number }[]
   unmatchedWikiFights: { event: string; fighters: string }[]
 }
@@ -49,6 +55,8 @@ export function mergeAll(
     wikiOnlyEvents: [],
     espnOnlyEvents: [],
     espnStatsAttached: 0,
+    wikiDetailFills: 0,
+    wikiDetailRejected: 0,
     lowSimilarityMatches: [],
     unmatchedWikiFights: [],
   }
@@ -216,6 +224,11 @@ function enrichFromWiki(
     fight.card = wiki.card
     fight.titleFight = fight.titleFight || wiki.titleFight
     fight.bonuses = wiki.bonuses
+    const chosen = chooseMethodDetail(fight, wiki)
+    if (chosen.rejected) report.wikiDetailRejected++
+    else if (chosen.detail !== null && chosen.detail === wiki.methodDetail && chosen.detail !== fight.methodDetail)
+      report.wikiDetailFills++
+    fight.methodDetail = chosen.detail
   }
   for (const wiki of wikiEvent.fights) {
     if (!used.has(wiki)) {
@@ -225,6 +238,48 @@ function enrichFromWiki(
       })
     }
   }
+}
+
+const isFinish = (c: RevealMethod): boolean => c === 'KO/TKO' || c === 'Submission'
+
+/**
+ * Wikipedia owns the finish description. ufcstats' DETAILS is a glued
+ * taxonomy string parsed down to its head (parse/csvResults.ts); Wikipedia's
+ * parenthetical is editorial prose ("ninja choke", "knee injury"). The wiki
+ * phrase replaces the CSV head for finishes and disqualifications when the two
+ * sources agree on the outcome shape — same class, or both finishes (ufcstats
+ * codes injury/verbal stoppages as Submission where Wikipedia says TKO).
+ * Draw and No Contest keep their METHOD-derived values.
+ *
+ * SPOILER GATE: sanitize.ts and the audit only ever see the CSV-side fighter
+ * spelling ("Eduardo Chapolin"); Wikipedia may spell the same fighter
+ * differently ("Eduardo Henrique"). A wiki phrase naming a fighter under
+ * either spelling is rejected here — the only place both spellings exist.
+ */
+export function chooseMethodDetail(
+  fight: Pick<InternalFight, 'fighters' | 'methodClass' | 'methodDetail'>,
+  wiki: Pick<WikiFight, 'fighters' | 'methodClass' | 'methodDetail'>,
+): { detail: string | null; rejected: boolean } {
+  // The retained CSV head gets the same cross-spelling check: it was only
+  // ever scrubbed against ufcstats' own spelling of the fighters.
+  const csvDetail =
+    fight.methodDetail !== null && textMentionsFighter(fight.methodDetail, wiki.fighters)
+      ? null
+      : fight.methodDetail
+  const keep = { detail: csvDetail, rejected: false }
+  // A blank template ("injury") or an over-long parenthetical is no better
+  // than nothing — same rule the CSV and ESPN parsers apply to their text.
+  if (wiki.methodDetail === null || isBlankDetailTemplate(wiki.methodDetail)) return keep
+  if (wiki.methodDetail.length > 120) return keep
+  const eligible = isFinish(fight.methodClass) || fight.methodClass === 'Disqualification'
+  const compatible =
+    wiki.methodClass === fight.methodClass ||
+    (isFinish(wiki.methodClass) && isFinish(fight.methodClass))
+  if (!eligible || !compatible) return keep
+  if (textMentionsFighter(wiki.methodDetail, [...fight.fighters, ...wiki.fighters])) {
+    return { detail: csvDetail, rejected: true }
+  }
+  return { detail: wiki.methodDetail, rejected: false }
 }
 
 /**

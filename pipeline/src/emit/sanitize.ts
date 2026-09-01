@@ -1,6 +1,7 @@
 import {
   SCHEMA_VERSION,
   eventDetailSchema,
+  hasGluedWords,
   sortFighters,
   textMentionsFighter,
   type EventDetail,
@@ -82,21 +83,34 @@ function sanitizeFight(fight: InternalFight, score: FightScore, order: number): 
       round: fight.round,
       time: fight.time,
       method: fight.methodClass,
-      methodDetail: scrubMethodDetail(fight.methodDetail, fighters),
+      methodDetail: publishMethodDetail(fight.methodDetail, fighters),
       bonuses: [...fight.bonuses].sort(),
     },
   }
 }
 
 /**
- * Finish details occasionally quote a fighter (rare referee notes, and
- * upstream text with glued whitespace like "toMcGregor knee injury"). Any
- * detail mentioning either fighter's name is dropped outright — never
- * repaired, never partially kept.
+ * Last word on the finish description. By the time text reaches here it is a
+ * ufcstats taxonomy head (parse/csvResults.ts keeps only the head of the glued
+ * DETAILS field and discards the note), a Wikipedia phrase chosen in the merge
+ * (already checked against both sources' fighter spellings), or an ESPN
+ * description. Three rules, in order:
+ *  1. anything mentioning either fighter is dropped outright — never repaired,
+ *     never partially kept (eponymous techniques included: "Von Flue choke" on
+ *     Jason Von Flue's own fight stays null);
+ *  2. anything still carrying a glued word boundary ("…ControlScottish…") is
+ *     dropped — unreachable on the CSV path after the parse-time split, but
+ *     the live guard for Wikipedia and ESPN text, which is never split;
+ *     mirrored by the audit;
+ *  3. the first character is upper-cased so Wikipedia's lowercase prose
+ *     ("knee injury") reads like the rest of the column ("Majority draw").
  */
-function scrubMethodDetail(detail: string | null, fighters: [string, string]): string | null {
-  if (detail === null) return null
-  return textMentionsFighter(detail, fighters) ? null : detail
+function publishMethodDetail(detail: string | null, fighters: [string, string]): string | null {
+  const text = detail?.trim() ?? ''
+  if (text === '') return null
+  if (textMentionsFighter(text, fighters)) return null
+  if (hasGluedWords(text)) return null
+  return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
 export function eventId(event: { date: string; name: string }): string {

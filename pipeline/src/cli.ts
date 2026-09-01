@@ -226,6 +226,12 @@ async function run() {
   if (report.espnStatsAttached > 0) {
     console.log(`espn: stats attached to ${report.espnStatsAttached} fight(s)`)
   }
+  if (report.wikiDetailFills > 0 || report.wikiDetailRejected > 0) {
+    console.log(
+      `wiki: method details taken for ${report.wikiDetailFills} fight(s), ` +
+        `${report.wikiDetailRejected} rejected for naming a fighter`,
+    )
+  }
   if (report.unmatchedWikiFights.length > 0) {
     console.log(`unmatched wiki fights: ${report.unmatchedWikiFights.length}`)
     for (const f of report.unmatchedWikiFights.slice(0, 10))

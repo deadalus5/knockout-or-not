@@ -106,6 +106,14 @@ describe('parseEspnEvent', () => {
     expect(decision!.methodClass).toBe('Other')
   })
 
+  it('nulls blank injury templates in ESPN finish descriptions', () => {
+    const bundle = loadBundle() as Json
+    bundle.statuses['401870065'].result = { name: 'kotko', displayName: 'KO/TKO', description: 'Injury' }
+    const [main] = parseEspnEvent(bundle)!.fights
+    expect(main!.methodClass).toBe('KO/TKO')
+    expect(main!.methodDetail).toBeNull()
+  })
+
   it('maps draw-flavoured and NC-flavoured slugs before decision keywords', () => {
     const bundle = loadBundle() as Json
     bundle.statuses['401872623'].result = { name: 'majority-draw', displayName: 'Majority Draw' }

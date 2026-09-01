@@ -1,5 +1,6 @@
 import { REVEAL_METHODS, sortFighters, type RevealMethod } from '@ko/shared'
 import type { CardSection, CombinedStats } from '../model.js'
+import { isBlankDetailTemplate } from './common.js'
 
 /**
  * Parse ESPN's unofficial API JSON for one event.
@@ -173,8 +174,11 @@ function parseEspnMethod(result: Json): {
 
   const isFinish = methodClass === 'KO/TKO' || methodClass === 'Submission'
   const description = typeof result.description === 'string' ? result.description.trim() : ''
+  // Same blank-template rule as the CSV path ("Injury" carries no information).
   const methodDetail =
-    isFinish && description !== '' && description.length <= 120 ? description : null
+    isFinish && description !== '' && description.length <= 120 && !isBlankDetailTemplate(description)
+      ? description
+      : null
   return { methodClass, methodDetail }
 }
 

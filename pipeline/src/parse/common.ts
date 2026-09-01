@@ -1,4 +1,4 @@
-import type { RevealMethod } from '@ko/shared'
+import { textMentionsFighter, type RevealMethod } from '@ko/shared'
 
 const MONTHS: Record<string, string> = {
   january: '01', february: '02', march: '03', april: '04',
@@ -84,6 +84,45 @@ function detailFrom(method: string, fallback: string | null): string | null {
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
+}
+
+/**
+ * Blank ufcstats finish-detail templates. Injury and verbal stoppages arrive
+ * with the strike/target fields empty ("to", "to At Distance", "to On Ground")
+ * or as a bare category ("Injury", "Other"); they carry no information and
+ * become null so the merge can fill them from Wikipedia. Exact match only —
+ * real taxonomy such as "Other - Lock On Ground" or "Toe Hold" is kept.
+ */
+const BLANK_DETAIL_TEMPLATE = /^(to|to at distance|to on ground|to in clinch|injury|other)$/i
+
+export function isBlankDetailTemplate(detail: string): boolean {
+  return BLANK_DETAIL_TEMPLATE.test(detail.trim())
+}
+
+/**
+ * Structural parse of a ufcstats DETAILS finish description.
+ *
+ * The upstream scrape concatenates two ufcstats fields with no separator: a
+ * fixed-taxonomy head ("Rear Naked Choke", "Kick to Head At Distance") and an
+ * optional free-text note ("Technical Submission", "Wheel Kick", "Scottish
+ * twister", "McGregor knee injury"). Only the head is ever returned:
+ *
+ * 1. If the raw text mentions either fighter the whole value is dropped —
+ *    never repaired, never partially kept. This also stops a name-initial
+ *    fragment from surviving the split ("McGregor knee injury" would
+ *    otherwise yield "Mc").
+ * 2. The head is the text before the FIRST lowercase→uppercase adjacency; the
+ *    note after it is discarded and never stored. First boundary matters:
+ *    "toMcGregor knee injury" has two (to|Mc, Mc|Gregor) and must yield "to".
+ * 3. Blank templates ("to", "Injury", …) become null.
+ */
+export function parseFinishDetail(raw: string, fighters: readonly string[]): string | null {
+  const text = raw.trim()
+  if (text === '') return null
+  if (textMentionsFighter(text, fighters)) return null
+  const head = text.split(/(?<=[a-z])(?=[A-Z])/, 1)[0]!.trim()
+  if (head === '' || isBlankDetailTemplate(head)) return null
+  return head
 }
 
 export interface TimeFormatInfo {

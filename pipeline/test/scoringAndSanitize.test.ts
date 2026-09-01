@@ -208,6 +208,40 @@ describe('sanitizeEvent — the spoiler firewall', () => {
   })
 })
 
+describe('published method detail', () => {
+  const published = (methodDetail: string | null, fighters?: [string, string]) => {
+    const event: InternalEvent = {
+      source: 'merged',
+      name: 'UFC 317: Topuria vs. Oliveira',
+      date: '2026-06-27',
+      location: 'Las Vegas, Nevada, USA',
+      fights: [makeFight({ methodDetail, ...(fighters ? { fighters } : {}) })],
+    }
+    return sanitizeEvent(event, basePercentiles).fights[0]!.reveal.methodDetail
+  }
+
+  it('sentence-cases Wikipedia prose and leaves other values untouched', () => {
+    expect(published('knee injury')).toBe('Knee injury')
+    expect(published('  knee injury ')).toBe('Knee injury')
+    expect(published('rear-naked choke')).toBe('Rear-naked choke')
+    expect(published("D'Arce choke")).toBe("D'Arce choke")
+    expect(published('Punches to Head At Distance')).toBe('Punches to Head At Distance')
+    expect(published("Doctor's Stoppage")).toBe("Doctor's Stoppage")
+    expect(published(null)).toBeNull()
+    expect(published('   ')).toBeNull()
+  })
+
+  it('drops anything still carrying a glued word boundary (defence in depth)', () => {
+    expect(published('Twister From Back ControlScottish twister')).toBeNull()
+    expect(published('Guillotine Choke In ClinchNinja choke')).toBeNull()
+  })
+
+  it('drops an eponymous technique on its namesake\'s own fight', () => {
+    expect(published('Von Flue choke', ['Jason Von Flue', 'Alex Karalexis'])).toBeNull()
+    expect(published('Von Flue choke', ['Ovince Saint Preux', 'Nikita Krylov'])).toBe('Von Flue choke')
+  })
+})
+
 describe('event and fight matching', () => {
   const wikiEvent = {
     title: 'UFC on ABC 6',

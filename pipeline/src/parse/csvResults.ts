@@ -1,5 +1,5 @@
 import { parse } from 'csv-parse/sync'
-import { parseMethod, parseTimeFormat, parseWeightClass } from './common.js'
+import { parseFinishDetail, parseMethod, parseTimeFormat, parseWeightClass } from './common.js'
 import type { InternalFight } from '../model.js'
 
 /**
@@ -9,8 +9,14 @@ import type { InternalFight } from '../model.js'
  * - OUTCOME (W/L direction) is read only to classify symmetric draw/NC rows
  *   and is dropped before this function returns.
  * - DETAILS for decisions contains judge scorecards — discarded here, never
- *   stored. For finishes DETAILS is the finish description (e.g. "Rear Naked
- *   Choke") and becomes methodDetail.
+ *   stored. For KO/TKO and Submission it is ufcstats' finish description,
+ *   which the upstream scrape glues to a free-text note without whitespace
+ *   ("Twister From Back ControlScottish twister", "toMcGregor knee injury").
+ *   parseFinishDetail keeps only the taxonomy head, discards the note (where
+ *   fighter names appear), drops any value naming a fighter, and nulls blank
+ *   injury templates. DQ rows never use DETAILS — 17 of 23 name the
+ *   disqualified fighter in the head. Wikipedia's phrase replaces the head in
+ *   the merge (mergeEvents.ts chooseMethodDetail).
  */
 export function parseCsvResults(csv: string): Map<string, InternalFight[]> {
   const rows: Record<string, string>[] = parse(csv, {
@@ -35,17 +41,20 @@ export function parseCsvResults(csv: string): Map<string, InternalFight[]> {
     const { weightClass, titleFight } = parseWeightClass(row['WEIGHTCLASS'] ?? '')
     const timeFormat = parseTimeFormat(row['TIME FORMAT'] ?? '')
 
-    const isDecisionLike =
-      methodClass.startsWith('Decision') || methodClass === 'Draw'
-    const details = (row['DETAILS'] ?? '').trim()
-    // Scorecards (decision DETAILS) are discarded; finish details are kept.
-    const finishDetail = !isDecisionLike && details !== '' ? details : null
+    const fighters: [string, string] = [parts[0]!.trim(), parts[1]!.trim()]
+    // DETAILS is consulted only for KO/TKO and Submission. Decisions carry
+    // judge scorecards (discarded, never stored); DQ rows name the
+    // disqualified fighter in the head ("Headbutt by X") where the note-drop
+    // inside parseFinishDetail cannot reach; NC/Draw/Other/Doctor's Stoppage
+    // already derived their detail from METHOD above.
+    const isFinish = methodClass === 'KO/TKO' || methodClass === 'Submission'
+    const finishDetail = isFinish ? parseFinishDetail(row['DETAILS'] ?? '', fighters) : null
 
     const round = Number(row['ROUND'] ?? '')
     const time = (row['TIME'] ?? '').trim()
 
     const fight: InternalFight = {
-      fighters: [parts[0]!.trim(), parts[1]!.trim()],
+      fighters,
       order: 0,
       card: null,
       weightClass,
