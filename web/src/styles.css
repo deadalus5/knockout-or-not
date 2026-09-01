@@ -579,9 +579,27 @@ button {
   }
 }
 
+/* the fighter-names cell doubles as a "reveal whole row" button */
 .fight-table tbody .fight-col {
+  padding: 0;
+}
+
+.row-reveal {
+  display: block;
+  width: 100%;
   padding: 11px 14px;
   text-align: left;
+  transition: background 0.15s;
+}
+
+.row-reveal:hover {
+  background: rgba(245, 166, 35, 0.05);
+}
+
+.row-reveal:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
 }
 
 .fight-col .fighters {

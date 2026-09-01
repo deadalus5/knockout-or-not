@@ -33,11 +33,12 @@ export function AboutPage() {
       <h2>How revealing works</h2>
       <p>
         Every fight is a row of sealed cells, ordered left to right from vague to specific:
-        whether it was a stoppage, the method and its details, the combined fight stats —
-        significant strikes landed and attempted, attempted strikes per 30 seconds, and control
-        time — and finally the round and the time. Tap a cell and <strong>only that cell</strong>{' '}
-        is unsealed, and tapping it again reseals it; tap a column header to unseal or reseal
-        that column for every fight. You choose exactly how much you learn.
+        whether it was a stoppage, the method, the combined fight stats — significant strikes
+        landed and attempted, attempted strikes per 30 seconds, and control time — the round
+        and the time, and finally the method details and bonuses. Tap a cell and{' '}
+        <strong>only that cell</strong> is unsealed, and tapping it again reseals it; tap a
+        column header to unseal or reseal that column for every fight, or the fighter names to
+        do the same for a whole fight. You choose exactly how much you learn.
       </p>
       <p>
         All stats are <strong>combined totals for both fighters</strong>, so they describe the

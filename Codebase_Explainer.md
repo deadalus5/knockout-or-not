@@ -205,11 +205,11 @@ Dependency-free scoring over the lazy-loaded search index: fighter-name prefix b
 
 ### 6.4 The reveal table — `src/components/FightTable.tsx` (the heart of the UI)
 
-One row per fight, nine columns ordered **vague → specific**: finish → method → details → sig strikes landed → attempted → per-30s pace → control bar → round → time. Every cell starts sealed; clicking toggles it (a second click reseals). The excitement score is still computed and published but no longer rendered as a column.
+One row per fight, nine columns ordered **vague → specific**: finish → method → sig strikes landed → attempted → per-30s pace → control bar → round → time → details. Every cell starts sealed; clicking toggles it (a second click reseals). The excitement score is still computed and published but no longer rendered as a column.
 
 The mechanics, precisely:
 
-- Reveal state is a single React `Set` of `"fightId:cellKey"` strings. Clicking a sealed cell reveals **only that cell**. Clicking a column header reveals that column for every fight in the table.
+- Reveal state is a single React `Set` of `"fightId:cellKey"` strings. Clicking a sealed cell reveals **only that cell**. Clicking a column header reveals that column for every fight in the table; clicking the fighter names in the row header toggles every cell of that fight the same way.
 - A sealed cell renders *only* a striped redaction bar — the value is **not present in the DOM** (the cell's value function isn't even evaluated until revealed), so "inspect element" shows nothing.
 - Reveal state is **never persisted** — no localStorage, no URL state. Navigate away and everything reseals. A test asserts localStorage stays empty after clicking every cell.
 - The `finish` cell shows a neutral chip — "Stoppage" or "Went the distance" — into which draws and no-contests are folded, so the outcome type can't be inferred without unsealing `method`.

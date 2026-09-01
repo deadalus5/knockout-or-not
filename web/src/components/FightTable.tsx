@@ -14,14 +14,16 @@ import {
  * The progressive-reveal table: one row per fight, one column per detail,
  * ordered left→right from "tells you almost nothing" to "exact finish".
  * Every cell starts sealed and holds exactly one value; clicking a cell
- * toggles ONLY that cell (click again to reseal), and clicking a column
- * header toggles that column for every fight (reveals the remainder, or
- * reseals all once fully revealed). Revealed values are not in the DOM
+ * toggles ONLY that cell (click again to reseal), clicking a column
+ * header toggles that column for every fight, and clicking the fighter
+ * names toggles every cell of that fight (both reveal the remainder, or
+ * reseal all once fully revealed). Revealed values are not in the DOM
  * while sealed, and reveal state is transient component state — never
  * persisted.
  *
- * Combined stats (winner-free totals) sit between details and round/time:
- * they say what kind of fight it was without pinpointing the finish. Their
+ * Combined stats (winner-free totals) sit between method and round/time:
+ * they say what kind of fight it was without pinpointing the finish;
+ * details (method detail + bonuses) sit last. Their
  * coverage is near-complete since the ESPN fast path took over from the
  * stalled stats CSV; the remaining gaps (mostly the 1990s) render the
  * cell's empty state.
@@ -29,13 +31,13 @@ import {
 export type CellKey =
   | 'finish'
   | 'method'
-  | 'details'
   | 'landed'
   | 'attempted'
   | 'per30'
   | 'control'
   | 'round'
   | 'time'
+  | 'details'
 
 export interface CellDef {
   key: CellKey
@@ -70,25 +72,6 @@ export const CELL_DEFS: CellDef[] = [
     value: (f) => (
       <span className={`cell-strong ${methodClass(f.reveal.method)}`}>{f.reveal.method}</span>
     ),
-  },
-  {
-    key: 'details',
-    label: 'Details',
-    name: 'details',
-    empty: 'None',
-    value: (f) =>
-      f.reveal.methodDetail === null && f.reveal.bonuses.length === 0 ? null : (
-        <span className="cell-stack">
-          {f.reveal.methodDetail && <span className="cell-sub">{f.reveal.methodDetail}</span>}
-          {f.reveal.bonuses.length > 0 && (
-            <span className="cell-sub bonus">
-              {f.reveal.bonuses
-                .map((b) => (b === 'FOTN' ? 'Fight of the Night' : 'Performance bonus'))
-                .join(' · ')}
-            </span>
-          )}
-        </span>
-      ),
   },
   {
     key: 'landed',
@@ -164,30 +147,64 @@ export const CELL_DEFS: CellDef[] = [
     value: (f) =>
       f.reveal.time === null ? null : <span className="cell-strong">{f.reveal.time}</span>,
   },
+  {
+    key: 'details',
+    label: 'Details',
+    name: 'details',
+    empty: 'None',
+    value: (f) =>
+      f.reveal.methodDetail === null && f.reveal.bonuses.length === 0 ? null : (
+        <span className="cell-stack">
+          {f.reveal.methodDetail && <span className="cell-sub">{f.reveal.methodDetail}</span>}
+          {f.reveal.bonuses.length > 0 && (
+            <span className="cell-sub bonus">
+              {f.reveal.bonuses
+                .map((b) => (b === 'FOTN' ? 'Fight of the Night' : 'Performance bonus'))
+                .join(' · ')}
+            </span>
+          )}
+        </span>
+      ),
+  },
 ]
 
 function FightTableRow({
   fight,
   revealed,
   onReveal,
+  onToggleRow,
 }: {
   fight: Fight
   revealed: ReadonlySet<string>
   onReveal: (key: string) => void
+  onToggleRow: (fightId: string) => void
 }) {
   const [a, b] = fight.fighters
+  const rowAllRevealed = CELL_DEFS.every((def) => revealed.has(`${fight.id}:${def.key}`))
   return (
     <tr className="fight-tr" data-fight-id={fight.id}>
       <th scope="row" className="fight-col">
-        <span className="fighters">
-          {a}
-          <span className="vs">vs</span>
-          {b}
-        </span>
-        <span className="fight-meta">
-          {fight.weightClass}
-          {fight.titleFight && <span className="chip title-fight">Title</span>}
-        </span>
+        <button
+          type="button"
+          className="row-reveal"
+          title={
+            rowAllRevealed
+              ? 'Hide every detail for this fight'
+              : 'Reveal every detail for this fight'
+          }
+          aria-label={`${rowAllRevealed ? 'Hide' : 'Reveal'} every detail — ${a} vs ${b}`}
+          onClick={() => onToggleRow(fight.id)}
+        >
+          <span className="fighters">
+            {a}
+            <span className="vs">vs</span>
+            {b}
+          </span>
+          <span className="fight-meta">
+            {fight.weightClass}
+            {fight.titleFight && <span className="chip title-fight">Title</span>}
+          </span>
+        </button>
       </th>
       {CELL_DEFS.map((def) => {
         const cellId = `${fight.id}:${def.key}`
@@ -239,6 +256,16 @@ export function FightTable({ fights }: { fights: Fight[] }) {
       return next
     })
 
+  // Fighter names: same semantics for the fight's whole row.
+  const toggleRow = (fightId: string) =>
+    setRevealed((prev) => {
+      const next = new Set(prev)
+      const ids = CELL_DEFS.map((def) => `${fightId}:${def.key}`)
+      if (ids.every((id) => prev.has(id))) for (const id of ids) next.delete(id)
+      else for (const id of ids) next.add(id)
+      return next
+    })
+
   return (
     <div className="table-scroll">
       <table className="fight-table">
@@ -271,7 +298,13 @@ export function FightTable({ fights }: { fights: Fight[] }) {
         </thead>
         <tbody>
           {fights.map((fight) => (
-            <FightTableRow key={fight.id} fight={fight} revealed={revealed} onReveal={toggle} />
+            <FightTableRow
+              key={fight.id}
+              fight={fight}
+              revealed={revealed}
+              onReveal={toggle}
+              onToggleRow={toggleRow}
+            />
           ))}
         </tbody>
       </table>
