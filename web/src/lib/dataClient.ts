@@ -22,6 +22,13 @@ let searchCache: Promise<SearchIndex> | null = null
 async function fetchJson(url: string): Promise<unknown> {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`HTTP ${res.status} loading ${url}`)
+  // Static hosts with a single-page-app fallback (Cloudflare Workers assets)
+  // answer a *missing* file with index.html and status 200, so the status
+  // alone cannot detect "not found" — insist on a JSON content type.
+  const type = res.headers.get('content-type') ?? ''
+  if (!/\bjson\b/i.test(type)) {
+    throw new Error(`Not JSON (${type || 'no content-type'}) loading ${url}`)
+  }
   return res.json()
 }
 

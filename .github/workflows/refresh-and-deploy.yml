@@ -16,10 +16,8 @@ on:
     - cron: '0 9 * * 1' # Monday 09:00 UTC
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+# Least privilege: every job declares exactly the permissions it needs.
+permissions: {}
 
 concurrency:
   group: pages
@@ -30,6 +28,8 @@ jobs:
     # Data refresh only on schedule/manual runs; plain pushes just deploy.
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # pushes the "data: refresh" commit
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -53,10 +53,17 @@ jobs:
             git push
           fi
 
+  # GitHub Pages — the old address (deadalus5.github.io/knockout-or-not/).
+  # Stage C of Domain_Migration.md turns this into a redirect stub once
+  # knockoutornot.com is verified.
   deploy:
     needs: [refresh]
     if: always() && (needs.refresh.result == 'success' || needs.refresh.result == 'skipped')
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -79,3 +86,38 @@ jobs:
           path: web/dist
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Cloudflare Workers static assets — the new home (Domain_Migration.md).
+  # Builds at base '/', smoke-tests that build (ci.yml does not run on cron),
+  # then uploads with wrangler using web/wrangler.jsonc. The upload is
+  # all-or-nothing: a failure here leaves the previous version serving.
+  deploy-workers:
+    needs: [refresh]
+    if: always() && (needs.refresh.result == 'success' || needs.refresh.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    environment:
+      name: cloudflare
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main # pick up the data commit from the refresh job
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build (base '/')
+        run: npm run build
+      - name: Smoke test the build
+        run: npm run smoke
+      - name: Upload to Cloudflare
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.128.0'
+          workingDirectory: web
+          command: deploy

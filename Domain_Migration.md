@@ -95,9 +95,9 @@ Total hands-on time for you: roughly 15 minutes across Stages 0 and B.
 - [x] **CLAUDE** — Add the Cloudflare publishing tool (`wrangler`) to the project at a fixed version, so every publish uses the exact same tool.
 - [x] **CLAUDE** — Write the Worker description file `web/wrangler.jsonc` (name, "serve these files", "unknown pages open the app", test address on, custom domain off for now).
 - [x] **CLAUDE** — Write `web/public/_headers`: browser caching rules (fingerprinted files cached for a year, the app shell always re-checked) and two standard safety headers.
-- [ ] **CLAUDE** — Make the site's data loader refuse a response that is not actually data. *(Why: on Cloudflare a missing data file comes back as the app page with an "OK" status instead of a "not found" error, so the loader must check the content type, not just the status.)* Add a test for it.
-- [ ] **CLAUDE** — Add a `deploy-workers` job to the GitHub workflow: build → smoke test → upload to Cloudflare using the token from the `cloudflare` environment. The existing GitHub Pages job is left exactly as it is.
-- [ ] **CLAUDE** — Run every local check (types, tests, spoiler audit, build, smoke, a "dry run" of the publish), commit, push, and watch the workflow run.
+- [x] **CLAUDE** — Make the site's data loader refuse a response that is not actually data. *(Why: on Cloudflare a missing data file comes back as the app page with an "OK" status instead of a "not found" error, so the loader must check the content type, not just the status.)* Add a test for it.
+- [x] **CLAUDE** — Add a `deploy-workers` job to the GitHub workflow: build → smoke test → upload to Cloudflare using the token from the `cloudflare` environment. The existing GitHub Pages job is left exactly as it is.
+- [ ] **CLAUDE** — Run every local check (types, tests, spoiler audit, build, smoke, a "dry run" of the publish) ✅ · commit ✅ · **push and watch the workflow run — waiting on your secrets**.
 - [ ] **CLAUDE** — Verify the test address (see below).
 
 ### How we know it worked
@@ -202,7 +202,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 
 ## 13. Status log
 
-- **2026-09-02** — Plan researched (three research passes, seven independent fact-checks against Cloudflare/GitHub documentation and the publishing tool's source), reviewed and approved. Stage 0 started: `.gitignore` extended, change log added to git, GitHub environment `cloudflare` created with a `main`-only rule. Waiting on: Account ID, Zone ID, token in GitHub secrets.
+- **2026-09-02** — Plan researched (three research passes, seven independent fact-checks against Cloudflare/GitHub documentation and the publishing tool's source), reviewed and approved. Stage 0 started: `.gitignore` extended, change log added to git, GitHub environment `cloudflare` created with a `main`-only rule. Waiting on: Account ID, Zone ID, token in GitHub secrets. Stage A code (Worker config, headers file, data-loader guard with tests, workflow job) written; all local checks and a publish dry-run pass; committed locally, not yet pushed.
 
 ## Appendix — Why this route and not another
 

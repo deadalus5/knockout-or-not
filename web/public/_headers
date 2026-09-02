@@ -1,0 +1,23 @@
+# Cloudflare Workers static-assets header rules (consumed at publish time, never served).
+# Default for every asset is already "Cache-Control: public, max-age=0, must-revalidate"
+# plus an ETag, so HTML, the service worker and data JSON always revalidate.
+# Do NOT put Cache-Control under /* — a second match would be comma-joined onto it.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/workbox-*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/sw.js
+  Cache-Control: no-cache
+
+/registerSW.js
+  Cache-Control: no-cache
+
+/manifest.webmanifest
+  Cache-Control: no-cache

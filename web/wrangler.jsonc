@@ -1,0 +1,26 @@
+// Cloudflare Workers static-assets config for KnockoutOrNot (assets-only Worker).
+// Deployed by .github/workflows/refresh-and-deploy.yml (job deploy-workers) via
+// cloudflare/wrangler-action. See Domain_Migration.md.
+//
+// NEVER add "main", "assets.run_worker_first" or "cache" here: any of them turns
+// free, unlimited static-asset requests into metered Worker requests with a
+// daily cap on the Free plan.
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "knockoutornot",
+  // Pinned to the publish date of the pinned wrangler (4.128.0 → 2026-09-01).
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown paths (deep links like /event/<id>) get index.html with 200.
+    // Note: this also applies to missing data files — dataClient checks the
+    // Content-Type for exactly that reason.
+    "not_found_handling": "single-page-application",
+    // Serve files exactly as named: avoids the default 307 on /index.html,
+    // which the service worker precaches.
+    "html_handling": "none"
+  },
+  // Stage A: test address on, no custom domain yet. Stage B flips these.
+  "workers_dev": true,
+  "preview_urls": false
+}
