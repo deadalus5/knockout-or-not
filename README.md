@@ -6,14 +6,16 @@ KnockoutOrNot is a spoiler-free guide to UFC fights — every event back to
 UFC 1, and every new card as it happens. It tells you whether a fight is
 worth your time while making it impossible to learn **who won**.
 
-### ▶ Use it here: **<https://deadalus5.github.io/knockout-or-not/>**
+### ▶ Use it here: **<https://knockoutornot.com/>**
+
+(The old address, `deadalus5.github.io/knockout-or-not`, forwards here.)
 
 No install, no account. It's a PWA: add it to your home screen and it works
 offline.
 
 ## How to use it
 
-1. Open the [live site](https://deadalus5.github.io/knockout-or-not/) and
+1. Open the [live site](https://knockoutornot.com/) and
    pick an event from the list, or search for a fighter or event.
 2. Every fight is a row of **sealed cells**, ordered left to right from
    vague to specific:
@@ -74,7 +76,9 @@ the last good data.
 - `shared/` — the whitelist schema + name utilities used by everything
 - `pipeline/` — data pipeline: CSV back-catalogue + Wikipedia recent events +
   ESPN fresh stats → merge → excitement scoring → sanitize → `web/public/data/v1/`
-- `web/` — React + Vite PWA
+- `web/` — React + Vite PWA, served from Cloudflare Workers static assets
+  (`web/wrangler.jsonc`, `web/public/_headers`); `web/pages-redirect/` is the
+  forwarding page published to the old GitHub Pages address
 
 ## Development
 

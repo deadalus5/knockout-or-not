@@ -14,10 +14,10 @@ For every UFC fight in history it publishes things like: did it end in a finish 
 
 Two facts shape everything else:
 
-1. **It's a fully static site.** There is no server, no database, no API of its own. A data pipeline runs periodically, produces plain JSON files, commits them to this git repository, and GitHub Pages serves them alongside a React app. This is why the site is free to run and works offline.
+1. **It's a fully static site.** There is no server, no database, no API of its own. A data pipeline runs periodically, produces plain JSON files, commits them to this git repository, and Cloudflare (Workers static assets) serves them alongside a React app at knockoutornot.com. This is why the site is free to run and works offline.
 2. **The spoiler guarantee is enforced by architecture, not discipline.** Winner data is destroyed at the earliest possible moment (parse time), the published file format has *no field* that could hold a winner, and multiple independent automated checks scan every output before it ships.
 
-Live site: https://deadalus5.github.io/knockout-or-not
+Live site: https://knockoutornot.com (the old GitHub Pages address, deadalus5.github.io/knockout-or-not, forwards there since 2026-09-02 — see `Domain_Migration.md`)
 
 ---
 
@@ -31,7 +31,7 @@ Live site: https://deadalus5.github.io/knockout-or-not
 ├──────────────────┤  ├──▶│ merge │─▶│ score │─▶│ sanitize │──▶ web/public/data/v1/*.json
 │ Wikipedia         │──┤   └───────┘  └───────┘  └──────────┘         │
 │ (source of record)│  │      internal model         the             │  committed to git,
-├──────────────────┤  │      (winner-bearing,       firewall         │  served by GitHub Pages
+├──────────────────┤  │      (winner-bearing,       firewall         │  served by Cloudflare Workers (static assets)
 │ ESPN unofficial   │──┘       never published)                       ▼
 │ API (fast + stats)│                                    React PWA fetches + re-validates
 └──────────────────┘                                     and renders sealed "reveal" cells
@@ -224,12 +224,12 @@ The mechanics, precisely:
 - **`pages/HomePage.tsx`** — explainer + search + the event list, grouped by month, with infinite scroll (30 at a time via IntersectionObserver).
 - **`pages/EventPage.tsx`** — one event, its fights split into Main card / Prelims / Early prelims sections, one FightTable per section, plus the hint "Every cell is sealed. Tap one to reveal only that detail."
 - **`pages/AboutPage.tsx`** — an honest methodology page: what's structurally impossible vs. what's UI courtesy, how the score works, what "combined stats" means, data sources and licensing, and live freshness (event count + last-updated from `index.json`).
-- **`App.tsx` / `main.tsx`** — router (`/`, `/event/:id`, `/about`) with a `basename` that respects GitHub Pages sub-path hosting; entry point mounts the app and cleans up localStorage keys from retired features.
+- **`App.tsx` / `main.tsx`** — router (`/`, `/event/:id`, `/about`) with a `basename` taken from Vite's `base` (`/` in production; `KO_BASE` can still set a sub-path for local previews); entry point mounts the app and cleans up localStorage keys from retired features.
 - **`styles.css`** — the "vault" design system: dark charcoal, one amber accent, three typefaces (poster display, prose grotesk, data mono). The sealed cell is literally styled as a document-redaction bar, with per-column width variation for texture and an "unseal" animation on reveal (disabled under `prefers-reduced-motion`).
 
 ### 6.6 PWA / offline — `web/vite.config.ts`
 
-`vite-plugin-pwa` with auto-updating service worker. Caching strategy: the app shell and fonts are precached; the ~780 event JSON files are **not** (too many) — instead, `index.json` and the search index use *network-first* (fresh when online, cached when offline) and event files use *stale-while-revalidate* (instant load, refreshed in the background). The build reads `KO_BASE` for the GitHub Pages base path, and copies `index.html` to `404.html` so deep links like `/event/xyz` work on Pages (its 404 page boots the SPA, which then client-routes).
+`vite-plugin-pwa` with auto-updating service worker. Caching strategy: the app shell is precached; the ~780 event JSON files are **not** (too many) — instead, `index.json` and the search index use *network-first* (fresh when online, cached when offline) and event files use *stale-while-revalidate* (instant load, refreshed in the background). The build honours `KO_BASE` (Vite `base`) but production builds at `/`. On Cloudflare, `web/wrangler.jsonc` sets `not_found_handling: single-page-application`, so deep links like `/event/xyz` return `index.html` with status 200, and `html_handling: none` keeps `/index.html` un-redirected for the precache. A *missing* file also gets `index.html` + 200, which is why `dataClient` insists on a JSON content type. `web/public/_headers` gives hashed bundles year-long immutable caching and keeps the service-worker files `no-cache`.
 
 ---
 
@@ -238,7 +238,7 @@ The mechanics, precisely:
 Three GitHub Actions workflows in `.github/workflows/`:
 
 - **`ci.yml`** — on every push/PR: typecheck → tests → **spoiler audit** → build → **smoke test**. The smoke test (`scripts/smoke.mjs`) boots a real preview server against the built output and asserts the data is present (≥700 events), the PWA artifacts exist, and — one more tripwire — the served event JSON matches no spoiler pattern and contains no `winner`/`outcome` key.
-- **`refresh-and-deploy.yml`** — the full cycle: refresh data → audit → commit the diff (only if something actually changed — see the `generatedAt` stability trick above) → build → deploy to GitHub Pages. Runs on a schedule and on demand.
+- **`refresh-and-deploy.yml`** — the full cycle: refresh data → audit → commit the diff (only if something actually changed — see the `generatedAt` stability trick above) → build (base `/`) → smoke test → upload to Cloudflare with wrangler (job `deploy-workers`; secrets live in the GitHub environment `cloudflare`). A separate push-only job, `pages-redirect`, publishes the forwarding page and the self-destroying service worker in `web/pages-redirect/` to the old GitHub Pages address. Runs on a schedule and on demand.
 - **`watch-events.yml`** — the fast path. During broadcast windows (Saturday 12:00 UTC through Sunday 09:00 UTC, covering both international afternoon cards and US late-night cards) it polls ESPN's scoreboard **every ~10 minutes** with a single curl + jq comparison against the committed `index.json`. If a completed event is missing from the site, it dispatches the full refresh-and-deploy workflow. A **dispatch damper** skips triggering if a refresh is already running or finished under 30 minutes ago (so a broken ESPN feed can't queue builds all night), and fails *open* — if the damper check itself errors, it dispatches anyway. If ESPN is unreachable, the whole thing is a silent no-op.
 
 The resulting refresh cadence, slowest to fastest:

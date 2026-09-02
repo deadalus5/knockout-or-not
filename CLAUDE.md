@@ -16,7 +16,7 @@ npm run dev            # web dev server (http://localhost:5173)
 npm test               # all tests (pipeline vitest + web vitest)
 npm run typecheck      # tsc --noEmit across all three workspaces
 npm run audit          # spoiler audit of committed web/public/data
-npm run build          # typecheck + vite build (PWA) + SPA 404 fallback
+npm run build          # typecheck + vite build (PWA)
 npm run smoke          # build must exist first; boots preview, asserts data + PWA + no spoilers
 ```
 
@@ -35,7 +35,7 @@ npm -w pipeline run stats -- --offline   # dataset counts from cache, no network
 
 ## Architecture
 
-Fully static site + precomputed JSON. No backend, no database. The pipeline emits JSON into `web/public/data/v1/` (committed to git); the web app fetches and renders it. This is why it's free to run and works offline.
+Fully static site + precomputed JSON. No backend, no database. The pipeline emits JSON into `web/public/data/v1/` (committed to git); the web app fetches and renders it. This is why it's free to run and works offline. Hosted at **https://knockoutornot.com** on Cloudflare Workers static assets (assets-only Worker, `web/wrangler.jsonc`); the old GitHub Pages address forwards there.
 
 **Data flow (one direction, gated at the end):**
 
@@ -78,7 +78,14 @@ Rules when touching the pipeline or schema:
 
 ## Deploy
 
-GitHub Pages via `.github/workflows/refresh-and-deploy.yml` (refresh data → audit → commit diff → build → deploy). Build uses `KO_BASE` env for the Pages base path (`vite.config.ts` reads it). If the Wikipedia parser ever breaks, the workflow fails loudly and the site keeps serving last-good committed data.
+**Cloudflare Workers static assets** at https://knockoutornot.com, published by `.github/workflows/refresh-and-deploy.yml` (refresh data → audit → commit diff → build at base `/` → smoke → `wrangler deploy` via `cloudflare/wrangler-action@v4`, job `deploy-workers`). Config: `web/wrangler.jsonc` (assets-only, `not_found_handling: single-page-application`, `html_handling: none`, `workers_dev: false`) and `web/public/_headers` (immutable caching for hashed bundles, `no-cache` for the service-worker files, `nosniff` + referrer policy). Secrets `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` live only in the GitHub environment `cloudflare` (branch policy `main`); the token has Workers Scripts access only. The upload is all-or-nothing — a failed publish leaves the previous version serving. Emergency rollback without git: Cloudflare → Workers & Pages → knockoutornot → Deployments → Rollback (this also rolls the fight data back until the next refresh). If the Wikipedia parser ever breaks, the workflow fails loudly and the site keeps serving last-good data. Migration record and plain-English runbook: `Domain_Migration.md` (moved 2026-09-02).
+
+Rules that keep it free and working:
+- **Never add `main`, `assets.run_worker_first` or `cache` to `web/wrangler.jsonc`** — any of them turns free, unlimited static-asset requests into metered Worker requests with a daily cap.
+- **The custom domain is attached in Cloudflare, not declared in `wrangler.jsonc`.** Declaring `routes` makes wrangler query zone Workers Routes on every publish, which the minimal CI token cannot do (it failed once; see the guide). `www` is a proxied placeholder DNS record plus a zone Redirect Rule, never a second custom domain.
+- **Never set a custom domain on the old GitHub Pages project.** The push-only `pages-redirect` job publishes `web/pages-redirect/` (forwarding page as `index.html` + `404.html`, and a self-destroying `sw.js` at the old service-worker URL). A Pages custom domain would make GitHub redirect that `sw.js`, and cached old-address clients could never clean up.
+- A *missing* file on Cloudflare returns `index.html` with 200 (SPA fallback), not 404 — `dataClient.fetchJson` therefore requires a JSON content type. Post-deploy checks must assert content types, not just status codes.
+- `KO_BASE` (Vite `base`) is still honoured by `vite.config.ts` but production builds at `/`; CI's build and `scripts/smoke.mjs` exercise exactly the production shape.
 
 Three-tier refresh cadence (targets ~20–40 min after a card ends; GitHub cron jitter is the main variance):
 1. **`watch-events.yml`** polls the ESPN scoreboard every ~10 min during broadcast windows (Sat 12:00 – Sun 09:00 UTC — the Saturday-afternoon start covers Asia/Europe cards; sparse Sun–Mon fallback). One curl + jq compare against the committed `index.json`; if a completed event is missing it dispatches `refresh-and-deploy.yml`, otherwise it no-ops in seconds. A dispatch damper skips the trigger while a refresh is running or finished <30 min ago (prevents build-queue floods if ESPN's detail feed breaks mid-event; fails open — a damper error dispatches anyway). ESPN unreachable → silent no-op.

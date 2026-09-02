@@ -1,6 +1,6 @@
 # Moving KnockoutOrNot to knockoutornot.com — the changeover guide
 
-> **Where we are:** Stage C verified — the old address forwards. Stage D (paperwork) in progress. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
+> **Where we are:** Migration complete. Only the optional Stage D items for you remain (DNSSEC, notifications). Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
 
 This document is the single checklist for moving the site from its GitHub address to its real domain. It is written for a reader who does not live in computer jargon. Every step says **who** does it (**YOU** or **CLAUDE**), **why**, and **how we know it worked**. Nothing here should be done out of order; each stage is safe on its own and can be undone.
 
@@ -169,9 +169,9 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 ## 9. Stage D — Paperwork and hardening
 
 ### Checklist
-- [ ] **CLAUDE** — Update the README, `CLAUDE.md`, `Codebase_Explainer.md`: new address, new hosting description, where the secrets live, the rules below. Historical lines in `Deployment_History.md` stay as they were; a new entry describes this move.
-- [ ] **CLAUDE** — Set the repository's "website" field on GitHub to `https://knockoutornot.com`.
-- [ ] **CLAUDE** — Update the project notes Claude keeps between sessions.
+- [x] **CLAUDE** — Update the README, `CLAUDE.md`, `Codebase_Explainer.md`: new address, new hosting description, where the secrets live, the rules below. Historical lines in `Deployment_History.md` stay as they were; a new entry describes this move.
+- [x] **CLAUDE** — Set the repository's "website" field on GitHub to `https://knockoutornot.com`.
+- [x] **CLAUDE** — Update the project notes Claude keeps between sessions.
 - [ ] **YOU (optional, recommended, only after everything above is confirmed working)** — Cloudflare → **Manage Domains → knockoutornot.com → Manage → Configuration → Enable DNSSEC**. *(Why: signs the phone-book entries so they cannot be forged. Takes 1–2 days to finish on its own. Never turn it off or move the domain's nameservers without waiting out the period Cloudflare specifies.)*
 - [ ] **YOU** — Keep GitHub's email notifications for failed workflow runs on. If the token ever stops working, the publish job turns red, the live site keeps serving the last good version, and the email is how you find out.
 
@@ -202,6 +202,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 
 ## 13. Status log
 
+- **2026-09-02 (night)** — Stage D: README, `CLAUDE.md`, `Codebase_Explainer.md` and `Deployment_History.md` updated; repository website field set to knockoutornot.com; project notes updated. A final on-demand run of the full workflow (data refresh → publish) is the last check. **The migration is complete.** Optional for you, whenever convenient: enable DNSSEC (see Stage D) and keep GitHub's failed-run emails on.
 - **2026-09-02 (evening, later)** — Stage C live: **the old address forwards.** The GitHub Pages job now publishes only the forwarding page and the clean-up helper; both verified in real browsers (fresh visitor and a browser with the old app installed). The same publish showed the Cloudflare job red although the new version had already gone live: wrangler's post-upload check of the zone's Workers Routes was refused because the token has no zone-level Workers Routes permission. Resolved by no longer declaring the domain in `web/wrangler.jsonc` (Cloudflare keeps the attachment); publishes now need nothing beyond the Workers Scripts permission. Also shipped: absolute icon links (fixes a long-standing missing icon on directly opened event pages) and the build no longer emits the GitHub-Pages-only `404.html`.
 - **2026-09-02 (evening)** — Stage B live: **https://knockoutornot.com serves the site.** Cloudflare attached the domain and issued its certificate within a minute of the publish. First verification found every address on the domain forwarding to itself: the www forwarding rule's condition covered all requests, not just www. Corrected in the dashboard to "Hostname equals www.knockoutornot.com"; after that every check passed: http→https in one hop, www (http or https)→apex in one hop keeping the query string, test address off, headers and caching as designed, page byte-identical to the build, data identical to GitHub Pages, one analytics beacon, spoiler regexes clean, browser checks (install, reveal, offline) green. Old GitHub address untouched.
 - **2026-09-02 (later)** — Stage A live at the hidden test address `knockoutornot.rbwcontent.workers.dev`. Every check passed: correct file types and caching headers, data identical to GitHub Pages (787 events, same timestamp), page identical to the local build, spoiler regexes clean, service worker installs and controls the page, reveal cells toggle, offline home + event pages work, no browser errors. The same browser script run against the current GitHub Pages site gave identical results.

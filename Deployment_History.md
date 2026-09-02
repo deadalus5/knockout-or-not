@@ -4,6 +4,21 @@ Plain-language log of what changed on the live site and when. Newest first.
 
 ---
 
+## 2026-09-02 — The site moved to knockoutornot.com
+
+Commits `0f234ee`, `8c0371f`, `7f1cc8a`, `28c9708`, `482b930` (plus guide updates), deployed in four checked stages via GitHub Actions runs 33650409842, 33656753957, 33659445219 and 33659861163, each verified live before the next.
+
+- The site's address is now **https://knockoutornot.com**. `www.knockoutornot.com` and plain `http://` addresses forward to it in one hop. The old address (`deadalus5.github.io/knockout-or-not/…`) forwards every page to the same page on the new domain and quietly cleans up the app's old offline helper in returning visitors' browsers.
+- Hosting moved from GitHub Pages to Cloudflare (Workers static assets). The same GitHub workflow still refreshes the data, checks it for spoilers and builds the site; it now uploads to Cloudflare at the end. Uploads are all-or-nothing, so a failed publish leaves the previous version serving.
+- Small fixes carried along: the page icon links are now absolute (directly opened event pages used to request a missing icon), the build no longer emits the GitHub-Pages-only `404.html`, and the data loader now refuses anything that is not actually JSON (Cloudflare answers a missing file with the app page rather than a "not found" error).
+- New: a cookie-free Cloudflare Web Analytics counter (visitor numbers only, no tracking of individuals).
+- Anyone who had installed the app to a home screen from the old address will be bounced to the new domain in a browser tab when they open it; installed copies cannot be moved between addresses, so re-add the app from knockoutornot.com.
+- One hiccup during the move, fixed within minutes: the first version of the `www` forwarding rule matched every address and sent the whole domain in a loop; the rule now matches only `www`. A second hiccup, also fixed: the publishing tool's post-upload permission check failed because the publishing token is deliberately minimal; the domain is now attached in Cloudflare rather than declared in the config, so publishes need nothing beyond the Workers Scripts permission.
+
+No data or spoiler-protection changes. All 145 tests, the build, the smoke check and the spoiler audit were green before each push; every stage was verified in real browsers (install, reveal cells, offline use) and the served data was checked for spoiler patterns on the new domain. Full runbook and checklist: `Domain_Migration.md`.
+
+---
+
 ## 2026-09-02 — The "Fight" header is now centered and reveals the whole table
 
 Commit `6451920`, deployed via GitHub Actions run 33612905434 and confirmed live.
