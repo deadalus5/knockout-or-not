@@ -1,6 +1,6 @@
 # Moving KnockoutOrNot to knockoutornot.com — the changeover guide
 
-> **Where we are:** Stage B verified — knockoutornot.com is live. Stage C (old address becomes a forwarder) in progress. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
+> **Where we are:** Stage C verified — the old address forwards. Stage D (paperwork) in progress. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
 
 This document is the single checklist for moving the site from its GitHub address to its real domain. It is written for a reader who does not live in computer jargon. Every step says **who** does it (**YOU** or **CLAUDE**), **why**, and **how we know it worked**. Nothing here should be done out of order; each stage is safe on its own and can be undone.
 
@@ -152,7 +152,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 - [x] **CLAUDE** — Change the GitHub Pages job to publish just these two files (as `index.html`, `404.html`, `sw.js`), only when code is pushed (not on the data-refresh schedule).
 - [x] **CLAUDE** — Two small tidy-ups that are safe now: the page's icon links become absolute (fixes a long-standing missing-icon glitch on directly opened event pages), and the build stops producing the GitHub-Pages-only `404.html` copy.
 - [x] **CLAUDE** — Rehearse locally first *(passed 2026-09-02: the test browser swapped to the clean-up helper, its old caches vanished, a decoy cache belonging to "another app" survived, and the tab landed on the matching knockoutornot.com event page)*: build the old-style site, open it in a test browser so the old helper installs, swap in the signpost files at the same address, reload, and confirm the browser lands on `knockoutornot.com` with the old helper gone.
-- [ ] **CLAUDE** — Push, wait at least 10 minutes (GitHub's edge cache), verify.
+- [x] **CLAUDE** — Push, wait at least 10 minutes (GitHub's edge cache), verify. *(Run 33659445219; verified 2026-09-02 ~17:15 UTC: a fresh visitor opening an old deep link with `?x=1#h` landed on the identical knockoutornot.com page; a browser that had the old app installed cleaned itself up (no leftover registration or caches) and landed there too.)*
 
 ### How we know it worked
 - Opening `https://deadalus5.github.io/knockout-or-not/event/<some-event>?x=1#h` in a fresh browser ends on `https://knockoutornot.com/event/<some-event>?x=1#h`.
@@ -188,7 +188,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 
 1. **Never set a custom domain on the GitHub Pages project.** Doing so would make GitHub redirect the old helper file, and returning visitors' browsers could never clean up.
 2. **Never add `main`, `run_worker_first`, or `cache` to `web/wrangler.jsonc`.** Any of them turns free, unlimited file serving into metered requests with a daily cap.
-3. **The workflow file is the source of truth for the Worker's domain.** Domains added by hand in the Cloudflare dashboard are removed on the next publish.
+3. **The domain is attached in Cloudflare, not declared in the config file.** The Worker's `wrangler.jsonc` has no `routes` entry on purpose: declaring one makes every publish query zone settings, which needs token permissions the publishing token deliberately lacks. Cloudflare keeps the attachment (Workers & Pages → knockoutornot → Settings → Domains & Routes). If you ever want it declared in code instead, add the token permission `Zone · Workers Routes · Edit` first.
 4. **Deleting a custom domain leaves its certificate behind;** remove it by hand under SSL/TLS → Edge Certificates if you ever tear things down.
 5. **A Cloudflare rollback rolls the data back too**, until the next refresh runs.
 6. **Never put a token in a file in this project.** The `.gitignore` guards against accidents, but the rule is the real protection.
@@ -202,6 +202,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 
 ## 13. Status log
 
+- **2026-09-02 (evening, later)** — Stage C live: **the old address forwards.** The GitHub Pages job now publishes only the forwarding page and the clean-up helper; both verified in real browsers (fresh visitor and a browser with the old app installed). The same publish showed the Cloudflare job red although the new version had already gone live: wrangler's post-upload check of the zone's Workers Routes was refused because the token has no zone-level Workers Routes permission. Resolved by no longer declaring the domain in `web/wrangler.jsonc` (Cloudflare keeps the attachment); publishes now need nothing beyond the Workers Scripts permission. Also shipped: absolute icon links (fixes a long-standing missing icon on directly opened event pages) and the build no longer emits the GitHub-Pages-only `404.html`.
 - **2026-09-02 (evening)** — Stage B live: **https://knockoutornot.com serves the site.** Cloudflare attached the domain and issued its certificate within a minute of the publish. First verification found every address on the domain forwarding to itself: the www forwarding rule's condition covered all requests, not just www. Corrected in the dashboard to "Hostname equals www.knockoutornot.com"; after that every check passed: http→https in one hop, www (http or https)→apex in one hop keeping the query string, test address off, headers and caching as designed, page byte-identical to the build, data identical to GitHub Pages, one analytics beacon, spoiler regexes clean, browser checks (install, reveal, offline) green. Old GitHub address untouched.
 - **2026-09-02 (later)** — Stage A live at the hidden test address `knockoutornot.rbwcontent.workers.dev`. Every check passed: correct file types and caching headers, data identical to GitHub Pages (787 events, same timestamp), page identical to the local build, spoiler regexes clean, service worker installs and controls the page, reveal cells toggle, offline home + event pages work, no browser errors. The same browser script run against the current GitHub Pages site gave identical results.
 - **2026-09-02** — Plan researched (three research passes, seven independent fact-checks against Cloudflare/GitHub documentation and the publishing tool's source), reviewed and approved. Stage 0 started: `.gitignore` extended, change log added to git, GitHub environment `cloudflare` created with a `main`-only rule. Waiting on: Account ID, Zone ID, token in GitHub secrets. Stage A code (Worker config, headers file, data-loader guard with tests, workflow job) written; all local checks and a publish dry-run pass; committed locally, not yet pushed.
