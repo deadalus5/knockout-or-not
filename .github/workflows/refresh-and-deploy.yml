@@ -53,13 +53,17 @@ jobs:
             git push
           fi
 
-  # GitHub Pages — the old address (deadalus5.github.io/knockout-or-not/).
-  # Stage C of Domain_Migration.md turns this into a redirect stub once
-  # knockoutornot.com is verified.
-  deploy:
-    needs: [refresh]
-    if: always() && (needs.refresh.result == 'success' || needs.refresh.result == 'skipped')
+  # GitHub Pages — the OLD address (deadalus5.github.io/knockout-or-not/) is now
+  # only a forwarder to knockoutornot.com: a tiny page that redirects, plus a
+  # self-destroying service worker at the old sw.js URL that cleans up returning
+  # visitors' caches (web/pages-redirect/, Domain_Migration.md Stage C).
+  # NEVER set a custom domain on this Pages project: GitHub would then redirect
+  # sw.js and cached clients could never update. Push-only: the content is
+  # constant, so scheduled data refreshes skip it.
+  pages-redirect:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
       pages: write
@@ -69,21 +73,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main # pick up the data commit from the refresh job
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - name: Build
-        run: npm run build
-        env:
-          KO_BASE: /${{ github.event.repository.name }}/
+      - name: Assemble the forwarding site
+        run: |
+          mkdir -p stub
+          cp web/pages-redirect/index.html stub/index.html
+          cp web/pages-redirect/index.html stub/404.html
+          cp web/pages-redirect/sw.js stub/sw.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web/dist
+          path: stub
       - id: deployment
         uses: actions/deploy-pages@v4
 

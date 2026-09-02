@@ -1,6 +1,6 @@
 # Moving KnockoutOrNot to knockoutornot.com — the changeover guide
 
-> **Where we are:** Stage A verified; Stage B (go live) waiting on your Cloudflare switches. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
+> **Where we are:** Stage B verified — knockoutornot.com is live. Stage C (old address becomes a forwarder) in progress. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
 
 This document is the single checklist for moving the site from its GitHub address to its real domain. It is written for a reader who does not live in computer jargon. Every step says **who** does it (**YOU** or **CLAUDE**), **why**, and **how we know it worked**. Nothing here should be done out of order; each stage is safe on its own and can be undone.
 
@@ -117,16 +117,16 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 **Goal:** attach the real domain to the Worker. The old GitHub address keeps serving the full site throughout, so there is no moment where the site is down.
 
 ### Checklist
-- [ ] **YOU** — Cloudflare → **Domains** (or the account home): confirm knockoutornot.com shows **Active**.
-- [ ] **YOU** — Cloudflare → knockoutornot.com → **SSL/TLS → Edge Certificates** → turn **Always Use HTTPS** **On**. *(Why: anyone typing `http://` gets sent to the secure `https://` version. Off by default.)* Leave the encryption mode at its default; just make sure it is not "Off".
-- [ ] **YOU** — Cloudflare → knockoutornot.com → **DNS → Records → Add record**: Type **A**, Name **www**, IPv4 address **192.0.2.0**, Proxy status **Proxied** (orange cloud, on), TTL Auto → **Save**. *(Why: a placeholder so Cloudflare has something to intercept when someone types `www.`. The address 192.0.2.0 is a reserved dummy; nothing lives there. This is Cloudflare's documented recipe.)*
-- [ ] **YOU** — Cloudflare → knockoutornot.com → **Rules → Overview → Create rule → Redirect Rule** → pick the template **"Redirect from WWW to Root"** → **Deploy**. *(Why: `www.knockoutornot.com/anything` now forwards permanently to `knockoutornot.com/anything`, keeping any `?query`.)*
-- [ ] **YOU** — Cloudflare → **Web Analytics** → find knockoutornot.com → **Manage site** → choose **Enable with JS Snippet installation** → copy the small `<script …>` snippet it shows and send it to Claude. *(Why: this is the cookie-free visitor counter you asked for. The "snippet" mode is chosen because the automatic mode interferes with the app's offline caching.)*
-- [ ] **YOU** — Verify-only glance: **Security → Settings**: Bot Fight Mode should be **off**; **Speed → Settings → Content Optimization**: Rocket Loader should be **off**. Both are off by default; both would inject scripts into the site if on.
-- [ ] **CLAUDE** — Add the analytics snippet to the site's page template.
-- [ ] **CLAUDE** — Update `web/wrangler.jsonc`: custom domain `knockoutornot.com` on (with the Zone ID), test address off. Push. Cloudflare creates the DNS entry and the certificate itself within minutes.
-- [ ] **CLAUDE** — Push one more small commit afterwards. *(Why: the publishing tool runs an extra permission-dependent check only from the second publish onwards; we want to see it pass while we are watching.)*
-- [ ] **CLAUDE** — Verify (see below).
+- [x] **YOU** — Cloudflare → **Domains** (or the account home): confirm knockoutornot.com shows **Active**.
+- [x] **YOU** — Cloudflare → knockoutornot.com → **SSL/TLS → Edge Certificates** → turn **Always Use HTTPS** **On**. *(Why: anyone typing `http://` gets sent to the secure `https://` version. Off by default.)* Leave the encryption mode at its default; just make sure it is not "Off".
+- [x] **YOU** — Cloudflare → knockoutornot.com → **DNS → Records → Add record**: Type **A**, Name **www**, IPv4 address **192.0.2.0**, Proxy status **Proxied** (orange cloud, on), TTL Auto → **Save**. *(Why: a placeholder so Cloudflare has something to intercept when someone types `www.`. The address 192.0.2.0 is a reserved dummy; nothing lives there. This is Cloudflare's documented recipe.)*
+- [x] **YOU** — Cloudflare → knockoutornot.com → **Rules → Overview → Create rule → Redirect Rule**: condition **Hostname equals `www.knockoutornot.com`**, action **Dynamic redirect** to `concat("https://knockoutornot.com", http.request.uri.path)`, status 301, preserve query string. *(Why: `www.knockoutornot.com/anything` forwards permanently to `knockoutornot.com/anything`, keeping any `?query`. Lesson learned: the first attempt's condition covered every address, not just www, which made the whole domain forward to itself; the condition above fixes that.)*
+- [x] **YOU** — Cloudflare → **Web Analytics** → find knockoutornot.com → **Manage site** → choose **Enable with JS Snippet installation** → copy the small `<script …>` snippet it shows and send it to Claude. *(Why: this is the cookie-free visitor counter you asked for. The "snippet" mode is chosen because the automatic mode interferes with the app's offline caching.)*
+- [x] **YOU** — Verify-only glance: **Security → Settings**: Bot Fight Mode should be **off**; **Speed → Settings → Content Optimization**: Rocket Loader should be **off**. Both are off by default; both would inject scripts into the site if on.
+- [x] **CLAUDE** — Add the analytics snippet to the site's page template.
+- [x] **CLAUDE** — Update `web/wrangler.jsonc`: custom domain `knockoutornot.com` on (with the Zone ID), test address off. Push. Cloudflare creates the DNS entry and the certificate itself within minutes. *(Run 33656753957; certificate issued at 16:45 UTC, valid to 2026-12-01.)*
+- [x] **CLAUDE** — Push one more small commit afterwards *(the Stage C commit serves this purpose)*. *(Why: the publishing tool runs an extra permission-dependent check only from the second publish onwards; we want to see it pass while we are watching.)*
+- [x] **CLAUDE** — Verify (see below). *(All checks passed 2026-09-02 ~17:10 UTC.)*
 
 ### How we know it worked
 - `https://knockoutornot.com` shows the site with a valid padlock; every Stage A check passes there too.
@@ -147,11 +147,11 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 **Goal:** `https://deadalus5.github.io/knockout-or-not/…` forwards every visitor to the same page on `knockoutornot.com`, and quietly cleans up the app's old offline helper in their browser.
 
 ### Checklist
-- [ ] **CLAUDE** — Write the signpost page (`web/pages-redirect/index.html`): forwards to the matching page on the new domain (keeping the path and any `?query`/`#part`), with a visible "KnockoutOrNot has moved to knockoutornot.com" line and link for anyone whose browser blocks scripts.
-- [ ] **CLAUDE** — Write the clean-up helper (`web/pages-redirect/sw.js`), served at the exact address the old helper used. When a returning visitor's browser checks for updates, this replaces the old helper, deletes **only this site's** stored files (your other GitHub Pages apps on the same address are left alone), uninstalls itself, and reloads the tab, which then hits the signpost and forwards.
-- [ ] **CLAUDE** — Change the GitHub Pages job to publish just these two files (as `index.html`, `404.html`, `sw.js`), only when code is pushed (not on the data-refresh schedule).
-- [ ] **CLAUDE** — Two small tidy-ups that are safe now: the page's icon links become absolute (fixes a long-standing missing-icon glitch on directly opened event pages), and the build stops producing the GitHub-Pages-only `404.html` copy.
-- [ ] **CLAUDE** — Rehearse locally first: build the old-style site, open it in a test browser so the old helper installs, swap in the signpost files at the same address, reload, and confirm the browser lands on `knockoutornot.com` with the old helper gone.
+- [x] **CLAUDE** — Write the signpost page (`web/pages-redirect/index.html`): forwards to the matching page on the new domain (keeping the path and any `?query`/`#part`), with a visible "KnockoutOrNot has moved to knockoutornot.com" line and link for anyone whose browser blocks scripts.
+- [x] **CLAUDE** — Write the clean-up helper (`web/pages-redirect/sw.js`), served at the exact address the old helper used. When a returning visitor's browser checks for updates, this replaces the old helper, deletes **only this site's** stored files (your other GitHub Pages apps on the same address are left alone), uninstalls itself, and reloads the tab, which then hits the signpost and forwards.
+- [x] **CLAUDE** — Change the GitHub Pages job to publish just these two files (as `index.html`, `404.html`, `sw.js`), only when code is pushed (not on the data-refresh schedule).
+- [x] **CLAUDE** — Two small tidy-ups that are safe now: the page's icon links become absolute (fixes a long-standing missing-icon glitch on directly opened event pages), and the build stops producing the GitHub-Pages-only `404.html` copy.
+- [x] **CLAUDE** — Rehearse locally first *(passed 2026-09-02: the test browser swapped to the clean-up helper, its old caches vanished, a decoy cache belonging to "another app" survived, and the tab landed on the matching knockoutornot.com event page)*: build the old-style site, open it in a test browser so the old helper installs, swap in the signpost files at the same address, reload, and confirm the browser lands on `knockoutornot.com` with the old helper gone.
 - [ ] **CLAUDE** — Push, wait at least 10 minutes (GitHub's edge cache), verify.
 
 ### How we know it worked
@@ -202,6 +202,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 
 ## 13. Status log
 
+- **2026-09-02 (evening)** — Stage B live: **https://knockoutornot.com serves the site.** Cloudflare attached the domain and issued its certificate within a minute of the publish. First verification found every address on the domain forwarding to itself: the www forwarding rule's condition covered all requests, not just www. Corrected in the dashboard to "Hostname equals www.knockoutornot.com"; after that every check passed: http→https in one hop, www (http or https)→apex in one hop keeping the query string, test address off, headers and caching as designed, page byte-identical to the build, data identical to GitHub Pages, one analytics beacon, spoiler regexes clean, browser checks (install, reveal, offline) green. Old GitHub address untouched.
 - **2026-09-02 (later)** — Stage A live at the hidden test address `knockoutornot.rbwcontent.workers.dev`. Every check passed: correct file types and caching headers, data identical to GitHub Pages (787 events, same timestamp), page identical to the local build, spoiler regexes clean, service worker installs and controls the page, reveal cells toggle, offline home + event pages work, no browser errors. The same browser script run against the current GitHub Pages site gave identical results.
 - **2026-09-02** — Plan researched (three research passes, seven independent fact-checks against Cloudflare/GitHub documentation and the publishing tool's source), reviewed and approved. Stage 0 started: `.gitignore` extended, change log added to git, GitHub environment `cloudflare` created with a `main`-only rule. Waiting on: Account ID, Zone ID, token in GitHub secrets. Stage A code (Worker config, headers file, data-loader guard with tests, workflow job) written; all local checks and a publish dry-run pass; committed locally, not yet pushed.
 
