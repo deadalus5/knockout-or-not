@@ -17,6 +17,8 @@ Commits `0f234ee`, `8c0371f`, `7f1cc8a`, `28c9708`, `482b930` (plus guide update
 
 No data or spoiler-protection changes. All 145 tests, the build, the smoke check and the spoiler audit were green before each push; every stage was verified in real browsers (install, reveal cells, offline use) and the served data was checked for spoiler patterns on the new domain. Full runbook and checklist: `Domain_Migration.md`.
 
+Later the same day: DNSSEC enabled at Cloudflare (completes on its own within one to two days); added `Post_Migration.md` (current state, where to change what, and the settings that live outside git) and tightened `CLAUDE.md`. Documentation only; no site changes.
+
 ---
 
 ## 2026-09-02 — The "Fight" header is now centered and reveals the whole table
