@@ -5,3 +5,10 @@ pipeline/.cache/
 .DS_Store
 # local research copy of the Kaggle UFC dataset — not a pipeline source
 UFCStats Dataset.csv
+# local secrets — never commit credentials (Cloudflare tokens live in GitHub environment secrets)
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+.wrangler/
