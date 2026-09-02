@@ -1,6 +1,6 @@
 # Moving KnockoutOrNot to knockoutornot.com — the changeover guide
 
-> **Where we are:** Stage 0 in progress. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
+> **Where we are:** Stage A verified; Stage B (go live) waiting on your Cloudflare switches. Last updated 2026-09-02. Scroll to the **Status log** at the bottom for the blow-by-blow.
 
 This document is the single checklist for moving the site from its GitHub address to its real domain. It is written for a reader who does not live in computer jargon. Every step says **who** does it (**YOU** or **CLAUDE**), **why**, and **how we know it worked**. Nothing here should be done out of order; each stage is safe on its own and can be undone.
 
@@ -60,10 +60,10 @@ Total hands-on time for you: roughly 15 minutes across Stages 0 and B.
 - [x] **CLAUDE** — Teach the project to ignore local secret files (`.env`, `.dev.vars`, `.wrangler/`) so a token could never be committed by accident. (Preventive: no such files exist today.)
 - [x] **CLAUDE** — Add the plain-language change log (`Deployment_History.md`) to the repository, as agreed.
 - [x] **CLAUDE** — Create a locked GitHub "environment" named `cloudflare`, restricted to the `main` branch. Only the publishing job on `main` can ever read secrets stored there.
-- [ ] **YOU** — Cloudflare: **My Profile → Authentication**: make sure two-factor authentication is on. *(Why: this account will now hold the live site.)*
-- [ ] **YOU** — Cloudflare: **Workers & Pages → Overview**. If Cloudflare asks you to choose a `*.workers.dev` subdomain, pick any name (for example `deadalus`). On the right side, under **Account details**, copy the **Account ID** and send it to Claude. *(Why: the test copy in Stage A lives at `knockoutornot.<your-subdomain>.workers.dev`, and the robot needs the Account ID to know which account to publish into.)*
-- [ ] **YOU** — Cloudflare: click the **knockoutornot.com** domain → its **Overview** page → scroll to the **API** box on the right → copy the **Zone ID** and send it to Claude. *(Why: Stage B uses it so the token can stay as limited as possible.)*
-- [ ] **YOU** — Cloudflare: **Manage Account → API Tokens → Create Token → Create Custom Token** (bottom of the page). Fill in:
+- [x] **YOU** — Cloudflare: **My Profile → Authentication**: make sure two-factor authentication is on. *(Why: this account will now hold the live site.)*
+- [x] **YOU** — Cloudflare: **Workers & Pages → Overview**. If Cloudflare asks you to choose a `*.workers.dev` subdomain, pick any name (for example `deadalus`). On the right side, under **Account details**, copy the **Account ID** and send it to Claude. *(Why: the test copy in Stage A lives at `knockoutornot.<your-subdomain>.workers.dev`, and the robot needs the Account ID to know which account to publish into.)*
+- [x] **YOU** — Cloudflare: click the **knockoutornot.com** domain → its **Overview** page → scroll to the **API** box on the right → copy the **Zone ID** and send it to Claude. *(Why: Stage B uses it so the token can stay as limited as possible.)*
+- [x] **YOU** — Cloudflare: **Manage Account → API Tokens → Create Token → Create Custom Token** (bottom of the page). Fill in:
   - **Token name:** `github-actions-knockoutornot`
   - **Permissions** (three rows, use the "+ Add more" link):
     1. `Account` · `Workers Scripts` · `Edit`
@@ -73,10 +73,10 @@ Total hands-on time for you: roughly 15 minutes across Stages 0 and B.
   - **Zone Resources:** Include → **Specific zone** → `knockoutornot.com`
   - **TTL:** leave blank (the robot needs it indefinitely; we can roll it any time)
   - Click **Continue to summary → Create Token**. Copy the token. **It is shown exactly once.** Keep the tab open until the next step is done.
-- [ ] **YOU** — Put the two values into GitHub's vault. Either way works:
+- [x] **YOU** — Put the two values into GitHub's vault. Either way works:
   - **Web:** `https://github.com/deadalus5/knockout-or-not/settings/environments` → click **cloudflare** → **Environment secrets → Add environment secret**. Add `CLOUDFLARE_API_TOKEN` (paste the token) and `CLOUDFLARE_ACCOUNT_ID` (paste the Account ID).
   - **Or Terminal** (your own Terminal app, not the Claude session): run `gh secret set CLOUDFLARE_API_TOKEN --env cloudflare -R deadalus5/knockout-or-not`, paste the token at the hidden prompt, press Enter; then the same with `CLOUDFLARE_ACCOUNT_ID`.
-- [ ] **YOU** — Tell Claude: "secrets are in", plus the Account ID and Zone ID.
+- [x] **YOU** — Tell Claude: "secrets are in", plus the Account ID and Zone ID. *(Done 2026-09-02. Test address: `https://knockoutornot.rbwcontent.workers.dev`.)*
 
 ### How we know it worked
 - GitHub shows two secrets under the `cloudflare` environment (names only; values are never displayed).
@@ -97,8 +97,8 @@ Total hands-on time for you: roughly 15 minutes across Stages 0 and B.
 - [x] **CLAUDE** — Write `web/public/_headers`: browser caching rules (fingerprinted files cached for a year, the app shell always re-checked) and two standard safety headers.
 - [x] **CLAUDE** — Make the site's data loader refuse a response that is not actually data. *(Why: on Cloudflare a missing data file comes back as the app page with an "OK" status instead of a "not found" error, so the loader must check the content type, not just the status.)* Add a test for it.
 - [x] **CLAUDE** — Add a `deploy-workers` job to the GitHub workflow: build → smoke test → upload to Cloudflare using the token from the `cloudflare` environment. The existing GitHub Pages job is left exactly as it is.
-- [ ] **CLAUDE** — Run every local check (types, tests, spoiler audit, build, smoke, a "dry run" of the publish) ✅ · commit ✅ · **push and watch the workflow run — waiting on your secrets**.
-- [ ] **CLAUDE** — Verify the test address (see below).
+- [x] **CLAUDE** — Run every local check (types, tests, spoiler audit, build, smoke, a "dry run" of the publish), commit, push, and watch the workflow run. *(GitHub Actions run 33650409842: both publish jobs green; 799 files uploaded.)*
+- [x] **CLAUDE** — Verify the test address (see below). *(All checks passed 2026-09-02, including offline use and a side-by-side control run against the current GitHub Pages site.)*
 
 ### How we know it worked
 Against `https://knockoutornot.<subdomain>.workers.dev`:
@@ -202,6 +202,7 @@ Against `https://knockoutornot.<subdomain>.workers.dev`:
 
 ## 13. Status log
 
+- **2026-09-02 (later)** — Stage A live at the hidden test address `knockoutornot.rbwcontent.workers.dev`. Every check passed: correct file types and caching headers, data identical to GitHub Pages (787 events, same timestamp), page identical to the local build, spoiler regexes clean, service worker installs and controls the page, reveal cells toggle, offline home + event pages work, no browser errors. The same browser script run against the current GitHub Pages site gave identical results.
 - **2026-09-02** — Plan researched (three research passes, seven independent fact-checks against Cloudflare/GitHub documentation and the publishing tool's source), reviewed and approved. Stage 0 started: `.gitignore` extended, change log added to git, GitHub environment `cloudflare` created with a `main`-only rule. Waiting on: Account ID, Zone ID, token in GitHub secrets. Stage A code (Worker config, headers file, data-loader guard with tests, workflow job) written; all local checks and a publish dry-run pass; committed locally, not yet pushed.
 
 ## Appendix — Why this route and not another
