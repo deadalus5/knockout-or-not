@@ -20,7 +20,14 @@
     // which the service worker precaches.
     "html_handling": "none"
   },
-  // Stage A: test address on, no custom domain yet. Stage B flips these.
-  "workers_dev": true,
+  // The live domain. Cloudflare creates the DNS record and certificate itself.
+  // www is NOT a second custom domain on purpose: it is a proxied placeholder
+  // DNS record plus a zone Redirect Rule (Cloudflare's documented pattern), and
+  // CI deploys would silently overwrite that record if www were listed here.
+  "routes": [
+    { "pattern": "knockoutornot.com", "custom_domain": true, "zone_id": "4e19e535f8585efc4c07ba96379640c4" }
+  ],
+  // Test address off now that the real domain is attached.
+  "workers_dev": false,
   "preview_urls": false
 }
