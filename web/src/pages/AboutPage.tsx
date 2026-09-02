@@ -37,8 +37,9 @@ export function AboutPage() {
         landed and attempted, attempted strikes per 30 seconds, and control time — the round
         and the time, and finally the method details and bonuses. Tap a cell and{' '}
         <strong>only that cell</strong> is unsealed, and tapping it again reseals it; tap a
-        column header to unseal or reseal that column for every fight, or the fighter names to
-        do the same for a whole fight. You choose exactly how much you learn.
+        column header to unseal or reseal that column for every fight, the fighter names to do
+        the same for a whole fight, or the "Fight" header to unseal or reseal everything at
+        once. You choose exactly how much you learn.
       </p>
       <p>
         All stats are <strong>combined totals for both fighters</strong>, so they describe the

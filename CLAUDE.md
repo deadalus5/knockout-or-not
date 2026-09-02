@@ -86,3 +86,5 @@ Three-tier refresh cadence (targets ~20–40 min after a card ends; GitHub cron 
 3. **Sunday 18:00 UTC** and **Monday 09:00 UTC** crons — Wikipedia bonus/consistency pass and backstop.
 
 `emit/writeJson.ts` keeps `index.json` byte-stable when nothing changed (it reuses the previous `generatedAt` unless the event list differs), so the CI commit step's no-op guard actually engages — a refresh with no new data produces no commit.
+
+Update Deployment_History whenever changes are deployed just for user reference, written plainly for simple understanding.

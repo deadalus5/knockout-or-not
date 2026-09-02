@@ -31,9 +31,10 @@ export function FighterName({ name }: { name: string }) {
  * ordered left→right from "tells you almost nothing" to "exact finish".
  * Every cell starts sealed and holds exactly one value; clicking a cell
  * toggles ONLY that cell (click again to reseal), clicking a column
- * header toggles that column for every fight, and clicking the fighter
- * names toggles every cell of that fight (both reveal the remainder, or
- * reseal all once fully revealed). Revealed values are not in the DOM
+ * header toggles that column for every fight, clicking the fighter
+ * names toggles every cell of that fight, and clicking the "Fight"
+ * header toggles the entire table (each reveals the remainder, or
+ * reseals all once fully revealed). Revealed values are not in the DOM
  * while sealed, and reveal state is transient component state — never
  * persisted.
  *
@@ -282,13 +283,39 @@ export function FightTable({ fights }: { fights: Fight[] }) {
       return next
     })
 
+  // "Fight" header: same semantics for the entire table.
+  const toggleAll = () =>
+    setRevealed((prev) => {
+      const next = new Set(prev)
+      const ids = fights.flatMap((fight) => CELL_DEFS.map((def) => `${fight.id}:${def.key}`))
+      if (ids.every((id) => prev.has(id))) for (const id of ids) next.delete(id)
+      else for (const id of ids) next.add(id)
+      return next
+    })
+
+  const everythingRevealed = fights.every((fight) =>
+    CELL_DEFS.every((def) => revealed.has(`${fight.id}:${def.key}`)),
+  )
+
   return (
     <div className="table-scroll">
       <table className="fight-table">
         <thead>
           <tr>
             <th scope="col" className="fight-col">
-              Fight
+              <button
+                type="button"
+                className="col-reveal"
+                title={
+                  everythingRevealed
+                    ? 'Hide every detail for every fight'
+                    : 'Reveal every detail for every fight'
+                }
+                aria-label={`${everythingRevealed ? 'Hide' : 'Reveal'} every detail for all fights`}
+                onClick={toggleAll}
+              >
+                Fight
+              </button>
             </th>
             {CELL_DEFS.map((def) => {
               const allRevealed = fights.every((fight) => revealed.has(`${fight.id}:${def.key}`))

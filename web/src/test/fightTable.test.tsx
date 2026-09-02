@@ -265,6 +265,59 @@ describe('row reveal via fighter names', () => {
   })
 })
 
+describe('reveal-all via the Fight header', () => {
+  const second: Fight = {
+    ...fight,
+    id: 'f02',
+    fighters: ['Max Holloway', 'Justin Gaethje'],
+    resultClass: 'distance',
+    reveal: { round: 5, time: '5:00', method: 'Decision - Unanimous', methodDetail: null, bonuses: [] },
+  }
+
+  it('clicking the Fight header reveals every cell of every fight, with no spoilers', () => {
+    const { container } = render(<FightTable fights={[fight, second]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal every detail for all fights/i }))
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(2 * CELL_DEFS.length)
+    expect(screen.getByText('KO/TKO')).toBeTruthy()
+    expect(screen.getByText('Decision - Unanimous')).toBeTruthy()
+    expect(screen.getByText('Stoppage')).toBeTruthy()
+    expect(screen.getByText('Went the distance')).toBeTruthy()
+    expect(scanForSpoilers(container.innerHTML)).toEqual([])
+  })
+
+  it('a fully revealed table reseals on the second click', () => {
+    const { container } = render(<FightTable fights={[fight, second]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal every detail for all fights/i }))
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(2 * CELL_DEFS.length)
+    fireEvent.click(screen.getByRole('button', { name: /hide every detail for all fights/i }))
+    expect(screen.queryAllByRole('button', { pressed: true }).length).toBe(0)
+    expect(container.innerHTML).not.toContain('KO/TKO')
+    expect(container.innerHTML).not.toContain('Decision')
+    expect(container.innerHTML).not.toContain('5:00')
+  })
+
+  it('a partially revealed table reveals the remainder first, then reseals', () => {
+    render(<FightTable fights={[fight, second]} />)
+    // reveal a single cell individually
+    fireEvent.click(screen.getByRole('button', { name: /reveal method — Charles Oliveira/i }))
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(1)
+    // mixed state → Fight-header click reveals everything else
+    fireEvent.click(screen.getByRole('button', { name: /reveal every detail for all fights/i }))
+    expect(screen.getAllByRole('button', { pressed: true }).length).toBe(2 * CELL_DEFS.length)
+    // fully revealed → Fight-header click reseals the whole table
+    fireEvent.click(screen.getByRole('button', { name: /hide every detail for all fights/i }))
+    expect(screen.queryAllByRole('button', { pressed: true }).length).toBe(0)
+  })
+
+  it('a full-table reveal-and-reseal cycle never touches localStorage', () => {
+    render(<FightTable fights={[fight, second]} />)
+    fireEvent.click(screen.getByRole('button', { name: /reveal every detail for all fights/i }))
+    expect(Object.keys(localStorage)).toEqual([])
+    fireEvent.click(screen.getByRole('button', { name: /hide every detail for all fights/i }))
+    expect(Object.keys(localStorage)).toEqual([])
+  })
+})
+
 describe('missing data', () => {
   const bareFight: Fight = {
     ...fight,
