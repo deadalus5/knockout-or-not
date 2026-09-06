@@ -142813,6 +142813,233 @@
      "bonuses": []
     }
    ]
+  },
+  {
+   "title": "UFC Fight Night: Hooker vs. Parnasse",
+   "revid": 1373426638,
+   "name": "UFC Fight Night: Hooker vs. Parnasse",
+   "date": "2026-09-05",
+   "location": "Paris, France",
+   "fights": [
+    {
+     "fighters": [
+      "Dan Hooker",
+      "Salahdine Parnasse"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "body kick and punches",
+     "round": 1,
+     "time": "2:35",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Axel Sola",
+      "Farès Ziam"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punch",
+     "round": 1,
+     "time": "1:40",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Michael Page",
+      "Nursulton Ruziboev"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Daniil Donchenko",
+      "Punahele Soriano"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Kurtis Campbell",
+      "Trevor Peek"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 3,
+     "time": "3:07",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Losene Keita",
+      "Muhammad Naimov"
+     ],
+     "order": 6,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punch",
+     "round": 1,
+     "time": "2:54",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Morgan Charrière",
+      "Felipe Lima"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Mário Pinto",
+      "Ryan Spann"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 2,
+     "time": "0:55",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Modestas Bukauskas",
+      "Oumar Sy"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "knee and punches",
+     "round": 2,
+     "time": "3:57",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Pavel Andrusca",
+      "Nathaniel Wood"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Michael Aljarouj",
+      "Fabià Sintes"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Klaudia Syguła",
+      "Nora Cornolle"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Luis Felipe Dias",
+      "Matthieu Letho Duclos"
+     ],
+     "order": 13,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:35",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Delphine Benouaich",
+      "Sofia Montenegro"
+     ],
+     "order": 14,
+     "card": "prelim",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 2,
+     "time": "4:22",
+     "bonuses": []
+    }
+   ]
   }
  ]
 }
