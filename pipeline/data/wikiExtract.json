@@ -142816,7 +142816,7 @@
   },
   {
    "title": "UFC Fight Night: Hooker vs. Parnasse",
-   "revid": 1373567563,
+   "revid": 1373731495,
    "name": "UFC Fight Night: Hooker vs. Parnasse",
    "date": "2026-09-05",
    "location": "Paris, France",
@@ -143037,6 +143037,216 @@
      "methodDetail": "rear-naked choke",
      "round": 2,
      "time": "4:22",
+     "bonuses": []
+    }
+   ]
+  },
+  {
+   "title": "UFC Fight Night: Silva vs. Delgado",
+   "revid": 1374641530,
+   "name": "UFC Fight Night: Silva vs. Delgado",
+   "date": "2026-09-12",
+   "location": "Glendale, Arizona, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Jose Miguel Delgado",
+      "Jean Silva"
+     ],
+     "order": 1,
+     "card": null,
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 3,
+     "time": "2:57",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Joseph Morales",
+      "Brandon Moreno"
+     ],
+     "order": 2,
+     "card": null,
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Split",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Tommy McMillen",
+      "Marwan Rahiki"
+     ],
+     "order": 3,
+     "card": null,
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": [
+      "FOTN"
+     ]
+    },
+    {
+     "fighters": [
+      "Manon Fiorot",
+      "Alexa Grasso"
+     ],
+     "order": 4,
+     "card": null,
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Waldo Cortes-Acosta",
+      "Curtis Blaydes"
+     ],
+     "order": 5,
+     "card": null,
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Dan Ige",
+      "David Martínez"
+     ],
+     "order": 6,
+     "card": null,
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Édgar Cháirez",
+      "Tim Elliott"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Catchweight ( lb)",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ignacio Bahamondes",
+      "Muslim Salikhov"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Yousri Belgaroui",
+      "Djorden Santos"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:25",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Thomas Gantt",
+      "Drakkar Klose"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "reverse triangle choke",
+     "round": 3,
+     "time": "2:46",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Rafa García",
+      "Rong Zhu"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Sean King III",
+      "Jessie Rosas"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "slam and punches",
+     "round": 1,
+     "time": "0:36",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "JJ Aldrich",
+      "Regina Tarín"
+     ],
+     "order": 13,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
      "bonuses": []
     }
    ]
