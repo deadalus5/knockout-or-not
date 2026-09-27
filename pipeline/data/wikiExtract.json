@@ -143448,7 +143448,7 @@
   },
   {
    "title": "UFC Fight Night: Rosas Jr. vs. Barcelos",
-   "revid": 1376989339,
+   "revid": 1377079351,
    "name": "UFC Fight Night: Rosas Jr. vs. Barcelos",
    "date": "2026-09-26",
    "location": "Las Vegas, Nevada, U.S.",
@@ -143505,7 +143505,7 @@
     {
      "fighters": [
       "Mehemmedeli Osmanli",
-      "Ilimbek Akylbek Uulu"
+      "Ilimbek Akylbek uulu"
      ],
      "order": 4,
      "card": "main",
