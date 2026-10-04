@@ -143643,7 +143643,7 @@
   },
   {
    "title": "UFC 332",
-   "revid": 1378417343,
+   "revid": 1378508634,
    "name": "UFC 332: Silva vs. Wang",
    "date": "2026-10-03",
    "location": "Salt Lake City, Utah, U.S.",
@@ -143685,7 +143685,7 @@
      ],
      "order": 3,
      "card": "main",
-     "weightClass": "Lightweight",
+     "weightClass": "Catchweight ( . lb)",
      "titleFight": false,
      "methodClass": "KO/TKO",
      "methodDetail": "punches",
