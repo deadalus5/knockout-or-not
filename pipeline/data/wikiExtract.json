@@ -143448,7 +143448,7 @@
   },
   {
    "title": "UFC Fight Night: Rosas Jr. vs. Barcelos",
-   "revid": 1377236562,
+   "revid": 1377755513,
    "name": "UFC Fight Night: Rosas Jr. vs. Barcelos",
    "date": "2026-09-26",
    "location": "Las Vegas, Nevada, U.S.",
@@ -143638,6 +143638,233 @@
      "bonuses": [
       "PERF"
      ]
+    }
+   ]
+  },
+  {
+   "title": "UFC 332",
+   "revid": 1378417343,
+   "name": "UFC 332: Silva vs. Wang",
+   "date": "2026-10-03",
+   "location": "Salt Lake City, Utah, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Wang Cong",
+      "Natália Silva"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 5,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Deiveson Figueiredo",
+      "Payton Talbott"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "2:09",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "King Green",
+      "Esteban Ribovics"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:08",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Roberto Soldić",
+      "Khaos Williams"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ateba Gautier",
+      "Roman Kopylov"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "3:12",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Alden Coria",
+      "Imanol Rodríguez"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "body kick and punches",
+     "round": 1,
+     "time": "3:11",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Damian Pinas",
+      "Andrey Pulyaev"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punch",
+     "round": 1,
+     "time": "1:15",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Marcus McGhee",
+      "Anthony Romero"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:58",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Lucas Armand",
+      "Anthony Wint"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "0:23",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Mick Parkin",
+      "Johnny Walker"
+     ],
+     "order": 10,
+     "card": "early",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "knee",
+     "round": 1,
+     "time": "3:35",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Jacobe Smith",
+      "Bruce Whitehead"
+     ],
+     "order": 11,
+     "card": "early",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:32",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Rafael dos Anjos",
+      "Alexander Hernandez"
+     ],
+     "order": 12,
+     "card": "early",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 2,
+     "time": "3:12",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ismail Naurdiev",
+      "Marvin Vettori"
+     ],
+     "order": 13,
+     "card": "early",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Court McGee",
+      "Eric Nolan"
+     ],
+     "order": 14,
+     "card": "early",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punch",
+     "round": 3,
+     "time": "3:26",
+     "bonuses": []
     }
    ]
   }
