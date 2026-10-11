@@ -143643,7 +143643,7 @@
   },
   {
    "title": "UFC 332",
-   "revid": 1378676307,
+   "revid": 1379225905,
    "name": "UFC 332: Silva vs. Wang",
    "date": "2026-10-03",
    "location": "Salt Lake City, Utah, U.S.",
@@ -143735,7 +143735,7 @@
      "weightClass": "Flyweight",
      "titleFight": false,
      "methodClass": "KO/TKO",
-     "methodDetail": "body kick and punches",
+     "methodDetail": "front kick to the body and punches",
      "round": 1,
      "time": "3:11",
      "bonuses": [
@@ -143864,6 +143864,203 @@
      "methodDetail": "punch",
      "round": 3,
      "time": "3:26",
+     "bonuses": []
+    }
+   ]
+  },
+  {
+   "title": "UFC Fight Night: Allen vs. Duncan",
+   "revid": 1379706191,
+   "name": "UFC Fight Night: Allen vs. Duncan",
+   "date": "2026-10-10",
+   "location": "Las Vegas, Nevada, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Brendan Allen",
+      "Christian Leroy Duncan"
+     ],
+     "order": 1,
+     "card": null,
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 5,
+     "time": "2:46",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Matheus Camilo",
+      "Jai Herbert"
+     ],
+     "order": 2,
+     "card": null,
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Loopy Godínez",
+      "Ketlen Souza"
+     ],
+     "order": 3,
+     "card": null,
+     "weightClass": "Catchweight ( lb)",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Andre Fili",
+      "Kai Kamaka III"
+     ],
+     "order": 4,
+     "card": null,
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "head kick",
+     "round": 2,
+     "time": "0:22",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Otari Tanzilovi",
+      "Malcolm Wellmaker"
+     ],
+     "order": 5,
+     "card": null,
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "head kick and punches",
+     "round": 2,
+     "time": "2:39",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Gerald Meerschaert",
+      "Julius Walker"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 2,
+     "time": "3:35",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ismael Bonfim",
+      "Francisco Prado"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Catchweight ( . lb)",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:23",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Niko Price",
+      "Leon Shahbazyan"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:58",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Felipe Franco",
+      "Brendson Ribeiro"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Catchweight ( . lb)",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "guillotine choke",
+     "round": 1,
+     "time": "1:49",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Allen Frye Jr.",
+      "RJ Harris"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "2:59",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Alice Pereira",
+      "Darya Zheleznyakova"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "retirement",
+     "round": 1,
+     "time": "5:00",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Melissa Gatto",
+      "Ernesta Kareckaitė"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Draw",
+     "methodDetail": "Majority draw",
+     "round": 3,
+     "time": "5:00",
      "bonuses": []
     }
    ]
