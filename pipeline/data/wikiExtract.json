@@ -144067,7 +144067,7 @@
   },
   {
    "title": "UFC Fight Night: Buckley vs. Malott",
-   "revid": 1380903599,
+   "revid": 1381316684,
    "name": "UFC Fight Night: Buckley vs. Malott",
    "date": "2026-10-17",
    "location": "Edmonton, Alberta, Canada",
@@ -144129,7 +144129,7 @@
      "weightClass": "Middleweight",
      "titleFight": false,
      "methodClass": "KO/TKO",
-     "methodDetail": "elbows",
+     "methodDetail": "punches and elbows",
      "round": 1,
      "time": "4:28",
      "bonuses": [
@@ -144193,7 +144193,7 @@
      "weightClass": "Middleweight",
      "titleFight": false,
      "methodClass": "Submission",
-     "methodDetail": "face crank",
+     "methodDetail": "neck crank",
      "round": 1,
      "time": "1:26",
      "bonuses": []
@@ -144225,7 +144225,7 @@
      "weightClass": "Women's Flyweight",
      "titleFight": false,
      "methodClass": "KO/TKO",
-     "methodDetail": "punches",
+     "methodDetail": "head kick and punches",
      "round": 1,
      "time": "4:46",
      "bonuses": []
@@ -144273,6 +144273,231 @@
      "methodDetail": "kimura",
      "round": 3,
      "time": "4:19",
+     "bonuses": []
+    }
+   ]
+  },
+  {
+   "title": "UFC 333",
+   "revid": 1381896701,
+   "name": "UFC 333: Volkanovski vs. Evloev",
+   "date": "2026-10-24",
+   "location": "Abu Dhabi, United Arab Emirates",
+   "fights": [
+    {
+     "fighters": [
+      "Movsar Evloev",
+      "Alexander Volkanovski"
+     ],
+     "order": 1,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": true,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 2,
+     "time": "4:54",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Merab Dvalishvili",
+      "Petr Yan"
+     ],
+     "order": 2,
+     "card": "main",
+     "weightClass": "Bantamweight",
+     "titleFight": true,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 5,
+     "time": "5:00",
+     "bonuses": [
+      "FOTN"
+     ]
+    },
+    {
+     "fighters": [
+      "Lone'er Kavanagh",
+      "Ramazan Temirov"
+     ],
+     "order": 3,
+     "card": "main",
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:28",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Rizvan Kuniev",
+      "Alexander Volkov"
+     ],
+     "order": 4,
+     "card": "main",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Losene Keita",
+      "Aaron Pico"
+     ],
+     "order": 5,
+     "card": "main",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:14",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Azamat Murzakanov",
+      "Dominick Reyes"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "head kick and punches",
+     "round": 1,
+     "time": "2:40",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Nikita Krylov",
+      "Abdul-Rakhman Yakhyaev"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "knee and punches",
+     "round": 1,
+     "time": "2:38",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Abusupiyan Magomedov",
+      "Cameron Rowston"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "guillotine choke",
+     "round": 1,
+     "time": "1:44",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Nurullo Aliev",
+      "Grant Dawson"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Asaf Chopurov",
+      "Colby Thicknesse"
+     ],
+     "order": 10,
+     "card": "early",
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Split",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Jacob Malkoun",
+      "Abubakar Vagaev"
+     ],
+     "order": 11,
+     "card": "early",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Bolaji Oki",
+      "Daniel Santos"
+     ],
+     "order": 12,
+     "card": "early",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Noah Gugnon",
+      "Kody Steele"
+     ],
+     "order": 13,
+     "card": "early",
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "3:54",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Nicolle Caliari",
+      "Iasmin Lucindo"
+     ],
+     "order": 14,
+     "card": "early",
+     "weightClass": "Catchweight ( . lb)",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
      "bonuses": []
     }
    ]
