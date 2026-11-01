@@ -144279,7 +144279,7 @@
   },
   {
    "title": "UFC 333",
-   "revid": 1381980232,
+   "revid": 1382905897,
    "name": "UFC 333: Volkanovski vs. Evloev",
    "date": "2026-10-24",
    "location": "Abu Dhabi, United Arab Emirates",
@@ -144499,6 +144499,203 @@
      "round": 3,
      "time": "5:00",
      "bonuses": []
+    }
+   ]
+  },
+  {
+   "title": "UFC Fight Night: Moicano vs. Nolan",
+   "revid": 1383205013,
+   "name": "UFC Fight Night: Moicano vs. Nolan",
+   "date": "2026-10-31",
+   "location": "Las Vegas, Nevada, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Renato Moicano",
+      "Tom Nolan"
+     ],
+     "order": 1,
+     "card": null,
+     "weightClass": "Lightweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches and elbows",
+     "round": 3,
+     "time": "1:28",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Randy Brown",
+      "Jacobe Smith"
+     ],
+     "order": 2,
+     "card": null,
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Cody Durden",
+      "Ode' Osbourne"
+     ],
+     "order": 3,
+     "card": null,
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Luana Santos",
+      "Yana Santos"
+     ],
+     "order": 4,
+     "card": null,
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Farman Hasanov",
+      "Jean-Paul Lebosnoyani"
+     ],
+     "order": 5,
+     "card": null,
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "doctor stoppage",
+     "round": 3,
+     "time": "2:11",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Dakota Hope",
+      "Francis Marshall"
+     ],
+     "order": 6,
+     "card": "prelim",
+     "weightClass": "Catchweight ( lb)",
+     "titleFight": false,
+     "methodClass": "Decision - Split",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Theodor Berggren",
+      "Rodrigo Sezinando"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "doctor stoppage",
+     "round": 2,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Julian Erosa",
+      "Lee Jeong-yeong"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:31",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Mickey Gall",
+      "Zachary Reese"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Nick Klein",
+      "Joseph Kropschot"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "inverted triangle armbar",
+     "round": 2,
+     "time": "1:25",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Talita Alencar",
+      "Piera Rodríguez"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Tainara Lisboa",
+      "Lucia Szabová"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 3,
+     "time": "3:20",
+     "bonuses": [
+      "PERF"
+     ]
     }
    ]
   }
