@@ -144504,10 +144504,10 @@
   },
   {
    "title": "UFC Fight Night: Moicano vs. Nolan",
-   "revid": 1383337279,
+   "revid": 1384072242,
    "name": "UFC Fight Night: Moicano vs. Nolan",
    "date": "2026-10-31",
-   "location": "Las Vegas, Nevada, U.S.",
+   "location": null,
    "fights": [
     {
      "fighters": [
@@ -144658,7 +144658,7 @@
      "weightClass": "Middleweight",
      "titleFight": false,
      "methodClass": "Submission",
-     "methodDetail": "inverted triangle armbar",
+     "methodDetail": "reverse triangle armbar",
      "round": 2,
      "time": "1:25",
      "bonuses": [
@@ -144696,6 +144696,231 @@
      "bonuses": [
       "PERF"
      ]
+    }
+   ]
+  },
+  {
+   "title": "UFC Fight Night: Cortes-Acosta vs. Walker",
+   "revid": 1384425201,
+   "name": "UFC Fight Night: Cortes-Acosta vs. Walker",
+   "date": "2026-11-07",
+   "location": "Las Vegas, Nevada, U.S.",
+   "fights": [
+    {
+     "fighters": [
+      "Waldo Cortes-Acosta",
+      "Johnny Walker"
+     ],
+     "order": 1,
+     "card": null,
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 3,
+     "time": "2:27",
+     "bonuses": [
+      "FOTN"
+     ]
+    },
+    {
+     "fighters": [
+      "Virna Jandiroba",
+      "Tatiana Suarez"
+     ],
+     "order": 2,
+     "card": null,
+     "weightClass": "Women's Strawweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Davey Grant",
+      "Elijah Smith"
+     ],
+     "order": 3,
+     "card": null,
+     "weightClass": "Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "1:00",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Billy Elekana",
+      "Lucas Fernando"
+     ],
+     "order": 4,
+     "card": null,
+     "weightClass": "Light Heavyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Priscila Cachoeira",
+      "Nina Nikolija Milošević"
+     ],
+     "order": 5,
+     "card": null,
+     "weightClass": "Women's Bantamweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "elbows and punches",
+     "round": 2,
+     "time": "3:40",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Marcos Degli",
+      "Mitch Raposo"
+     ],
+     "order": 6,
+     "card": null,
+     "weightClass": "Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Keiichiro Nakamura",
+      "Ollie Schmid"
+     ],
+     "order": 7,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Gabriel Lorenço",
+      "Thomas Petersen"
+     ],
+     "order": 8,
+     "card": "prelim",
+     "weightClass": "Heavyweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 3,
+     "time": "4:47",
+     "bonuses": [
+      "PERF"
+     ]
+    },
+    {
+     "fighters": [
+      "Gabriella Fernandes",
+      "Karine Silva"
+     ],
+     "order": 9,
+     "card": "prelim",
+     "weightClass": "Women's Flyweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "José Mauro Delano",
+      "Murtazali Magomedov"
+     ],
+     "order": 10,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Austin Bashi",
+      "Carlos Calderon"
+     ],
+     "order": 11,
+     "card": "prelim",
+     "weightClass": "Featherweight",
+     "titleFight": false,
+     "methodClass": "Submission",
+     "methodDetail": "rear-naked choke",
+     "round": 1,
+     "time": "1:07",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Mantas Kondratavičius",
+      "Andre Petroski"
+     ],
+     "order": 12,
+     "card": "prelim",
+     "weightClass": "Middleweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "elbows and punches",
+     "round": 2,
+     "time": "4:39",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Ko Seok-hyeon",
+      "Wellington Turman"
+     ],
+     "order": 13,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "Decision - Unanimous",
+     "methodDetail": null,
+     "round": 3,
+     "time": "5:00",
+     "bonuses": []
+    },
+    {
+     "fighters": [
+      "Jonny Parsons",
+      "José Henrique Souza"
+     ],
+     "order": 14,
+     "card": "prelim",
+     "weightClass": "Welterweight",
+     "titleFight": false,
+     "methodClass": "KO/TKO",
+     "methodDetail": "punches",
+     "round": 1,
+     "time": "4:16",
+     "bonuses": []
     }
    ]
   }
